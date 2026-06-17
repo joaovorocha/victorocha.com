@@ -171,6 +171,20 @@ figure.photo.wide {
 .photo-grid figure.photo {
   margin: 0;
 }
+.photo-grid--portrait {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.photo-grid--portrait figure.photo img {
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+}
+figure.photo.wide img {
+  max-height: 80vh;
+  object-fit: cover;
+}
 
 .meta {
   font-family: var(--font-mono);

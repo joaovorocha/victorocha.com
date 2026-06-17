@@ -23,10 +23,42 @@ hears, and a lot of the time those two answers aren't the same.
 
 ## Now — Sound Image (Clair Global), San Francisco
 
+<figure class="photo wide">
+  <picture>
+    <source type="image/webp" srcset="/images/audio/fifa-stadium-600.webp 600w, /images/audio/fifa-stadium-1200.webp 1200w" sizes="(min-width: 900px) 800px, 100vw" />
+    <img src="/images/audio/fifa-stadium-600.jpg" srcset="/images/audio/fifa-stadium-600.jpg 600w, /images/audio/fifa-stadium-1200.jpg 1200w" sizes="(min-width: 900px) 800px, 100vw" alt="Pitch-side broadcast position at Levi's Stadium with FIFA World Cup 2026 signage on the field" width="768" height="1024" loading="lazy" decoding="async" />
+  </picture>
+  <figcaption>Pitch-side broadcast setup — FIFA World Cup 2026, Levi's Stadium, Santa Clara.</figcaption>
+</figure>
+
 Part of the SF Bay Area crew handling high-end corporate audio for clients
 like **Apple** and **Dolby**. Load-in, cabling, rigging, PA tuning, Dante
 signal flow, and wireless frequency coordination on a Shure Axient /
 PSM rig. Operating on Yamaha CL5 desks for FOH and monitor.
+
+<div class="photo-grid photo-grid--portrait">
+  <figure class="photo">
+    <picture>
+      <source type="image/webp" srcset="/images/audio/cinematic-ots-600.webp 600w, /images/audio/cinematic-ots-1200.webp 1200w" sizes="(min-width: 900px) 280px, 33vw" />
+      <img src="/images/audio/cinematic-ots-600.jpg" srcset="/images/audio/cinematic-ots-600.jpg 600w, /images/audio/cinematic-ots-1200.jpg 1200w" sizes="(min-width: 900px) 280px, 33vw" alt="Over-the-shoulder view at the digital console with vocalist on a blue-lit stage in the distance" width="360" height="640" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption>Mix position, house lights down.</figcaption>
+  </figure>
+  <figure class="photo">
+    <picture>
+      <source type="image/webp" srcset="/images/audio/hand-on-faders-600.webp 600w, /images/audio/hand-on-faders-1200.webp 1200w" sizes="(min-width: 900px) 280px, 33vw" />
+      <img src="/images/audio/hand-on-faders-600.jpg" srcset="/images/audio/hand-on-faders-600.jpg 600w, /images/audio/hand-on-faders-1200.jpg 1200w" sizes="(min-width: 900px) 280px, 33vw" alt="Engineer's hand on illuminated faders mid-show" width="360" height="640" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption>Riding levels through the bridge.</figcaption>
+  </figure>
+  <figure class="photo">
+    <picture>
+      <source type="image/webp" srcset="/images/audio/blue-faders-600.webp 600w, /images/audio/blue-faders-1200.webp 1200w" sizes="(min-width: 900px) 280px, 33vw" />
+      <img src="/images/audio/blue-faders-600.jpg" srcset="/images/audio/blue-faders-600.jpg 600w, /images/audio/blue-faders-1200.jpg 1200w" sizes="(min-width: 900px) 280px, 33vw" alt="Close-up of a blue-lit digital console fader bay" width="360" height="640" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption>Faders up — pre-show calm at front of house.</figcaption>
+  </figure>
+</div>
 
 ## Block Inc. conference, Oakland — Clair Global, Oct 2025
 
@@ -71,6 +103,14 @@ phone call to a venue's house engineer.
     <figcaption>Yamaha PM5D, rehearsal POV with vocalists.</figcaption>
   </figure>
 </div>
+
+<figure class="photo wide">
+  <picture>
+    <source type="image/webp" srcset="/images/audio/amber-house-600.webp 600w, /images/audio/amber-house-1200.webp 1200w" sizes="(min-width: 900px) 480px, 100vw" />
+    <img src="/images/audio/amber-house-600.jpg" srcset="/images/audio/amber-house-600.jpg 600w, /images/audio/amber-house-1200.jpg 1200w" sizes="(min-width: 900px) 480px, 100vw" alt="Engineer standing at a digital console mid-show, warm amber house lights, tablet on the meter bridge" width="360" height="640" loading="lazy" decoding="async" />
+  </picture>
+  <figcaption>Working the room — monitor mix from FOH.</figcaption>
+</figure>
 
 ## A2 at Rock in Rio, 2017
 

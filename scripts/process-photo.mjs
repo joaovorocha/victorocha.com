@@ -28,7 +28,7 @@ console.log(`Input: ${meta.width}x${meta.height}, ${meta.format}`);
 for (const s of sizes) {
   const pipeline = sharp(inputPath)
     .rotate()
-    .resize({ width: s.w, height: s.h, fit: 'cover', position: 'attention' });
+    .resize({ width: s.w, height: s.h, fit: 'cover', position: 'attention', withoutEnlargement: true });
 
   const jpegOut = join(import.meta.dirname, '..', 'public', 'images', `${outSlug}-${s.name}.jpg`);
   const webpOut = join(import.meta.dirname, '..', 'public', 'images', `${outSlug}-${s.name}.webp`);
