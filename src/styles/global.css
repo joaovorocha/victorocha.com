@@ -108,16 +108,57 @@ main { flex: 1; width: 100%; }
   margin: 1rem auto;
   background: var(--console-rail);
   border-radius: 4px;
+  cursor: ns-resize;
+  outline: none;
+}
+.channel-rail .ch-fader-track:focus-visible {
+  box-shadow: 0 0 0 2px var(--cap-cyan);
 }
 .channel-rail .ch-fader-cap {
   position: absolute;
   left: -10px;
   width: 28px;
-  height: 18px;
+  height: 22px;
   border-radius: 3px;
   background: var(--cap-cyan);
-  top: 32%;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.2);
+  top: 36%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.2),
+              inset 0 -1px 0 rgba(0,0,0,0.25);
+  cursor: grab;
+  transition: transform 120ms ease;
+  /* Center the cap on its `top` value so 0% = top of track, 100% = bottom */
+  margin-top: -11px;
+}
+.channel-rail .ch-fader-cap::before {
+  content: "";
+  position: absolute;
+  inset: 9px 4px;
+  border-top: 1px solid rgba(0,0,0,0.35);
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+}
+.channel-rail .ch-fader-cap:active { cursor: grabbing; transform: scaleX(1.08); }
+.channel-rail.is-dragging .ch-fader-cap { cursor: grabbing; transform: scaleX(1.08); }
+
+/* Scroll-driven animation: in browsers that support it, the fader
+   tracks page scroll automatically. JS handles the fallback + drag. */
+@supports (animation-timeline: scroll()) {
+  .channel-rail .ch-fader-cap {
+    animation: fader-track linear;
+    animation-timeline: scroll(root);
+  }
+  @keyframes fader-track {
+    from { top: 0%; }
+    to   { top: 100%; }
+  }
+}
+
+/* Meter bridge readout becomes the scroll-position display */
+.meter-bridge .mb-readout .mb-pct {
+  font-variant-numeric: tabular-nums;
+  min-width: 3.5em;
+  display: inline-block;
+  text-align: right;
+  color: var(--cap-cyan);
 }
 .channel-rail .ch-foot {
   text-align: center;

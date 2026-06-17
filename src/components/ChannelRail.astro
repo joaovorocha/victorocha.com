@@ -3,16 +3,29 @@ interface Props {
   channel: string;
   label: string;
   color?: 'cyan' | 'green' | 'red' | 'yellow' | 'magenta' | 'white';
-  faderPosition?: string; // e.g. '32%' from top
+  faderPosition?: string; // initial position before scroll engages
 }
 const { channel, label, color = 'cyan', faderPosition = '36%' } = Astro.props;
 const colorVar = `var(--cap-${color})`;
 ---
-<aside class="channel-rail" aria-hidden="true">
+<aside class="channel-rail" data-channel-color={color}>
   <div class="ch-num" style={`color: ${colorVar}`}>CH {channel}</div>
   <div class="ch-label">{label}</div>
-  <div class="ch-fader-track">
-    <div class="ch-fader-cap" style={`background: ${colorVar}; top: ${faderPosition}`}></div>
+  <div
+    class="ch-fader-track"
+    role="slider"
+    tabindex="0"
+    aria-label={`Scroll position fader — channel ${channel}`}
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow="0"
+    data-fader-track
+  >
+    <div
+      class="ch-fader-cap"
+      style={`background: ${colorVar}; top: ${faderPosition}`}
+      data-fader-cap
+    ></div>
   </div>
-  <div class="ch-foot">+4 dBu<br/>POST</div>
+  <div class="ch-foot" data-fader-readout>+4 dBu<br/>POST</div>
 </aside>
