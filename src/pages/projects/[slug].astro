@@ -50,9 +50,16 @@ const meta = channelMeta[entry.id] ?? { ch: '06', label: entry.id.toUpperCase(),
 <style>
   .project-head {
     margin: 3rem 0 var(--chapter);
-    max-width: 22ch;
+    max-width: 32ch;
   }
-  .project-head h1 { margin: 0.75rem 0 1.5rem; }
+  .project-head h1 {
+    margin: 0.75rem 0 1.5rem;
+    max-width: 22ch;
+    font-size: clamp(2.25rem, 6vw, var(--fs-h1, 4rem));
+    line-height: 1.05;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
   .project-head .lede {
     color: var(--console-ink);
     font-size: 1.3rem;
@@ -90,7 +97,41 @@ const meta = channelMeta[entry.id] ?? { ch: '06', label: entry.id.toUpperCase(),
     max-width: none;
     width: auto;
   }
+  /* Tablet — relax tight 22ch lock that crushes tags between 720–900px */
+  @media (max-width: 900px) {
+    .project-head { max-width: 100%; }
+    .project-head .lede { max-width: 44ch; }
+  }
   @media (max-width: 720px) {
     .project-head { max-width: 100%; }
+    .project-head h1 {
+      font-size: clamp(2rem, 9vw, 3rem);
+      max-width: 100%;
+    }
+    .project-head .lede { font-size: 1.125rem; max-width: 100%; }
+    .project-body { padding: 0 1.25rem 3rem; }
+    /* Reset desktop full-bleed offset (rail is hidden but --rail-w var persists) */
+    .project-body :global(figure.photo.full-bleed) {
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+    }
+    /* Stop long tags / repo URLs from forcing horizontal scroll */
+    .project-head .tags { gap: 0.5rem; }
+    .project-head .ext { font-size: 0.7rem; padding: 0.25rem 0.5rem; }
+  }
+  @media (max-width: 380px) {
+    .project-head h1 { font-size: 1.75rem; }
+    .project-head .lede { font-size: 1rem; }
+  }
+  /* Print — collapse to flowing block, drop full-bleed offsets */
+  @media print {
+    .project-head, .project-body { max-width: 100%; padding: 0; margin: 0 0 1rem; }
+    .project-body :global(figure.photo.full-bleed) {
+      margin-left: 0;
+      margin-right: 0;
+      max-width: 100%;
+      page-break-inside: avoid;
+    }
+    .project-head .ext { border-color: #000; color: #000; }
   }
 </style>

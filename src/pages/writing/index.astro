@@ -19,11 +19,14 @@ const fmt = (d: Date) =>
     <header class="page-head">
       <p class="eyebrow">CH 02 · LOG</p>
       <h1>Notes from the desk.</h1>
-      <p class="dim">Short essays on engineering, hardware, and the van.</p>
+      <p class="lede">Short essays on engineering, hardware, and the van.</p>
     </header>
 
     {posts.length === 0 ? (
-      <p class="dim">[ EMPTY · NO POSTS PUBLISHED ]</p>
+      <div class="empty-state">
+        <p class="empty-state__line">[ CH 02 · STANDBY ]</p>
+        <p class="empty-state__sub">Channel armed. First log queued.</p>
+      </div>
     ) : (
       <div class="channel-strips">
         {posts.map((p, i) => (
@@ -47,7 +50,36 @@ const fmt = (d: Date) =>
 </BaseLayout>
 
 <style>
-  .page-head { margin: 3rem 0 var(--chapter); }
-  .page-head h1 { margin: 0.5rem 0 1rem; }
-  .page-head .dim { font-family: var(--f-mono); font-size: var(--fs-micro); letter-spacing: var(--tr-micro); text-transform: uppercase; }
+  .page-head { margin: 3rem 0 var(--chapter); max-width: 38ch; }
+  .page-head h1 { margin: 0.5rem 0 1.25rem; }
+  .page-head .lede {
+    color: var(--console-ink);
+    font-size: 1.3rem;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .empty-state {
+    margin: var(--chapter) 0;
+    padding: 2rem;
+    border: 1px solid var(--console-dim, #4a4a4a);
+    text-align: center;
+  }
+  .empty-state__line {
+    font-family: var(--f-mono);
+    font-size: var(--fs-micro);
+    letter-spacing: var(--tr-micro);
+    text-transform: uppercase;
+    color: var(--cap-white);
+    margin: 0 0 0.5rem;
+  }
+  .empty-state__sub {
+    color: var(--console-dim);
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 720px) {
+    .page-head { max-width: 100%; }
+  }
 </style>

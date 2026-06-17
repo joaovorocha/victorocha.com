@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="404 — Signal Lost"
+  description="Channel not found. The page you were looking for has dropped off the bus."
+  channel="??"
+  channelLabel="404"
+  channelColor="red"
+>
+  <section class="container fourohfour">
+    <header class="page-head">
+      <p class="eyebrow">CH ?? · NO SIGNAL</p>
+      <h1>404 · Signal lost.</h1>
+
+      <p class="lede">
+        The channel you were monitoring isn't routed to this bus. Could be a
+        muted send, a stale URL, or a page that has been re-patched.
+      </p>
+
+      <a href="/" class="cta" aria-label="Return to the main bus — homepage">
+        <span class="cta-key">↩</span>
+        <span class="cta-text">Return to main bus</span>
+      </a>
+    </header>
+
+    <figure class="noise" aria-hidden="true">
+      <svg
+        viewBox="0 0 640 120"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        focusable="false"
+      >
+        <title>Decorative noise waveform</title>
+        <defs>
+          <linearGradient id="noiseFade" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stop-color="currentColor" stop-opacity="0.15" />
+            <stop offset="50%" stop-color="currentColor" stop-opacity="1" />
+            <stop offset="100%" stop-color="currentColor" stop-opacity="0.15" />
+          </linearGradient>
+        </defs>
+
+        <line x1="0" y1="60" x2="640" y2="60" stroke="currentColor" stroke-opacity="0.2" stroke-dasharray="2 4" />
+
+        <path
+          d="M0,60 L12,58 L24,72 L36,42 L48,88 L60,30 L72,96 L84,18 L96,82 L108,44 L120,70 L132,40 L144,90 L156,28 L168,84 L180,46 L192,74 L204,36 L216,92 L228,22 L240,80 L252,48 L264,68 L276,38 L288,86 L300,32 L312,94 L324,20 L336,78 L348,50 L360,66 L372,42 L384,88 L396,30 L408,96 L420,18 L432,82 L444,44 L456,70 L468,40 L480,90 L492,28 L504,84 L516,46 L528,74 L540,36 L552,92 L564,22 L576,80 L588,48 L600,68 L612,38 L624,86 L640,60"
+          fill="none"
+          stroke="url(#noiseFade)"
+          stroke-width="1.25"
+        />
+      </svg>
+      <figcaption class="ascii" aria-hidden="true">
+        <pre>·-·-·  ╲╱╲╱╲╱╲╱  ▁▂▄█▄▂▁  ╲╱╲╱╲╱╲╱  ·-·-·</pre>
+        <pre>SIG -∞ dB · CARRIER LOST · FALLBACK TO REF</pre>
+      </figcaption>
+    </figure>
+
+    <dl class="meta">
+      <div class="meta-row">
+        <dt>STATUS</dt>
+        <dd>HTTP 404 · NOT ROUTED</dd>
+      </div>
+      <div class="meta-row">
+        <dt>NEXT</dt>
+        <dd>Try the <a href="/">home page</a>, the <a href="/projects">projects index</a>, or <a href="/about">about</a>.</dd>
+      </div>
+      <div class="meta-row">
+        <dt>REPORT</dt>
+        <dd>If a link sent you here, drop a note to <a href="mailto:joaovorocha@gmail.com">joaovorocha@gmail.com</a>.</dd>
+      </div>
+    </dl>
+  </section>
+</BaseLayout>
+
+<style>
+  .fourohfour { min-height: 60vh; }
+
+  .page-head { margin: 3rem 0 var(--chapter); }
+  .page-head h1 {
+    margin: 0.5rem 0 1.5rem;
+    color: var(--console-ink);
+  }
+  .page-head .lede {
+    color: var(--console-ink);
+    font-size: 1.3rem;
+    line-height: 1.45;
+    max-width: 42ch;
+    margin: 0 0 2rem;
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    padding: 0.85rem 1.25rem;
+    border: 1px solid var(--ch-red, #d64545);
+    color: var(--ch-red, #d64545);
+    text-decoration: none;
+    font-family: var(--f-mono);
+    font-size: var(--fs-micro);
+    letter-spacing: var(--tr-micro);
+    text-transform: uppercase;
+    transition: background-color 120ms ease, color 120ms ease;
+  }
+  .cta:hover,
+  .cta:focus-visible {
+    background: var(--ch-red, #d64545);
+    color: var(--console-bg, #0B0D0E);
+    outline: none;
+  }
+  .cta-key { font-size: 1rem; line-height: 1; }
+
+  .noise {
+    margin: var(--chapter) 0;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--console-rule);
+    border-bottom: 1px solid var(--console-rule);
+    color: var(--ch-red, #d64545);
+  }
+  .noise svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 140px;
+  }
+  .ascii {
+    margin-top: 1rem;
+    color: var(--console-dim);
+    font-family: var(--f-mono);
+    font-size: var(--fs-micro);
+    letter-spacing: var(--tr-micro);
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .ascii pre {
+    margin: 0;
+    padding: 0;
+    font-family: var(--f-mono);
+    white-space: pre;
+    overflow-x: auto;
+  }
+  .ascii pre + pre { margin-top: 0.4rem; }
+
+  .meta {
+    margin: 0 0 var(--chapter);
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+    max-width: 760px;
+  }
+  .meta-row {
+    display: grid;
+    grid-template-columns: minmax(6.5rem, 8rem) 1fr;
+    gap: 1.25rem;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--console-rule);
+  }
+  .meta-row:last-child { border-bottom: 1px solid var(--console-rule); }
+  .meta dt {
+    font-family: var(--f-mono);
+    font-size: var(--fs-micro);
+    letter-spacing: var(--tr-micro);
+    text-transform: uppercase;
+    color: var(--console-dim);
+    padding-top: 0.25em;
+  }
+  .meta dd { margin: 0; color: var(--console-ink); }
+  .meta a {
+    color: var(--console-ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--console-rule);
+    transition: border-color 120ms ease;
+  }
+  .meta a:hover,
+  .meta a:focus-visible {
+    border-bottom-color: var(--console-ink);
+    outline: none;
+  }
+
+  @media (max-width: 720px) {
+    .page-head h1 {
+      font-size: clamp(2rem, 9vw, 3rem);
+      line-height: 1.05;
+    }
+    .page-head .lede { font-size: 1.125rem; max-width: 100%; }
+    .meta-row {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+    .ascii { font-size: 0.65rem; }
+  }
+</style>

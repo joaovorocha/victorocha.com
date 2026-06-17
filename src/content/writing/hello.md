@@ -1,34 +1,21 @@
 ---
-title: "Hello"
-summary: "Why this site exists, and what I plan to put on it."
-publishedAt: 2026-06-16
+title: "First signal"
+summary: "Console up. Channel armed. A short note on why this log exists and what gets posted here."
+publishedAt: 2026-06-17
 tags: ["meta"]
 ---
 
-I'm putting this site up for a simple reason: I've been building things
-for a decade and the work has been scattered. Festival rigs in Brazil,
-a stockroom dashboard running in a single store in San Francisco, a
-KiCad project on the bench, a van that's parked somewhere on Taraval.
-I wanted one place to point people to.
+Mic check. This is channel 02 — the writing log.
 
-## What goes here
+I've been building things for a decade across audio, hardware, and
+software, and the work has lived in scattered places. This log is one
+clean signal path: short posts about engineering decisions I'm
+actually making — a routing choice on a festival rig, a trade-off in a
+KiCad layout, a refactor in the ops platform, a problem the van threw
+at me last week.
 
-- **Projects** — what I'm actually building.
-  [Shaddow](/projects/shaddow) (the automotive dock platform), the
-  [Daily Operations Platform](/projects/daily-ops-platform), a decade
-  of [live audio](/projects/live-audio), and the
-  [van](/projects/van-conversion) — the workshop on wheels where the
-  hardware has to actually work.
-- **Writing** — short essays about engineering decisions, audio, the
-  trade-offs I'm actually making, and the things this kind of work
-  teaches that no textbook does.
-- **Résumé** — the long form, for the people who want it.
-- **About** — who I am and how to reach me.
+No polished case studies. Mid-revision is the whole point. If a post
+goes up, it's because I figured something out and the next person
+searching for it deserves a faster answer than I got.
 
-## What I won't do here
-
-Pretend the work is finished when it isn't. Most of what I build is
-mid-revision. I'd rather show that than a polished case study that
-hides the seams.
-
-More soon.
+More soon. Faders up.

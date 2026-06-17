@@ -12,11 +12,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <header class="page-head">
       <p class="eyebrow">CH 06 · MASTER</p>
       <h1>Joao V. Rocha.</h1>
+
       <p class="lede">
         Decade behind the desk. A1 in São Paulo, A2 at Rock in Rio, now AV at
-        Sound Image / Clair Global for clients like Apple and Dolby. Builds
-        the software and hardware the operations floor is missing.
+        Sound Image / Clair Global for clients like Apple and Dolby.
       </p>
+      <p class="lede">
+        Builds the software and hardware the operations floor is missing.
+      </p>
+
+      <nav class="jump-nav" aria-label="On this page">
+        <a href="#arc">ARC</a>
+        <a href="#now">NOW</a>
+        <a href="#hire">HIRE</a>
+        <a href="#credentials">CREDENTIALS</a>
+      </nav>
     </header>
   </section>
 
@@ -29,21 +39,53 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </figure>
 
   <article class="about-body">
-    <h2>The short career arc.</h2>
-    <ul>
-      <li><strong>2025 – present</strong> · AV engineer, Sound Image / Clair Global, San Francisco.</li>
-      <li><strong>2024 – 2026</strong> · Stock manager + internal tools developer, Suitsupply SF. Built the Daily Operations Platform from scratch.</li>
-      <li><strong>2015 – 2022</strong> · A1 / OPS coordinator, Vocal Livre (São Paulo). Toured Brazil at 100–25,000-attendee scale. Latin Grammy–nominated production team for the album <em>Temporal</em> (2023).</li>
-      <li><strong>2017</strong> · A2 at Rock in Rio, 80,000 attendees a day.</li>
-      <li><strong>2012 – 2020</strong> · IT support and AV operations at UNASP and Colégio Adventista IABC, Brazil.</li>
-    </ul>
+    <h2 id="arc">
+      <span class="h2-tag">§ 01</span>
+      <span class="h2-text">The short career arc.</span>
+    </h2>
 
-    <h2>What I work on now.</h2>
-    <ul>
-      <li><strong>Live audio</strong> — FOH and monitor on Yamaha / DiGiCo / Avid, Dante-networked systems, Shure RF coordination.</li>
-      <li><strong>Software</strong> — Node, Postgres, WebSockets, PWAs, MCP servers, the boring Linux deployment work that makes them stay up.</li>
-      <li><strong>Hardware</strong> — <a href="/projects/shaddow">Shaddow</a>: 12 V automotive power and USB / CAN dock electronics in Flux.ai and KiCad.</li>
-    </ul>
+    <dl class="arc">
+      <div class="arc-row">
+        <dt>2025 — PRESENT</dt>
+        <dd>AV engineer, Sound Image / Clair Global, San Francisco.</dd>
+      </div>
+      <div class="arc-row">
+        <dt>2024 — 2026</dt>
+        <dd>Stock manager + internal tools developer, Suitsupply SF. Built the Daily Operations Platform from scratch.</dd>
+      </div>
+      <div class="arc-row">
+        <dt>2017</dt>
+        <dd>A2 at Rock in Rio, 80,000 attendees a day.</dd>
+      </div>
+      <div class="arc-row">
+        <dt>2015 — 2022</dt>
+        <dd>A1 / OPS coordinator, Vocal Livre (São Paulo). Toured Brazil at 100–25,000-attendee scale. Latin Grammy–nominated production team for the album <em>Temporal</em> (2023).</dd>
+      </div>
+      <div class="arc-row">
+        <dt>2012 — 2020</dt>
+        <dd>IT support and AV operations at UNASP and Colégio Adventista IABC, Brazil.</dd>
+      </div>
+    </dl>
+
+    <h2 id="now">
+      <span class="h2-tag">§ 02</span>
+      <span class="h2-text">What I work on now.</span>
+    </h2>
+
+    <dl class="stack">
+      <div class="stack-row">
+        <dt>LIVE AUDIO</dt>
+        <dd>FOH and monitor on Yamaha / DiGiCo / Avid, Dante-networked systems, Shure RF coordination.</dd>
+      </div>
+      <div class="stack-row">
+        <dt>SOFTWARE</dt>
+        <dd>Node, Postgres, WebSockets, PWAs, MCP servers, the boring Linux deployment work that makes them stay up.</dd>
+      </div>
+      <div class="stack-row">
+        <dt>HARDWARE</dt>
+        <dd><a href="/projects/shaddow">Shaddow</a>: 12 V automotive power and USB / CAN dock electronics in Flux.ai and KiCad.</dd>
+      </div>
+    </dl>
   </article>
 
   <figure class="photo full-bleed">
@@ -71,31 +113,71 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </figure>
 
   <article class="about-body">
-    <h2 id="hire">Hire me.</h2>
+    <h2 id="hire">
+      <span class="h2-tag">§ 03</span>
+      <span class="h2-text">Hire me.</span>
+    </h2>
     <p>
-      I'm open to AV engineering, full-stack, or operations + technology roles —
-      San Francisco, hybrid, or remote. Best fit is a team where the person
-      running cable and the person writing the code are allowed to be the same
-      person.
+      Open to AV engineering, full-stack, or operations + technology roles —
+      San Francisco, hybrid, or remote.
     </p>
-    <ul>
-      <li>Email: <a href="mailto:joaovorocha@gmail.com">joaovorocha@gmail.com</a></li>
-      <li>LinkedIn: <a href="https://www.linkedin.com/in/victordorocha/">linkedin.com/in/victordorocha</a></li>
-      <li>GitHub: <a href="https://github.com/joaovorocha">github.com/joaovorocha</a></li>
-      <li><a href="/resume">Résumé (long-form)</a></li>
+    <p class="pull-quote">
+      Best fit is a team where the person running cable and the person writing
+      the code are allowed to be the same person.
+    </p>
+
+    <ul class="contact-strip" aria-label="Contact channels">
+      <li>
+        <span class="contact-key">EMAIL</span>
+        <a
+          href="mailto:joaovorocha@gmail.com"
+          aria-label="Email Joao V. Rocha at joaovorocha@gmail.com"
+        >joaovorocha@gmail.com</a>
+      </li>
+      <li>
+        <span class="contact-key">LINKEDIN</span>
+        <a
+          href="https://www.linkedin.com/in/victordorocha/"
+          rel="me noopener"
+          aria-label="LinkedIn profile — victordorocha"
+        >linkedin.com/in/victordorocha</a>
+      </li>
+      <li>
+        <span class="contact-key">GITHUB</span>
+        <a
+          href="https://github.com/joaovorocha"
+          rel="me noopener"
+          aria-label="GitHub profile — joaovorocha"
+        >github.com/joaovorocha</a>
+      </li>
+      <li>
+        <span class="contact-key">RÉSUMÉ</span>
+        <a
+          href="/resume"
+          aria-label="Long-form résumé"
+        >Long-form résumé</a>
+      </li>
     </ul>
 
-    <h2>Languages, certs, schooling.</h2>
-    <ul>
-      <li>English &amp; Portuguese — native / bilingual. Spanish — elementary.</li>
-      <li>Allen &amp; Heath dLive (May 2026) · Dante Level 1 (Apr 2026) · Shure Axient Digital / PSM · Networking for Audio Professionals.</li>
-      <li>B.A. in Communication, Broadcasting Technology — UNASP, São Paulo, 2020.</li>
-    </ul>
+    <h2 id="credentials">
+      <span class="h2-tag">§ 04</span>
+      <span class="h2-text">Languages, certs, schooling.</span>
+    </h2>
 
-    <p class="colophon">
-      Built with Astro, hosted on Cloudflare Pages, written in markdown. Source at
-      <a href="https://github.com/joaovorocha/victorocha.com">github.com/joaovorocha/victorocha.com</a>.
-    </p>
+    <dl class="creds">
+      <div class="creds-row">
+        <dt>LANG</dt>
+        <dd>English &amp; Portuguese — native / bilingual. Spanish — elementary.</dd>
+      </div>
+      <div class="creds-row">
+        <dt>CERT</dt>
+        <dd>Allen &amp; Heath dLive (May 2026) · Dante Level 1 (Apr 2026) · Shure Axient Digital / PSM · Networking for Audio Professionals.</dd>
+      </div>
+      <div class="creds-row">
+        <dt>EDU</dt>
+        <dd>B.A. in Communication, Broadcasting Technology — UNASP, São Paulo, 2020.</dd>
+      </div>
+    </dl>
   </article>
 
   <figure class="photo full-bleed">
@@ -105,21 +187,244 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </picture>
     <figcaption><span class="fig">FIG. 07 ·</span> VAN · REAR DOORS · PORTRAIT · 2026 · CH 06 ▮ WHITE</figcaption>
   </figure>
+
+  <footer class="container">
+    <p class="colophon">
+      <span class="colophon-ch">CH 99 · COLOPHON ·</span>
+      Built with Astro, hosted on Cloudflare Pages, written in markdown. Source at
+      <a
+        href="https://github.com/joaovorocha/victorocha.com"
+        rel="noopener"
+        aria-label="Source repository on GitHub — joaovorocha/victorocha.com"
+      >github.com/joaovorocha/victorocha.com</a>.
+    </p>
+  </footer>
 </BaseLayout>
 
 <style>
   .page-head { margin: 3rem 0 var(--chapter); }
-  .page-head h1 { margin: 0.5rem 0 1.25rem; }
-  .page-head .lede { color: var(--console-ink); font-size: 1.3rem; line-height: 1.4; max-width: 42ch; }
-  .about-body { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
+  .page-head h1 { margin: 0.5rem 0 1.5rem; }
+  .page-head .lede {
+    color: var(--console-ink);
+    font-size: 1.3rem;
+    line-height: 1.45;
+    max-width: 42ch;
+    margin: 0 0 1rem;
+  }
+  .page-head .lede + .lede { margin-top: 0.75rem; }
+
+  .jump-nav {
+    margin-top: 2.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--console-rule);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.75rem;
+    font-family: var(--f-mono);
+    font-size: var(--fs-micro);
+    letter-spacing: var(--tr-micro);
+    text-transform: uppercase;
+  }
+  .jump-nav a {
+    color: var(--console-dim);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: color 120ms ease, border-color 120ms ease;
+  }
+  .jump-nav a:hover,
+  .jump-nav a:focus-visible {
+    color: var(--console-ink);
+    border-bottom-color: var(--console-ink);
+    outline: none;
+  }
+
+  .about-body {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .about-body + .about-body { margin-top: var(--chapter); }
+
+  .about-body h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin: 3.5rem 0 1.75rem;
+    scroll-margin-top: 2rem;
+  }
+  .about-body h2:first-child { margin-top: 0; }
+  .about-body h2 .h2-tag {
+    font-family: var(--f-mono);
+    font-size: var(--fs-micro);
+    letter-spacing: var(--tr-micro);
+    text-transform: uppercase;
+    color: var(--console-dim);
+    flex: 0 0 auto;
+    padding-top: 0.35em;
+  }
+  .about-body h2 .h2-text { flex: 1 1 auto; }
+
+  /* Mono key-value grids: arc, stack, creds */
+  .arc, .stack, .creds {
+    margin: 0 0 2rem;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+  .arc-row, .stack-row, .creds-row {
+    display: grid;
+    grid-template-columns: minmax(8.5rem, 11rem) 1fr;
+    gap: 1.25rem;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--console-rule);
+  }
+  .arc-row:last-child,
+  .stack-row:last-child,
+  .creds-row:last-child {
+    border-bottom: 1px solid var(--console-rule);
+  }
+  .arc dt, .stack dt, .creds dt {
+    font-family: var(--f-mono);
+    font-size: var(--fs-micro);
+    letter-spacing: var(--tr-micro);
+    text-transform: uppercase;
+    color: var(--console-dim);
+    padding-top: 0.25em;
+  }
+  .arc dd, .stack dd, .creds dd {
+    margin: 0;
+    color: var(--console-ink);
+  }
+
+  @media (max-width: 540px) {
+    .arc-row, .stack-row, .creds-row {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+  }
+
+  .pull-quote {
+    margin: 1.5rem 0 2rem;
+    padding: 1.25rem 1.5rem;
+    border-left: 2px solid var(--console-ink);
+    background: var(--console-rule);
+    font-size: 1.1rem;
+    line-height: 1.45;
+    color: var(--console-ink);
+  }
+
+  .contact-strip {
+    list-style: none;
+    margin: 2rem 0 3rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--console-rule);
+    border-bottom: 1px solid var(--console-rule);
+    display: grid;
+    gap: 0.85rem;
+  }
+  .contact-strip li {
+    display: grid;
+    grid-template-columns: minmax(6.5rem, 8rem) 1fr;
+    gap: 1.25rem;
+    align-items: baseline;
+  }
+  .contact-strip .contact-key {
+    font-family: var(--f-mono);
+    font-size: var(--fs-micro);
+    letter-spacing: var(--tr-micro);
+    text-transform: uppercase;
+    color: var(--console-dim);
+  }
+  .contact-strip a {
+    color: var(--console-ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--console-rule);
+    padding-bottom: 1px;
+    transition: border-color 120ms ease;
+    word-break: break-word;
+  }
+  .contact-strip a:hover,
+  .contact-strip a:focus-visible {
+    border-bottom-color: var(--console-ink);
+    outline: none;
+  }
+
+  @media (max-width: 540px) {
+    .contact-strip li {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+
   .colophon {
     font-family: var(--f-mono);
     font-size: var(--fs-micro);
     letter-spacing: var(--tr-micro);
     text-transform: uppercase;
     color: var(--console-dim);
-    margin-top: 4rem;
-    padding-top: 2rem;
+    margin: var(--chapter) auto 3rem;
+    padding-top: 1.5rem;
     border-top: 1px solid var(--console-rule);
+    max-width: 760px;
+  }
+  .colophon-ch { color: var(--console-ink); margin-right: 0.5em; }
+  .colophon a {
+    color: var(--console-dim);
+    border-bottom: 1px solid var(--console-rule);
+  }
+  .colophon a:hover,
+  .colophon a:focus-visible {
+    color: var(--console-ink);
+    border-bottom-color: var(--console-ink);
+    outline: none;
+  }
+
+  /* Mobile — H1 sizing, body padding alignment with container, full-bleed reset, portrait cap */
+  @media (max-width: 720px) {
+    .page-head h1 {
+      font-size: clamp(2rem, 9vw, 3rem);
+      line-height: 1.05;
+      overflow-wrap: break-word;
+    }
+    .page-head .lede { font-size: 1.125rem; max-width: 100%; }
+    /* Align about-body's 2rem to container's 1.25rem mobile padding */
+    .about-body { padding: 0 1.25rem; }
+    .colophon { font-size: 0.7rem; padding-top: 1rem; }
+    /* Reset desktop full-bleed margin that relies on --rail-w even when rail is hidden */
+    figure.photo.full-bleed {
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      max-width: 100vw;
+    }
+    /* Cap tall/portrait figures so they don't dominate the mobile fold */
+    figure.photo.full-bleed img {
+      max-height: 80vh;
+      object-fit: cover;
+    }
+    .pull-quote { padding: 1rem 1.1rem; font-size: 1rem; }
+    .about-body h2 { gap: 0.5rem; margin: 2.5rem 0 1.25rem; }
+  }
+  @media (max-width: 380px) {
+    .page-head h1 { font-size: 1.75rem; }
+    .page-head .lede { font-size: 1rem; }
+  }
+  /* Print — clean single column, no full-bleed, hide jump nav */
+  @media print {
+    .page-head, .about-body { max-width: 100%; padding: 0; margin: 0 0 1rem; }
+    .jump-nav { display: none; }
+    figure.photo.full-bleed {
+      margin-left: 0;
+      margin-right: 0;
+      max-width: 100%;
+      page-break-inside: avoid;
+    }
+    .pull-quote {
+      background: none;
+      border-left-color: #000;
+      color: #000;
+    }
+    .contact-strip, .arc, .stack, .creds { page-break-inside: avoid; }
+    .colophon { border-color: #000; color: #000; }
   }
 </style>

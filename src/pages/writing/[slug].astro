@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('writing');
+  const posts = await getCollection('writing', (p) => !p.data.draft);
   return posts.map((entry) => ({
     params: { slug: entry.id },
     props: { entry },
@@ -12,8 +12,14 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+
+// Same uppercase short-month date format as the writing index / channel strips.
 const fmt = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }).toUpperCase();
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' }).toUpperCase();
+
+// Rough reading time from the raw markdown body (~225 wpm).
+const wordCount = (entry.body ?? '').trim().split(/\s+/).filter(Boolean).length;
+const readingMin = Math.max(1, Math.round(wordCount / 225));
 ---
 <BaseLayout
   title={entry.data.title}
@@ -24,18 +30,54 @@ const fmt = (d: Date) =>
 >
   <section class="container">
     <header class="post-head">
-      <p class="eyebrow">{fmt(entry.data.publishedAt)}</p>
+      <p class="eyebrow">CH 02 · WRITING</p>
       <h1>{entry.data.title}</h1>
+      <p class="lede">{entry.data.summary}</p>
+      <p class="tags">
+        <span class="micro">{fmt(entry.data.publishedAt)}</span>
+        <span class="micro">· {readingMin} MIN READ</span>
+        {entry.data.tags.map((t) => <span class="tag">{t}</span>)}
+      </p>
     </header>
   </section>
+
   <article class="post-body">
     <Content />
   </article>
+
+  <section class="container">
+    <nav class="post-foot" aria-label="Post footer">
+      <a class="ext" href="/writing">← ALL LOGS</a>
+    </nav>
+  </section>
 </BaseLayout>
 
 <style>
-  .post-head { margin: 3rem 0 var(--chapter); max-width: 22ch; }
-  .post-head h1 { margin: 0.75rem 0 0; }
+  .post-head {
+    margin: 3rem 0 var(--chapter);
+    max-width: 32ch;
+  }
+  .post-head h1 {
+    margin: 0.75rem 0 1.5rem;
+    max-width: 22ch;
+    font-size: clamp(2.25rem, 6vw, var(--fs-h1, 4rem));
+    line-height: 1.05;
+    overflow-wrap: break-word;
+  }
+  .post-head .lede {
+    color: var(--console-ink);
+    font-size: 1.3rem;
+    line-height: 1.4;
+    max-width: 38ch;
+    margin-bottom: 2rem;
+  }
+  .post-head .tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 0.4rem;
+    margin: 0;
+  }
   .post-body {
     max-width: 720px;
     margin: 0 auto;
@@ -44,5 +86,82 @@ const fmt = (d: Date) =>
     line-height: 1.65;
   }
   .post-body :global(h2) { margin-top: 3rem; }
-  @media (max-width: 720px) { .post-head { max-width: 100%; } }
+  .post-foot {
+    margin: 0 0 var(--chapter);
+    padding-top: 2rem;
+    border-top: 1px solid var(--console-dim, #4a4a4a);
+  }
+  .post-foot .ext {
+    font-family: var(--f-mono);
+    font-size: var(--fs-micro);
+    letter-spacing: var(--tr-micro);
+    text-transform: uppercase;
+    color: var(--cap-white);
+    text-decoration: none;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--cap-white);
+  }
+  .post-foot .ext:hover { background: var(--cap-white); color: #0B0D0E; }
+  /* Tablet — drop tight 22ch lock between 720–900px */
+  @media (max-width: 900px) {
+    .post-head { max-width: 100%; }
+    .post-head .lede { max-width: 44ch; }
+  }
+  @media (max-width: 720px) {
+    .post-head { max-width: 100%; }
+    .post-head h1 {
+      font-size: clamp(2rem, 9vw, 3rem);
+      max-width: 100%;
+    }
+    .post-head .lede { font-size: 1.125rem; max-width: 100%; }
+    .post-body {
+      padding: 0 1.25rem 3rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    .post-body :global(h2) { margin-top: 2rem; font-size: 1.5rem; }
+    /* MDX-injected full-bleed figures need the rail offset reset on mobile */
+    .post-body :global(figure.photo.full-bleed) {
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      max-width: 100vw;
+    }
+    /* Break long URLs / code so they don't trigger horizontal scroll */
+    .post-body :global(a) { overflow-wrap: anywhere; word-break: break-word; }
+    .post-body :global(pre) {
+      overflow-x: auto;
+      max-width: 100%;
+      font-size: 0.85rem;
+    }
+    .post-body :global(code) { word-break: break-word; }
+    .post-body :global(table) {
+      display: block;
+      overflow-x: auto;
+      max-width: 100%;
+    }
+    .post-body :global(blockquote) {
+      margin-left: 0;
+      padding-left: 1rem;
+    }
+    .post-body :global(img) { max-width: 100%; height: auto; }
+  }
+  @media (max-width: 380px) {
+    .post-head h1 { font-size: 1.75rem; }
+    .post-head .lede { font-size: 1rem; }
+    .post-body { font-size: 0.95rem; }
+  }
+  /* Print — single-column reading view */
+  @media print {
+    .post-head, .post-body { max-width: 100%; padding: 0; margin: 0 0 1rem; }
+    .post-foot { display: none; }
+    .post-body :global(figure.photo.full-bleed) {
+      margin-left: 0;
+      margin-right: 0;
+      max-width: 100%;
+      page-break-inside: avoid;
+    }
+    .post-body :global(pre), .post-body :global(blockquote) {
+      page-break-inside: avoid;
+    }
+  }
 </style>

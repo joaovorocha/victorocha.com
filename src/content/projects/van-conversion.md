@@ -7,18 +7,20 @@ order: 10
 tags: ["hobby", "build", "12v", "personal"]
 ---
 
+## Overview
+
 A long-running side project — taking a cargo van and turning it into a
 workshop, a place to camp, and the test bench that Shaddow's automotive
 hardware actually has to work in. Not where I live; where I tinker.
 
-## What's in it
+## Stack
 
 - Bed platform with storage underneath.
 - 12 V house electrical, EcoFlow LiFePO4 as the main rail.
 - A workspace that's actually usable for soldering and software work
   — the same rails the [Shaddow](/projects/shaddow) board has to deal with.
 
-## What it taught me
+## Status
 
 Every "I'll do it the right way later" got tested. The fixes that survived
 weren't the prettiest ones — they were the ones I could redo at 11pm in a

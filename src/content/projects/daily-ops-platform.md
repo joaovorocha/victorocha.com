@@ -14,7 +14,7 @@ people — it was the paper. Shipments, lost punches, game plans, closing
 duties, radio call-outs — all of it lived in a clipboard or somebody's
 head. So I started building.
 
-## What it is
+## Overview
 
 A Progressive Web App that runs every stockroom workflow in the store:
 shipment tracking, time-off requests, lost-punch corrections, daily game
@@ -22,7 +22,7 @@ plans, closing checklists, real-time radio call-outs, and live email
 processing. Mobile-first, but a manager can run the same thing from a
 desktop.
 
-## The stack
+## Stack
 
 - **Backend** — Node + Express, PostgreSQL 15, Redis for ephemeral state,
   WebSockets for live sync across every connected device.
@@ -35,7 +35,7 @@ desktop.
   OAuth 2.0 and real-time push via Google Cloud Pub/Sub. Plus a few MCP
   servers for inventory, shipments, and radio operations.
 
-## What it does in production
+## Status
 
 - **50+ active daily users**, sub-200 ms response times.
 - Real-time email processing — the inbox-to-action loop is gone.

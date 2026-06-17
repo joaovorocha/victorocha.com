@@ -30,7 +30,7 @@ makes a laptop behave like a head unit.
 
 The current board is **Front Dock** — the first piece of Shaddow on a PCB.
 
-## Front Dock — what it does
+## Overview
 
 A 4-layer board, designed thin-edge / fat-core: a single USB 2.0 uplink to
 the Mac fans out through an on-board hub to every peripheral, and power is
@@ -38,7 +38,7 @@ generated locally from a 12 V input (an EcoFlow LiFePO4 house battery in
 the test van). Target board cost: roughly $150–270 for the first 5 units
 through JLCPCB.
 
-## Headline blocks
+## Stack
 
 - **Power** — reverse-polarity FET (DMP3013SFV), TVS (SMCJ18CA), fused
   input → 45 W USB-C PD (LM51772 4-switch buck-boost + TPS25751 PD
@@ -66,7 +66,7 @@ through JLCPCB.
 
 <figure class="photo full-bleed">
   <img src="/images/shaddow/front-dock-plan.png" alt="Front Dock revised plan diagram — KiCad layout, copper pours, chip swaps callouts, hand-routing notes" width="1188" height="691" loading="lazy" decoding="async" />
-  <figcaption><span class="fig">FIG. 03 ·</span> FRONT DOCK · REVISED PLAN · KICAD → JLCPCB · ROUTING PASS</figcaption>
+  <figcaption><span class="fig">FIG. 03 ·</span> FRONT DOCK · REVISED PLAN · KICAD → JLCPCB · ROUTING PASS · CH 03 ▮ GREEN</figcaption>
 </figure>
 
 ## Design rules I committed to
@@ -77,7 +77,7 @@ listen-only — the vehicle bus is already terminated, and I don't want to
 write to anything I don't have to. macOS sees the dual-CAN MCU as SLCAN
 and talks to it via python-can.
 
-## Where I am with it
+## Status
 
 Schematic and placement are done. I'm wrapping up the routing pass and
 DRC cleanup against JLCPCB's rules, then it goes to fab. Rev B will add
