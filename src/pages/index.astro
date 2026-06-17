@@ -15,10 +15,18 @@ const fmt = (d: Date) =>
 <BaseLayout title="victorocha.com">
   <section class="hero">
     <p class="meta">Joao V. Rocha · San Francisco</p>
-    <h1>Engineer building Shaddow, living in a van, writing things down as I go.</h1>
+    <h1>AV engineer and full-stack developer. Latin Grammy nominee. Builder of the tools I want to use.</h1>
     <p class="lede">
-      Software by day at Clair Global Payroll. Hardware and a 12V automotive dock by night and
-      weekend. Currently somewhere on Taraval St.
+      Currently mixing for Apple and Dolby with <a href="https://www.soundimage.com">Sound Image</a>
+      (Clair Global), and shipping the software and hardware I think the operations floor is
+      missing. Ten-plus years of live audio behind me, a Node + Postgres stack in front of me,
+      and Shaddow on the bench.
+    </p>
+    <p class="open-to">
+      <span class="dot" aria-hidden="true"></span>
+      Open to work — AV engineering, full-stack, or operations + technology roles.
+      San Francisco / remote.
+      <a href="/about#hire">Get in touch →</a>
     </p>
   </section>
 
@@ -69,6 +77,30 @@ const fmt = (d: Date) =>
 
 <style>
   .hero { padding-top: 1rem; }
-  .hero h1 { font-size: 2.2rem; max-width: 28ch; margin-top: 0.6rem; }
-  .lede { font-size: 1.1rem; color: var(--ink-soft); max-width: 50ch; }
+  .hero h1 { font-size: 2.2rem; max-width: 30ch; margin-top: 0.6rem; }
+  .lede { font-size: 1.1rem; color: var(--ink-soft); max-width: 52ch; }
+  .open-to {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    background: var(--bg-elevated);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 0.65rem 0.9rem;
+    margin: 0.5rem 0 0;
+  }
+  .open-to a { white-space: nowrap; }
+  .dot {
+    display: inline-block;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+    flex-shrink: 0;
+  }
 </style>

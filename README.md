@@ -84,12 +84,21 @@ The post auto-builds at `/writing/<slug>` and shows up on the index, newest firs
 
 ## Deploy
 
-Push to GitHub, connect the repo to Vercel, point the `victorocha.com` domain at it.
-DNS records to add on Squarespace's side:
+Hosted on **Cloudflare Pages** — free, unlimited bandwidth, no usage billing.
 
-| Type  | Host | Value             |
-|-------|------|-------------------|
-| A     | `@`  | `76.76.21.21`     |
-| CNAME | `www`| `cname.vercel-dns.com.` |
+1. Push this repo to GitHub.
+2. Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git → pick the repo.
+3. Build settings:
+   - Framework preset: **Astro**
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+4. After the first deploy, Custom domains → Set up a custom domain → `victorocha.com`. Cloudflare will print the exact DNS records to add at Squarespace (or it will offer to move DNS to Cloudflare, which is free and faster).
 
-(Vercel will print the exact records in the dashboard — use those if they differ.)
+DNS records to add on the registrar side (Cloudflare will show the actual values):
+
+| Type  | Host | Value                          |
+|-------|------|--------------------------------|
+| CNAME | `@`  | `victorocha-com.pages.dev.`    |
+| CNAME | `www`| `victorocha-com.pages.dev.`    |
+
+(If Squarespace doesn't accept CNAME on the root, Cloudflare can flatten or you can transfer DNS to them.)

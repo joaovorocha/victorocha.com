@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Claude Code session state
+.claude/
+
+# Private source material — not for publication
+SOURCE-MATERIAL.md
