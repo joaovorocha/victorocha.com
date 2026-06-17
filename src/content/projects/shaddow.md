@@ -9,10 +9,18 @@ tags: ["hardware", "kicad", "flux.ai", "automotive", "usb"]
 
 <figure class="photo full-bleed">
   <picture>
-    <source type="image/webp" srcset="/images/shaddow/pcb-macro-1200.webp 1200w, /images/shaddow/pcb-macro-1600.webp 1600w" sizes="100vw" />
-    <img src="/images/shaddow/pcb-macro-1200.jpg" srcset="/images/shaddow/pcb-macro-1200.jpg 1200w, /images/shaddow/pcb-macro-1600.jpg 1600w" sizes="100vw" alt="Close-up of the Shaddow Front Dock PCB — visible silicon chip markings, an inductor's copper windings, a JINGCONG capacitor, blue ribbon connectors, and green solder mask traces." width="1600" height="1067" loading="eager" decoding="async" />
+    <source type="image/webp" srcset="/images/shaddow/disassembly-1200.webp 1200w, /images/shaddow/disassembly-1600.webp 1600w" sizes="100vw" />
+    <img src="/images/shaddow/disassembly-1200.jpg" srcset="/images/shaddow/disassembly-1200.jpg 1200w, /images/shaddow/disassembly-1600.jpg 1600w" sizes="100vw" alt="Shaddow hardware mid-disassembly laid out on dark velvet — exposed PCB, ribbon harnesses, and machined enclosure halves arranged like an exploded view." width="1600" height="1067" loading="eager" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 01 ·</span> SHADDOW / FRONT DOCK · KICAD 8 · FLUX.AI · CH 03 ▮ GREEN</figcaption>
+  <figcaption><span class="fig">FIG. 01 ·</span> SHADDOW / DISASSEMBLY · BENCH · 2026 · CH 03 ▮ GREEN</figcaption>
+</figure>
+
+<figure class="photo full-bleed">
+  <picture>
+    <source type="image/webp" srcset="/images/shaddow/pcb-macro-1200.webp 1200w, /images/shaddow/pcb-macro-1600.webp 1600w" sizes="100vw" />
+    <img src="/images/shaddow/pcb-macro-1200.jpg" srcset="/images/shaddow/pcb-macro-1200.jpg 1200w, /images/shaddow/pcb-macro-1600.jpg 1600w" sizes="100vw" alt="Close-up of the Shaddow Front Dock PCB — visible silicon chip markings, an inductor's copper windings, a JINGCONG capacitor, blue ribbon connectors, and green solder mask traces." width="1600" height="1067" loading="lazy" decoding="async" />
+  </picture>
+  <figcaption><span class="fig">FIG. 02 ·</span> SHADDOW / FRONT DOCK · KICAD 8 · FLUX.AI · CH 03 ▮ GREEN</figcaption>
 </figure>
 
 **Shaddow** is the project name for the hardware I'm building around a Mac
@@ -58,7 +66,7 @@ through JLCPCB.
 
 <figure class="photo full-bleed">
   <img src="/images/shaddow/front-dock-plan.png" alt="Front Dock revised plan diagram — KiCad layout, copper pours, chip swaps callouts, hand-routing notes" width="1188" height="691" loading="lazy" decoding="async" />
-  <figcaption><span class="fig">FIG. 02 ·</span> FRONT DOCK · REVISED PLAN · KICAD → JLCPCB · ROUTING PASS</figcaption>
+  <figcaption><span class="fig">FIG. 03 ·</span> FRONT DOCK · REVISED PLAN · KICAD → JLCPCB · ROUTING PASS</figcaption>
 </figure>
 
 ## Design rules I committed to

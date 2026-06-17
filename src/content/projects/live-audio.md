@@ -15,6 +15,14 @@ tags: ["audio", "live-events", "foh", "rf", "dante"]
   <figcaption><span class="fig">FIG. 01 ·</span> ALLEN &amp; HEATH iLIVE R72 · ENGENHEIRO COELHO · 2016 · CH 02 ▮ CYAN</figcaption>
 </figure>
 
+<figure class="photo full-bleed">
+  <picture>
+    <source type="image/webp" srcset="/images/live/fifa-crew-1200.webp 1200w, /images/live/fifa-crew-1600.webp 1600w" sizes="100vw" />
+    <img src="/images/live/fifa-crew-1200.jpg" srcset="/images/live/fifa-crew-1200.jpg 1200w, /images/live/fifa-crew-1600.jpg 1600w" sizes="100vw" alt="Sound Image crew in matching shirts gathered on a stadium pitch with the FIFA World Cup backdrop and broadcast scaffolding behind them." width="1600" height="1067" loading="lazy" decoding="async" />
+  </picture>
+  <figcaption><span class="fig">FIG. 02 ·</span> SOUND IMAGE CREW · FIFA · STADIUM PITCH · 2026 · CH 02 ▮ CYAN</figcaption>
+</figure>
+
 I've been the engineer behind a console for more than a decade — first in
 Brazil at festival and tour scale, now in San Francisco on corporate and
 broadcast work. The gear changes; the job doesn't. You're responsible for
@@ -28,12 +36,20 @@ like **Apple** and **Dolby**. Load-in, cabling, rigging, PA tuning, Dante
 signal flow, and wireless frequency coordination on a Shure Axient / PSM rig.
 Operating on Yamaha CL5 desks for FOH and monitor.
 
+<figure class="photo full-bleed">
+  <picture>
+    <source type="image/webp" srcset="/images/live/avid-gala-foh-1200.webp 1200w, /images/live/avid-gala-foh-1600.webp 1600w" sizes="100vw" />
+    <img src="/images/live/avid-gala-foh-1200.jpg" srcset="/images/live/avid-gala-foh-1200.jpg 1200w, /images/live/avid-gala-foh-1600.jpg 1600w" sizes="100vw" alt="Avid S6L console at FOH during a black-tie gala — uplit cabaret tables and chandeliers visible past the meter bridge." width="1600" height="1067" loading="lazy" decoding="async" />
+  </picture>
+  <figcaption><span class="fig">FIG. 03 ·</span> AVID S6L · GALA FOH · SF · 2025 · CH 02 ▮ CYAN</figcaption>
+</figure>
+
 <div class="video-block">
   <video src="/video/knobs-glow.mp4" poster="/video/knobs-glow-poster.png"
          autoplay muted loop playsinline preload="metadata"
          width="1080" height="1920" aria-label="Console knobs glowing green at FOH, crowd standing out of focus in pink/purple wash behind"></video>
   <div class="video-meta">
-    <span class="label">FIG. 02 ·</span> CONSOLE / FOH · SP · 2017 · 12s LOOP · MUTED
+    <span class="label">FIG. 04 ·</span> CONSOLE / FOH · SP · 2017 · 12s LOOP · MUTED
   </div>
 </div>
 
@@ -58,10 +74,18 @@ phone call to a venue's house engineer.
 
 <figure class="photo full-bleed">
   <picture>
+    <source type="image/webp" srcset="/images/live/stage-deck-load-in-1200.webp 1200w, /images/live/stage-deck-load-in-1600.webp 1600w" sizes="100vw" />
+    <img src="/images/live/stage-deck-load-in-1200.jpg" srcset="/images/live/stage-deck-load-in-1200.jpg 1200w, /images/live/stage-deck-load-in-1600.jpg 1600w" sizes="100vw" alt="Festival stage deck mid-load-in — flight cases on the boards, line-array hangs in the background, crew moving cabling under house lights." width="1600" height="1067" loading="lazy" decoding="async" />
+  </picture>
+  <figcaption><span class="fig">FIG. 05 ·</span> STAGE DECK · LOAD-IN · BR · 2017 · BAND ▮ MAGENTA</figcaption>
+</figure>
+
+<figure class="photo full-bleed">
+  <picture>
     <source type="image/webp" srcset="/images/live/vmixer-birds-eye-1200.webp 1200w, /images/live/vmixer-birds-eye-1600.webp 1600w" sizes="100vw" />
     <img src="/images/live/vmixer-birds-eye-1200.jpg" srcset="/images/live/vmixer-birds-eye-1200.jpg 1200w, /images/live/vmixer-birds-eye-1600.jpg 1600w" sizes="100vw" alt="Bird's-eye angle of Victor at a Roland V-Mixer — both hands working the console at once, a second engineer leaning in." width="1600" height="1067" loading="lazy" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 03 ·</span> V-MIXER · SP · 2017 · BAND ▮ MAGENTA</figcaption>
+  <figcaption><span class="fig">FIG. 06 ·</span> V-MIXER · SP · 2017 · BAND ▮ MAGENTA</figcaption>
 </figure>
 
 <div class="video-block">
@@ -69,7 +93,7 @@ phone call to a venue's house engineer.
          controls muted playsinline preload="metadata"
          width="1920" height="1080" aria-label="Intimate live-session inside a warehouse — laptop running a digital mixer in the foreground, vocalist surrounded by seated audience, camera operator with a rig in the background."></video>
   <div class="video-meta">
-    <span class="label">FIG. 04 ·</span> WAREHOUSE SESSION · SP · 2017 · INLINE FEATURE · 2:14 · MUTED
+    <span class="label">FIG. 07 ·</span> WAREHOUSE SESSION · SP · 2017 · INLINE FEATURE · 2:14 · MUTED
   </div>
 </div>
 
@@ -91,15 +115,32 @@ coordination and stage audio. The kind of show that recalibrates what
     <source type="image/webp" srcset="/images/live/pm5d-scribble-1200.webp 1200w, /images/live/pm5d-scribble-1600.webp 1600w" sizes="100vw" />
     <img src="/images/live/pm5d-scribble-1200.jpg" srcset="/images/live/pm5d-scribble-1200.jpg 1200w, /images/live/pm5d-scribble-1600.jpg 1600w" sizes="100vw" alt="Macro of a Yamaha PM5D channel strip — bright lime-green LCD scribble strips spell 'Tui / Lucia / Arco / Marce' beside meter ladders, orange-glow rotary encoder rings below." width="1600" height="1067" loading="lazy" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 05 ·</span> YAMAHA PM5D / SCRIBBLE STRIPS · RIO DE JANEIRO · 2017</figcaption>
+  <figcaption><span class="fig">FIG. 08 ·</span> YAMAHA PM5D / SCRIBBLE STRIPS · RIO DE JANEIRO · 2017</figcaption>
 </figure>
+
+<div class="photo-grid">
+  <figure class="photo">
+    <picture>
+      <source type="image/webp" srcset="/images/live/ql5-outdoor-tent-1200.webp 1200w, /images/live/ql5-outdoor-tent-1600.webp 1600w" sizes="(min-width: 720px) 50vw, 100vw" />
+      <img src="/images/live/ql5-outdoor-tent-1200.jpg" srcset="/images/live/ql5-outdoor-tent-1200.jpg 1200w, /images/live/ql5-outdoor-tent-1600.jpg 1600w" sizes="(min-width: 720px) 50vw, 100vw" alt="Yamaha QL5 console set up under a white event tent on grass — natural daylight FOH on an outdoor corporate stage." width="1600" height="1067" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption><span class="fig">FIG. 09 ·</span> YAMAHA QL5 · OUTDOOR / WHITE TENT · 2024 · CH 02 ▮ CYAN</figcaption>
+  </figure>
+  <figure class="photo">
+    <picture>
+      <source type="image/webp" srcset="/images/live/cathedral-aisle-1200.webp 1200w, /images/live/cathedral-aisle-600.webp 600w" sizes="(min-width: 720px) 50vw, 100vw" />
+      <img src="/images/live/cathedral-aisle-1200.jpg" srcset="/images/live/cathedral-aisle-1200.jpg 1200w, /images/live/cathedral-aisle-600.jpg 600w" sizes="(min-width: 720px) 50vw, 100vw" alt="Cathedral aisle with arrayed line-array speakers visible above the pews." width="1200" height="800" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption><span class="fig">FIG. 10 ·</span> CATHEDRAL · LINE ARRAY · BR · CH 02 ▮ CYAN</figcaption>
+  </figure>
+</div>
 
 <div class="video-block">
   <video src="/video/dlive-spl.mp4" poster="/video/dlive-spl-poster.png"
          controls muted playsinline preload="metadata"
          width="1080" height="1920" aria-label="Allen & Heath dLive R72 console with an EQ curve on screen, and a handheld digital SPL meter reading 94.4 dB."></video>
   <div class="video-meta">
-    <span class="label">FIG. 06 ·</span> dLIVE R72 · OUTDOOR · BR · 2017 · SPL · 94.4 dB(A)
+    <span class="label">FIG. 11 ·</span> dLIVE R72 · OUTDOOR · BR · 2017 · SPL · 94.4 dB(A)
   </div>
 </div>
 
@@ -113,5 +154,13 @@ Shure Axient Digital / PSM · Networking for Audio Professionals.
     <source type="image/webp" srcset="/images/live/laser-choir-1200.webp 1200w, /images/live/laser-choir-1600.webp 1600w" sizes="100vw" />
     <img src="/images/live/laser-choir-1200.jpg" srcset="/images/live/laser-choir-1200.jpg 1200w, /images/live/laser-choir-1600.jpg 1600w" sizes="100vw" alt="Wide concert frame — green and red laser beams cutting through the air, orange tribal-pattern backdrop discs glowing like planets, a full choir on risers between two broadcast camera silhouettes." width="1600" height="1067" loading="lazy" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 07 ·</span> WIDE · CHOIR + LASERS · ENGENHEIRO COELHO · 2015 · BAND ▮ MAGENTA</figcaption>
+  <figcaption><span class="fig">FIG. 12 ·</span> WIDE · CHOIR + LASERS · ENGENHEIRO COELHO · 2015 · BAND ▮ MAGENTA</figcaption>
+</figure>
+
+<figure class="photo full-bleed">
+  <picture>
+    <source type="image/webp" srcset="/images/live/meyer-amp-rack-1200.webp 1200w, /images/live/meyer-amp-rack-1600.webp 1600w" sizes="100vw" />
+    <img src="/images/live/meyer-amp-rack-1200.jpg" srcset="/images/live/meyer-amp-rack-1200.jpg 1200w, /images/live/meyer-amp-rack-1600.jpg 1600w" sizes="100vw" alt="Meyer Sound Galileo amplifier rack — rows of amp faces and patch panels in a road case, status LEDs glowing in low backstage light." width="1600" height="1067" loading="lazy" decoding="async" />
+  </picture>
+  <figcaption><span class="fig">FIG. 13 ·</span> MEYER GALILEO · AMP RACK · BACKSTAGE · CH 02 ▮ CYAN</figcaption>
 </figure>
