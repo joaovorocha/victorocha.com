@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('writing', (p) => !p.data.draft))
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
+---
+<BaseLayout title="Writing">
+  <h1>Writing</h1>
+  <p class="lede">Short essays on engineering, hardware, and the van.</p>
+
+  {posts.length === 0 ? (
+    <p class="meta" style="margin-top: 2rem;">Nothing published yet.</p>
+  ) : (
+    <ul class="post-list">
+      {posts.map((p) => (
+        <li>
+          <a href={`/writing/${p.id}`}>
+            <span class="date">{fmt(p.data.publishedAt)}</span>
+            <span class="title">{p.data.title}</span>
+          </a>
+          <p class="summary">{p.data.summary}</p>
+        </li>
+      ))}
+    </ul>
+  )}
+</BaseLayout>
+
+<style>
+  .lede { color: var(--ink-soft); }
+  .post-list { list-style: none; padding: 0; margin: 2.5rem 0 0; }
+  .post-list li { padding: 1.1rem 0; border-bottom: 1px solid var(--rule); }
+  .post-list li:first-child { border-top: 1px solid var(--rule); }
+  .post-list a {
+    display: flex;
+    gap: 1.25rem;
+    align-items: baseline;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .post-list a:hover .title { color: var(--accent); }
+  .date {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    width: 8rem;
+  }
+  .title { font-family: var(--font-mono); font-size: 1rem; }
+  .summary { color: var(--ink-soft); margin: 0.4rem 0 0 9.25rem; font-size: 0.95rem; }
+  @media (max-width: 540px) {
+    .post-list a { flex-direction: column; gap: 0.25rem; }
+    .summary { margin-left: 0; }
+  }
+</style>

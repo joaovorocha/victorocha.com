@@ -1,0 +1,63 @@
+---
+const { pathname } = Astro.url;
+const isActive = (href: string) =>
+  href === '/' ? pathname === '/' : pathname.startsWith(href);
+const links = [
+  { href: '/', label: 'home' },
+  { href: '/projects', label: 'projects' },
+  { href: '/writing', label: 'writing' },
+  { href: '/about', label: 'about' },
+];
+---
+<header>
+  <nav>
+    <a href="/" class="brand">victorocha.com</a>
+    <ul>
+      {links.map((l) => (
+        <li>
+          <a href={l.href} class:list={[{ active: isActive(l.href) }]}>{l.label}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<style>
+  header {
+    border-bottom: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  nav {
+    max-width: var(--measure-wide);
+    margin: 0 auto;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .brand {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .brand:hover { color: var(--accent); }
+  ul {
+    list-style: none;
+    display: flex;
+    gap: 1.4rem;
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+  ul a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  ul a:hover { color: var(--accent); }
+  ul a.active { color: var(--ink); border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
+</style>

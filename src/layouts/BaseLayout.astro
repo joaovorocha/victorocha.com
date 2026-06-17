@@ -1,0 +1,33 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  narrow?: boolean;
+}
+
+const { title, description, narrow = false } = Astro.props;
+const fullTitle = title === 'victorocha.com' ? title : `${title} — victorocha.com`;
+const desc = description ?? 'Joao V. Rocha — engineer, hardware builder, van dweller.';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={desc} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+  </head>
+  <body>
+    <Header />
+    <main class:list={[{ narrow }]}>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

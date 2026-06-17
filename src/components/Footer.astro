@@ -1,0 +1,26 @@
+---
+const year = 2026;
+---
+<footer>
+  <div>
+    <span>© {year} Joao V. Rocha</span>
+    <span class="sep">·</span>
+    <a href="https://github.com/joaovorocha">github</a>
+    <span class="sep">·</span>
+    <a href="mailto:joaovorocha@gmail.com">email</a>
+  </div>
+</footer>
+
+<style>
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    text-align: center;
+  }
+  footer a { color: var(--ink-soft); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  .sep { margin: 0 0.6rem; }
+</style>
