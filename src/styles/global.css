@@ -346,6 +346,22 @@ img { max-width: 100%; height: auto; display: block; }
   height: 100%;
   object-fit: cover;
   z-index: 0;
+  opacity: 0;
+  animation: hero-fade-in 1.4s ease-out 0.2s forwards;
+  /* subtle vignette via filter so dark edges pull focus to center */
+  filter: brightness(0.92) saturate(1.05);
+}
+@keyframes hero-fade-in {
+  to { opacity: 1; }
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 50%, rgba(11,13,14,0.55) 100%);
 }
 .hero__scrim {
   position: absolute;
@@ -522,15 +538,41 @@ figure.photo figcaption .fig {
 .video-block {
   background: var(--console-graphite);
   margin: 4rem 0;
+  border: 1px solid var(--console-rule);
+  position: relative;
+  overflow: hidden;
 }
-.video-block video { width: 100%; display: block; max-height: 80vh; object-fit: cover; }
+.video-block::before {
+  content: "● REC";
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  z-index: 3;
+  font-family: var(--f-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-micro);
+  text-transform: uppercase;
+  color: var(--cap-red);
+  background: rgba(11,13,14,0.75);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+}
+.video-block video {
+  width: 100%;
+  display: block;
+  max-height: 80vh;
+  object-fit: cover;
+  background: var(--console-black);
+}
 .video-block .video-meta {
-  padding: 1rem 2rem;
+  padding: 0.85rem 1.5rem;
   font-family: var(--f-mono);
   font-size: var(--fs-micro);
   letter-spacing: var(--tr-micro);
   text-transform: uppercase;
   color: var(--console-dim);
+  border-top: 1px solid var(--console-rule);
+  background: var(--console-black);
 }
 .video-block .video-meta .label { color: var(--cap-cyan); margin-right: 0.6rem; }
 
