@@ -8,7 +8,10 @@ const posts = (await getCollection('writing', (p) => !p.data.draft))
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
 ---
-<BaseLayout title="Writing">
+<BaseLayout
+  title="Writing"
+  description="Short essays on engineering decisions, live audio, and the trade-offs that don't make textbooks."
+>
   <h1>Writing</h1>
   <p class="lede">Short essays on engineering, hardware, and the van.</p>
 

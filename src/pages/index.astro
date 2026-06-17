@@ -12,12 +12,15 @@ const posts = (await getCollection('writing', (p) => !p.data.draft))
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
 ---
-<BaseLayout title="victorocha.com">
+<BaseLayout
+  title="victorocha.com"
+  description="Joao V. Rocha — AV engineer at Clair Global, full-stack developer, Latin Grammy nominee. Building the tools I want to use, from San Francisco."
+>
   <section class="hero">
     <p class="meta">Joao V. Rocha · San Francisco</p>
     <h1>AV engineer and full-stack developer. Latin Grammy nominee. Builder of the tools I want to use.</h1>
     <p class="lede">
-      Currently mixing for Apple and Dolby with <a href="https://www.soundimage.com">Sound Image</a>
+      Currently mixing for Apple and Dolby with <a href="https://www.clairglobal.com">Sound Image</a>
       (Clair Global), and shipping the software and hardware I think the operations floor is
       missing. Ten-plus years of live audio behind me, a Node + Postgres stack in front of me,
       and Shaddow on the bench.

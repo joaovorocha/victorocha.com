@@ -7,11 +7,18 @@ interface Props {
   title: string;
   description?: string;
   narrow?: boolean;
+  ogImage?: string;
 }
 
-const { title, description, narrow = false } = Astro.props;
-const fullTitle = title === 'victorocha.com' ? title : `${title} — victorocha.com`;
+const { title, description, narrow = false, ogImage } = Astro.props;
+const isHome = title === 'victorocha.com';
+const fullTitle = isHome
+  ? 'Joao V. Rocha — AV engineer & full-stack developer'
+  : `${title} — victorocha.com`;
 const desc = description ?? 'Joao V. Rocha — AV engineer, full-stack developer, Latin Grammy nominee. Based in San Francisco.';
+const siteUrl = Astro.site ?? new URL('https://www.victorocha.com');
+const canonical = new URL(Astro.url.pathname, siteUrl).toString();
+const ogImageUrl = new URL(ogImage ?? '/og-default.png', siteUrl).toString();
 ---
 <!doctype html>
 <html lang="en">
@@ -19,13 +26,36 @@ const desc = description ?? 'Joao V. Rocha — AV engineer, full-stack developer
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta name="theme-color" content="#f7f3ec" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#15140f" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:type" content={isHome ? 'website' : 'article'} />
+    <meta property="og:site_name" content="victorocha.com" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={desc} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
     <meta name="generator" content={Astro.generator} />
     <title>{fullTitle}</title>
   </head>
   <body>
+    <a href="#main" class="skip-link">Skip to content</a>
     <Header />
-    <main class:list={[{ narrow }]}>
+    <main id="main" class:list={[{ narrow }]}>
       <slot />
     </main>
     <Footer />

@@ -5,7 +5,10 @@ import { getCollection } from 'astro:content';
 const projects = (await getCollection('projects'))
   .sort((a, b) => a.data.order - b.data.order);
 ---
-<BaseLayout title="Projects">
+<BaseLayout
+  title="Projects"
+  description="Projects Victor Rocha is building — Shaddow (12V automotive dock), Daily Operations Platform, live audio, the van."
+>
   <h1>Projects</h1>
   <p class="lede">Things I'm building, in various states of done.</p>
 
@@ -13,7 +16,7 @@ const projects = (await getCollection('projects'))
     {projects.map((p) => (
       <li>
         <a class="card" href={`/projects/${p.id}`}>
-          <h3>{p.data.title}</h3>
+          <h2>{p.data.title}</h2>
           <p>{p.data.summary}</p>
           <span class="meta">
             {p.data.status}
