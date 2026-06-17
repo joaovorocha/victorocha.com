@@ -3,16 +3,15 @@ const { pathname } = Astro.url;
 const isActive = (href: string) =>
   href === '/' ? pathname === '/' : pathname.startsWith(href);
 const links = [
-  { href: '/', label: 'home' },
-  { href: '/projects', label: 'projects' },
-  { href: '/writing', label: 'writing' },
-  { href: '/resume', label: 'résumé' },
-  { href: '/about', label: 'about' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/writing', label: 'Writing' },
+  { href: '/resume', label: 'Résumé' },
+  { href: '/about', label: 'About' },
 ];
 ---
 <header>
   <nav>
-    <a href="/" class="brand">victorocha.com</a>
+    <a href="/" class="brand" aria-label="Home — victorocha.com">victorocha</a>
     <ul>
       {links.map((l) => (
         <li>
@@ -25,40 +24,52 @@ const links = [
 
 <style>
   header {
-    border-bottom: 1px solid var(--rule);
-    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    background: color-mix(in oklab, var(--bg) 80%, transparent);
+    border-bottom: 1px solid color-mix(in oklab, var(--rule) 40%, transparent);
   }
   nav {
     max-width: var(--measure-wide);
     margin: 0 auto;
-    padding: 1.25rem 1.5rem;
+    padding: 0 1.5rem;
+    height: 48px;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
-    gap: 1.5rem;
-    flex-wrap: wrap;
+    gap: 2rem;
   }
   .brand {
-    font-family: var(--font-mono);
-    font-size: 0.95rem;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
     color: var(--ink);
     text-decoration: none;
-    letter-spacing: -0.01em;
   }
-  .brand:hover { color: var(--accent); }
+  .brand:hover { color: var(--ink); opacity: 0.7; text-decoration: none; }
   ul {
     list-style: none;
     display: flex;
-    gap: 1.4rem;
+    gap: 2rem;
     padding: 0;
     margin: 0;
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
+    font-family: var(--font-display);
+    font-size: 0.82rem;
   }
   ul a {
     color: var(--ink-soft);
     text-decoration: none;
+    transition: color 150ms ease;
+    font-weight: 400;
   }
-  ul a:hover { color: var(--accent); }
-  ul a.active { color: var(--ink); border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
+  ul a:hover { color: var(--ink); text-decoration: none; }
+  ul a.active { color: var(--ink); font-weight: 500; }
+  @media (max-width: 540px) {
+    nav { gap: 1rem; }
+    ul { gap: 1.25rem; font-size: 0.78rem; }
+  }
 </style>

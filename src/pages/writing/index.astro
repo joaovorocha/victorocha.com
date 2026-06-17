@@ -12,11 +12,14 @@ const fmt = (d: Date) =>
   title="Writing"
   description="Short essays on engineering decisions, live audio, and the trade-offs that don't make textbooks."
 >
-  <h1>Writing</h1>
-  <p class="lede">Short essays on engineering, hardware, and the van.</p>
+  <section class="writing-hero">
+    <p class="eyebrow">Writing</p>
+    <h1>Notes from the desk.</h1>
+    <p class="lede">Short essays on engineering, hardware, and the van.</p>
+  </section>
 
   {posts.length === 0 ? (
-    <p class="meta" style="margin-top: 2rem;">Nothing published yet.</p>
+    <p class="empty">Nothing published yet.</p>
   ) : (
     <ul class="post-list">
       {posts.map((p) => (
@@ -24,8 +27,8 @@ const fmt = (d: Date) =>
           <a href={`/writing/${p.id}`}>
             <span class="date">{fmt(p.data.publishedAt)}</span>
             <span class="title">{p.data.title}</span>
+            <span class="summary">{p.data.summary}</span>
           </a>
-          <p class="summary">{p.data.summary}</p>
         </li>
       ))}
     </ul>
@@ -33,31 +36,64 @@ const fmt = (d: Date) =>
 </BaseLayout>
 
 <style>
-  .lede { color: var(--ink-soft); }
-  .post-list { list-style: none; padding: 0; margin: 2.5rem 0 0; }
-  .post-list li { padding: 1.1rem 0; border-bottom: 1px solid var(--rule); }
+  .writing-hero {
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+    text-align: center;
+  }
+  .writing-hero .lede {
+    max-width: 36ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .empty { text-align: center; color: var(--ink-faint); margin-top: 4rem; }
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem auto 4rem;
+    max-width: var(--measure);
+  }
+  .post-list li {
+    border-bottom: 1px solid var(--rule);
+  }
   .post-list li:first-child { border-top: 1px solid var(--rule); }
   .post-list a {
-    display: flex;
-    gap: 1.25rem;
-    align-items: baseline;
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    grid-template-areas: "date title" "date summary";
+    gap: 0.25rem 1.5rem;
+    padding: 1.5rem 1.5rem;
     text-decoration: none;
     color: var(--ink);
+    transition: background 150ms ease;
   }
+  .post-list a:hover { background: var(--bg-elevated); }
   .post-list a:hover .title { color: var(--accent); }
   .date {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
+    grid-area: date;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
     color: var(--ink-faint);
-    letter-spacing: 0.04em;
-    white-space: nowrap;
-    flex-shrink: 0;
-    width: 8rem;
+    padding-top: 0.15rem;
   }
-  .title { font-family: var(--font-mono); font-size: 1rem; }
-  .summary { color: var(--ink-soft); margin: 0.4rem 0 0 9.25rem; font-size: 0.95rem; }
+  .title {
+    grid-area: title;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .summary {
+    grid-area: summary;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
   @media (max-width: 540px) {
-    .post-list a { flex-direction: column; gap: 0.25rem; }
-    .summary { margin-left: 0; }
+    .post-list a {
+      grid-template-columns: 1fr;
+      grid-template-areas: "date" "title" "summary";
+      gap: 0.25rem;
+    }
   }
 </style>

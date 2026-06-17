@@ -9,20 +9,19 @@ const projects = (await getCollection('projects'))
   title="Projects"
   description="Projects Victor Rocha is building — Shaddow (12V automotive dock), Daily Operations Platform, live audio, the van."
 >
-  <h1>Projects</h1>
-  <p class="lede">Things I'm building, in various states of done.</p>
+  <section class="projects-hero">
+    <p class="eyebrow">Projects</p>
+    <h1>Things I'm building.</h1>
+    <p class="lede">In various states of done. Pick one.</p>
+  </section>
 
-  <ul class="card-list" style="margin-top: 2rem;">
+  <ul class="card-list projects-grid">
     {projects.map((p) => (
       <li>
         <a class="card" href={`/projects/${p.id}`}>
           <h2>{p.data.title}</h2>
           <p>{p.data.summary}</p>
-          <span class="meta">
-            {p.data.status}
-            {p.data.tags.length > 0 && ' · '}
-            {p.data.tags.join(' · ')}
-          </span>
+          <span class="meta">{p.data.status}{p.data.tags.length > 0 && ' · '}{p.data.tags.slice(0,3).join(' · ')}</span>
         </a>
       </li>
     ))}
@@ -30,5 +29,18 @@ const projects = (await getCollection('projects'))
 </BaseLayout>
 
 <style>
-  .lede { color: var(--ink-soft); }
+  .projects-hero {
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+    text-align: center;
+  }
+  .projects-hero .lede {
+    max-width: 36ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .projects-grid {
+    max-width: var(--measure-wide);
+    margin: 2rem auto 4rem;
+  }
 </style>

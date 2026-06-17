@@ -102,6 +102,13 @@ phone call to a venue's house engineer.
     </picture>
     <figcaption>Yamaha PM5D, rehearsal POV with vocalists.</figcaption>
   </figure>
+  <figure class="photo">
+    <picture>
+      <source type="image/webp" srcset="/images/audio/foh-video-shoot-1200.webp 1200w, /images/audio/foh-video-shoot-1600.webp 1600w" sizes="(min-width: 900px) 400px, 100vw" />
+      <img src="/images/audio/foh-video-shoot-1200.jpg" srcset="/images/audio/foh-video-shoot-1200.jpg 1200w, /images/audio/foh-video-shoot-1600.jpg 1600w" sizes="(min-width: 900px) 400px, 100vw" alt="Wide FOH view with a digital console, dual monitors running a multitrack session, wireless mic racks, and a choreographed performance under a single cinema light on stage" width="1200" height="800" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption>FOH for a live video shoot — Engenheiro Coelho, November 2021.</figcaption>
+  </figure>
 </div>
 
 <figure class="photo wide">
@@ -111,6 +118,29 @@ phone call to a venue's house engineer.
   </picture>
   <figcaption>Working the room — monitor mix from FOH.</figcaption>
 </figure>
+
+## Studio sessions
+
+Not every audio job happens on a stage. Tracking days, broadcast mix sessions,
+and pre-production with the artist — quieter rooms, same job: get a clean
+recording of what's actually being played.
+
+<div class="photo-grid photo-grid--portrait">
+  <figure class="photo">
+    <picture>
+      <source type="image/webp" srcset="/images/audio/studio-tracking-600.webp 600w, /images/audio/studio-tracking-1200.webp 1200w" sizes="(min-width: 900px) 320px, 50vw" />
+      <img src="/images/audio/studio-tracking-600.jpg" srcset="/images/audio/studio-tracking-600.jpg 600w, /images/audio/studio-tracking-1200.jpg 1200w" sizes="(min-width: 900px) 320px, 50vw" alt="Slate VMS large-diaphragm condenser microphone in a spider shock mount; engineer at a DAW workstation behind it, shallow depth of field" width="1080" height="1616" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption>Tracking vocals at the studio, April 2021.</figcaption>
+  </figure>
+  <figure class="photo">
+    <picture>
+      <source type="image/webp" srcset="/images/audio/studio-booth-600.webp 600w, /images/audio/studio-booth-1200.webp 1200w" sizes="(min-width: 900px) 320px, 50vw" />
+      <img src="/images/audio/studio-booth-600.jpg" srcset="/images/audio/studio-booth-600.jpg 600w, /images/audio/studio-booth-1200.jpg 1200w" sizes="(min-width: 900px) 320px, 50vw" alt="In the recording booth, looking out through the studio glass at the control room" width="1080" height="1616" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption>In the booth, April 2021.</figcaption>
+  </figure>
+</div>
 
 ## A2 at Rock in Rio, 2017
 
@@ -154,6 +184,13 @@ some of the best engineers I know came up through that room.
       <img src="/images/audio/ilive-arena-foh-1200.jpg" srcset="/images/audio/ilive-arena-foh-1200.jpg 1200w, /images/audio/ilive-arena-foh-1600.jpg 1600w" sizes="(min-width: 900px) 400px, 100vw" alt="Allen & Heath iLive T80 console at FOH with empty arena seating behind, pre-show" width="1200" height="800" loading="lazy" decoding="async" />
     </picture>
     <figcaption>Allen &amp; Heath iLive-T80 at FOH, pre-show in an arena.</figcaption>
+  </figure>
+  <figure class="photo">
+    <picture>
+      <source type="image/webp" srcset="/images/audio/arena-before-doors-1200.webp 1200w, /images/audio/arena-before-doors-1600.webp 1600w" sizes="(min-width: 900px) 400px, 100vw" />
+      <img src="/images/audio/arena-before-doors-1200.jpg" srcset="/images/audio/arena-before-doors-1200.jpg 1200w, /images/audio/arena-before-doors-1600.jpg 1600w" sizes="(min-width: 900px) 400px, 100vw" alt="Empty arena auditorium from the center aisle with flown line-array PA hangs on the left and right, full red-seat house, daylight ceiling" width="1200" height="800" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption>Before doors — line-array hangs in the UNASP central auditorium, August 2019.</figcaption>
   </figure>
 </div>
 

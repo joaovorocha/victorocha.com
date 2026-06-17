@@ -13,26 +13,69 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
-<BaseLayout title={entry.data.title} description={entry.data.summary} narrow>
-  <p class="meta back"><a href="/projects">← projects</a></p>
-  <h1>{entry.data.title}</h1>
-  <p class="lede">{entry.data.summary}</p>
-  <p class="meta tags">
-    <span>{entry.data.status}</span>
-    {entry.data.tags.map((t) => <span class="tag">{t}</span>)}
-    {entry.data.repo && <a href={entry.data.repo}>repo</a>}
-    {entry.data.link && <a href={entry.data.link}>link</a>}
-  </p>
-  <hr />
-  <article>
+<BaseLayout title={entry.data.title} description={entry.data.summary}>
+  <section class="project-hero">
+    <p class="back"><a href="/projects">← All projects</a></p>
+    <p class="eyebrow">{entry.data.status}</p>
+    <h1>{entry.data.title}</h1>
+    <p class="lede">{entry.data.summary}</p>
+    <p class="tags">
+      {entry.data.tags.map((t) => <span class="tag">{t}</span>)}
+      {entry.data.repo && <a class="ext-link" href={entry.data.repo}>Repo →</a>}
+      {entry.data.link && <a class="ext-link" href={entry.data.link}>Visit →</a>}
+    </p>
+  </section>
+
+  <article class="project-body">
     <Content />
   </article>
 </BaseLayout>
 
 <style>
-  .back { margin-bottom: 1.5rem; }
+  .project-hero {
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+    text-align: center;
+  }
+  .project-hero h1 {
+    max-width: 18ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .project-hero .lede {
+    max-width: 42ch;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+  }
+  .back {
+    margin-bottom: 1.5rem;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+  }
   .back a { color: var(--ink-soft); text-decoration: none; }
   .back a:hover { color: var(--accent); }
-  .lede { font-size: 1.1rem; color: var(--ink-soft); }
-  .tags { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
+  .tags {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .ext-link {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .ext-link:hover { background: color-mix(in oklab, var(--accent) 8%, var(--bg)); }
+  .project-body {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
 </style>

@@ -17,50 +17,39 @@ const fmt = (d: Date) =>
   description="Joao V. Rocha — AV engineer at Clair Global, full-stack developer, Latin Grammy nominee. Building the tools I want to use, from San Francisco."
 >
   <section class="hero">
-    <p class="meta">Joao V. Rocha · San Francisco</p>
-    <h1>AV engineer and full-stack developer. Latin Grammy nominee. Builder of the tools I want to use.</h1>
+    <p class="eyebrow">Joao V. Rocha · San Francisco</p>
+    <h1>AV engineer.<br/>Full-stack developer.<br/><span class="accent">Latin Grammy nominee.</span></h1>
     <p class="lede">
-      Currently mixing for Apple and Dolby with <a href="https://www.clairglobal.com">Sound Image</a>
-      (Clair Global), and shipping the software and hardware I think the operations floor is
-      missing. Ten-plus years of live audio behind me, a Node + Postgres stack in front of me,
-      and Shaddow on the bench.
+      Currently mixing for Apple and Dolby with Sound Image (Clair Global), and shipping
+      the software and hardware I think the operations floor is missing.
     </p>
-    <p class="open-to">
-      <span class="dot" aria-hidden="true"></span>
-      Open to work — AV engineering, full-stack, or operations + technology roles.
-      San Francisco / remote.
-      <a href="/about#hire">Get in touch →</a>
+    <p class="hire">
+      <a href="/about#hire">Open to work →</a>
     </p>
   </section>
 
-  <hr />
-
-  <section>
-    <h2>Featured projects</h2>
+  <section class="projects-section">
+    <p class="eyebrow center">Featured projects</p>
+    <h2 class="section-title">What I'm building.</h2>
     <ul class="card-list">
       {featured.map((p) => (
         <li>
           <a class="card" href={`/projects/${p.id}`}>
             <h3>{p.data.title}</h3>
             <p>{p.data.summary}</p>
-            <span class="meta">
-              {p.data.status}
-              {p.data.tags.length > 0 && ' · '}
-              {p.data.tags.join(' · ')}
-            </span>
+            <span class="meta">{p.data.status} · {p.data.tags.slice(0,3).join(' · ')}</span>
           </a>
         </li>
       ))}
     </ul>
-    <p style="margin-top:1.25rem"><a href="/projects">All projects →</a></p>
+    <p class="link-row"><a href="/projects">See all projects →</a></p>
   </section>
 
-  <hr />
-
-  <section>
-    <h2>Latest writing</h2>
+  <section class="writing-section">
+    <p class="eyebrow center">Latest writing</p>
+    <h2 class="section-title">Notes from the desk.</h2>
     {posts.length === 0 ? (
-      <p class="meta">Nothing published yet.</p>
+      <p class="meta center">Nothing published yet.</p>
     ) : (
       <ul class="card-list">
         {posts.map((p) => (
@@ -74,36 +63,72 @@ const fmt = (d: Date) =>
         ))}
       </ul>
     )}
-    <p style="margin-top:1.25rem"><a href="/writing">All writing →</a></p>
+    <p class="link-row"><a href="/writing">All writing →</a></p>
   </section>
 </BaseLayout>
 
 <style>
-  .hero { padding-top: 1rem; }
-  .hero h1 { font-size: 2.2rem; max-width: 30ch; margin-top: 0.6rem; }
-  .lede { font-size: 1.1rem; color: var(--ink-soft); max-width: 52ch; }
-  .open-to {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--ink-soft);
-    background: var(--bg-elevated);
-    border: 1px solid var(--rule);
-    border-radius: 6px;
-    padding: 0.65rem 0.9rem;
-    margin: 0.5rem 0 0;
+  .hero {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    text-align: center;
   }
-  .open-to a { white-space: nowrap; }
-  .dot {
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw + 1rem, 5.5rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1.02;
+    max-width: 15ch;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(180deg, var(--accent), color-mix(in oklab, var(--accent) 70%, var(--ink) 30%));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .hero .lede {
+    max-width: 36ch;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+  }
+  .hero .hire { margin-top: 2.5rem; font-size: 1.1rem; }
+  .hero .hire a {
     display: inline-block;
-    width: 0.55rem;
-    height: 0.55rem;
-    border-radius: 50%;
+    padding: 0.85rem 1.6rem;
     background: var(--accent);
-    box-shadow: 0 0 0 4px var(--accent-soft);
-    flex-shrink: 0;
+    color: white;
+    border-radius: 100px;
+    font-family: var(--font-display);
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 150ms ease;
   }
+  .hero .hire a:hover { background: var(--accent-hover); text-decoration: none; }
+
+  .projects-section, .writing-section {
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+  }
+  .eyebrow.center { text-align: center; color: var(--ink-faint); }
+  .section-title {
+    margin-top: 0;
+    margin-bottom: 3rem;
+    text-align: center;
+    font-size: clamp(2rem, 3.5vw + 0.5rem, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  .link-row {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1rem;
+    color: var(--accent);
+  }
+  .link-row a { font-weight: 500; }
+  .meta.center { text-align: center; color: var(--ink-faint); }
 </style>

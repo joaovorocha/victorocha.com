@@ -2,8 +2,8 @@
 import sharp from 'sharp';
 import { join } from 'node:path';
 
-const ACCENT = '#c2410c';
-const FG = '#fffaf2';
+const ACCENT = '#1d1d1f';
+const FG = '#ffffff';
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
   <rect width="180" height="180" rx="34" fill="${ACCENT}"/>

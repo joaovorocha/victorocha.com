@@ -6,25 +6,25 @@ import { join } from 'node:path';
 
 const W = 1200;
 const H = 630;
-const BG = '#f7f3ec';
-const INK = '#1a1a1a';
-const INK_SOFT = '#4a4a4a';
-const INK_FAINT = '#6b6b6b';
-const ACCENT = '#c2410c';
+const BG = '#ffffff';
+const INK = '#1d1d1f';
+const INK_SOFT = '#515154';
+const INK_FAINT = '#86868b';
+const ACCENT = '#0071e3';
+
+const FONT = '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif';
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
   <rect width="${W}" height="${H}" fill="${BG}"/>
-  <circle cx="80" cy="86" r="14" fill="${ACCENT}"/>
-  <text x="116" y="96" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace" font-size="28" font-weight="600" fill="${INK_SOFT}">victorocha.com</text>
 
-  <text x="80" y="240" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace" font-size="22" font-weight="500" fill="${INK_FAINT}" letter-spacing="2">JOAO V. ROCHA &#183; SAN FRANCISCO</text>
+  <text x="80" y="100" font-family='${FONT}' font-size="22" font-weight="600" fill="${INK_FAINT}" letter-spacing="1">VICTOROCHA.COM</text>
 
-  <text x="80" y="335" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace" font-size="56" font-weight="700" fill="${INK}">AV engineer and</text>
-  <text x="80" y="405" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace" font-size="56" font-weight="700" fill="${INK}">full-stack developer.</text>
-  <text x="80" y="475" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace" font-size="56" font-weight="700" fill="${ACCENT}">Latin Grammy nominee.</text>
+  <text x="80" y="260" font-family='${FONT}' font-size="76" font-weight="700" fill="${INK}" letter-spacing="-2">AV engineer.</text>
+  <text x="80" y="350" font-family='${FONT}' font-size="76" font-weight="700" fill="${INK}" letter-spacing="-2">Full-stack developer.</text>
+  <text x="80" y="440" font-family='${FONT}' font-size="76" font-weight="700" fill="${ACCENT}" letter-spacing="-2">Latin Grammy nominee.</text>
 
-  <line x1="80" y1="540" x2="1120" y2="540" stroke="#e6dccb" stroke-width="2"/>
-  <text x="80" y="585" font-family="Iowan Old Style, Palatino, Georgia, serif" font-size="22" font-style="italic" fill="${INK_SOFT}">Currently mixing for Apple and Dolby. Open to work.</text>
+  <text x="80" y="555" font-family='${FONT}' font-size="22" font-weight="400" fill="${INK_SOFT}">Currently mixing for Apple and Dolby with Sound Image.</text>
+  <text x="80" y="588" font-family='${FONT}' font-size="22" font-weight="400" fill="${INK_SOFT}">Open to work.</text>
 </svg>`;
 
 const outPath = join(import.meta.dirname, '..', 'public', 'og-default.png');

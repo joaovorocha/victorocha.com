@@ -16,43 +16,72 @@ The current board is **Front Dock** — the first piece of Shaddow on a PCB.
 
 ## Front Dock — what it does
 
-A 4-layer board that takes a stable 12 V from an EcoFlow LiFePO4 house
-battery and gives the Mac a complete USB dock — video capture, audio in /
-out, a front camera, two read-only CAN buses on the vehicle side, and a
-control MCU on the host side. One USB 2.0 uplink to the Mac is fanned out
-through an on-board hub to every peripheral. Power is generated locally
-from the 12 V input.
+A 4-layer board, designed thin-edge / fat-core: a single USB 2.0 uplink to
+the Mac fans out through an on-board hub to every peripheral, and power is
+generated locally from a 12 V input (an EcoFlow LiFePO4 house battery in
+the test van). Target board cost: roughly $150–270 for the first 5 units
+through JLCPCB.
 
 ## Headline blocks
 
-- **Power** — reverse-polarity FET, TVS, fused input → buck-boost USB-C PD
-  (LM51772 + TPS25751) → 5 V (TPS54331) → 3.3 V (TLV1117). A separate
-  isolated 5 V rail feeds the CAN side via an SN6505B transformer driver.
-- **USB hub + Mac uplink** — two cascaded FE1.1S hubs, ~7 downstream ports,
-  ESD on every pair. USB-C device uplink with the proper CC pulldowns.
-- **Video** — MS2130 USB UVC capture fed by a CVBS-to-HDMI front end with
-  a THS7374 buffer for low-latency loop-through.
-- **Audio** — PCM2904 USB audio codec, line in and line out, AC-coupled.
-- **Dual CAN, read-only** — STM32G0B1 with dual FDCAN, two ISO1042 isolated
-  transceivers. Listen-only, no on-board termination (the vehicle bus is
-  already terminated).
+- **Power** — reverse-polarity FET (DMP3013SFV), TVS (SMCJ18CA), fused
+  input → 45 W USB-C PD (LM51772 4-switch buck-boost + TPS25751 PD
+  controller, EEPROM-configured for 5/9/15 V at ≤45 W). Then 5 V / 3 A
+  via TPS54331 buck, 3.3 V via TLV1117. A separate isolated 5 V rail
+  feeds the CAN side through an SN6505B transformer driver and a small
+  isolation transformer.
+- **USB hub + Mac uplink** — two cascaded FE1.1S 2.0 hubs, USB-C device
+  uplink with proper CC pulldowns, USBLC6 ESD on every pair.
+- **Video** — MS2130 USB-UVC capture fed by a CVBS-to-HDMI front end,
+  with a THS7374 75 Ω buffer for a low-latency loop-through to the head
+  unit.
+- **Audio** — PCM2904 USB audio codec, AC-coupled line in and line out.
+- **Front camera** — off-board IMX462 UVC module on a 4-pin USB header.
+- **Dual CAN, read-only, isolated** — STM32G0B1 (native dual FDCAN) with
+  two ISO1042 isolated transceivers on the vehicle-ground side. No
+  on-board termination, listen-only — the only allowed TX is OBD-II PID
+  requests.
 - **Control** — ESP32-S3 over native USB-CDC, BTS7008 PROFET high-side
-  switches for relay outputs, INA226 monitoring the 12 V rail, brownout
-  and ignition sense inputs.
-- **Remote start** — Fortin EVO-FORT1 interface, opto-isolated, on the
-  vehicle-ground side.
+  switches driving relay outputs, INA226 monitoring the 12 V rail, plus
+  brownout / ignition / reverse / door sense inputs.
+- **Remote start** — Fortin EVO-FORT1 interface, opto-isolated on the
+  vehicle-ground side: three dry-contact outputs (START / LOCK / UNLOCK)
+  and two status inputs (RUNNING + status).
+
+<figure class="photo wide">
+  <img src="/images/shaddow/front-dock-plan.png" alt="Front Dock revised plan diagram — KiCad layout, copper pours, chip swaps callouts, hand-routing notes" width="1188" height="691" loading="lazy" decoding="async" />
+  <figcaption>Front Dock revised plan — KiCad to JLCPCB, two late chip swaps, hand-routing is the bottleneck.</figcaption>
+</figure>
+
+## Design rules I committed to
+
+Galvanic isolation between the CAN transceivers / Fortin interface and the
+board ground (single star to the EcoFlow DC negative). CAN strictly
+listen-only — the vehicle bus is already terminated, and I don't want to
+write to anything I don't have to. macOS sees the dual-CAN MCU as SLCAN
+and talks to it via python-can.
 
 ## Where I am with it
 
-Schematic and placement are done. Outside help is finishing the routing
-and DRC cleanup for a clean JLCPCB fab pack; then first board bring-up on
-the bench. Rev B will add a bench-test harness so the same firmware that
-runs in a vehicle can validate the board on a desk.
+Schematic and placement are done. I'm wrapping up the routing pass and
+DRC cleanup against JLCPCB's rules, then it goes to fab. Rev B will add
+a bench-test harness so the same firmware that runs in a vehicle can
+validate the board on a desk — closing the loop between dashboard tests
+and the lab.
+
+## Why Flux.ai *and* KiCad
+
+I started in Flux.ai for the schematic capture — fast, agreeable to the
+AI-assisted placement workflow, and good at the early-iteration phase
+when the architecture is still moving. The serious layout work moved to
+KiCad: more control over multi-layer routing, copper pours, and the
+exact JLCPCB-spec fab pack. Flux is the napkin; KiCad is where the board
+actually ships from.
 
 ## Why it exists
 
-A vehicle "12 V" rail is anything but 12 V. It sags during a crank, spikes
-on a load dump, and is noisy whenever the alternator is awake. Shaddow's
-whole point is to absorb that and present clean, monitored rails to
-everything downstream — and to do the vehicle-bus integration so the Mac
-on top doesn't have to.
+A vehicle "12 V" rail is anything but 12 V. It sags during a crank,
+spikes on a load dump, and is noisy whenever the alternator is awake.
+Shaddow's whole point is to absorb that and present clean, monitored
+rails to everything downstream — and to do the vehicle-bus integration
+so the Mac on top doesn't have to.

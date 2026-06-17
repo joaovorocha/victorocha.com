@@ -4,10 +4,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout
   title="Résumé"
   description="Joao V. Rocha — AV engineer + full-stack developer. Sound Image (Clair Global), Suitsupply SF, Vocal Livre, Rock in Rio. Latin Grammy nominee."
-  narrow
 >
-  <h1>Résumé</h1>
-  <p class="meta">Joao V. Rocha · San Francisco, CA · <a href="mailto:joaovorocha@gmail.com">joaovorocha@gmail.com</a> · <a href="https://www.linkedin.com/in/victordorocha/">linkedin.com/in/victordorocha</a> · <a href="https://github.com/joaovorocha">github.com/joaovorocha</a></p>
+  <section class="resume-hero">
+    <p class="eyebrow">Résumé</p>
+    <h1>Joao V. Rocha.</h1>
+    <p class="contact">
+      San Francisco, CA<br/>
+      <a href="mailto:joaovorocha@gmail.com">joaovorocha@gmail.com</a> ·
+      <a href="https://www.linkedin.com/in/victordorocha/">LinkedIn</a> ·
+      <a href="https://github.com/joaovorocha">GitHub</a>
+    </p>
+  </section>
+  <article class="resume-body">
 
   <h2>Summary</h2>
   <p>
@@ -98,4 +106,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <h2>Languages</h2>
   <p>English &amp; Portuguese — native / bilingual. Spanish — elementary.</p>
+  </article>
 </BaseLayout>
+
+<style>
+  .resume-hero {
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+    text-align: center;
+  }
+  .resume-hero .contact {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-top: 1rem;
+  }
+  .resume-body {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+  }
+  .resume-body h2 { margin-top: 4rem; }
+  .resume-body h3 { margin-bottom: 0.25rem; }
+  .resume-body .meta {
+    color: var(--ink-faint);
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    margin: 0 0 0.75rem;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+</style>
