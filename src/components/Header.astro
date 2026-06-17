@@ -2,74 +2,19 @@
 const { pathname } = Astro.url;
 const isActive = (href: string) =>
   href === '/' ? pathname === '/' : pathname.startsWith(href);
-const links = [
-  { href: '/projects', label: 'Projects' },
-  { href: '/writing', label: 'Writing' },
-  { href: '/resume', label: 'Résumé' },
-  { href: '/about', label: 'About' },
+const nav = [
+  { href: '/projects', label: '01 · Projects' },
+  { href: '/writing', label: '02 · Writing' },
+  { href: '/resume', label: '03 · Résumé' },
+  { href: '/about', label: '04 · About' },
 ];
 ---
-<header>
-  <nav>
-    <a href="/" class="brand" aria-label="Home — victorocha.com">victorocha</a>
-    <ul>
-      {links.map((l) => (
-        <li>
-          <a href={l.href} class:list={[{ active: isActive(l.href) }]}>{l.label}</a>
-        </li>
-      ))}
-    </ul>
-  </nav>
-</header>
-
-<style>
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    background: color-mix(in oklab, var(--bg) 80%, transparent);
-    border-bottom: 1px solid color-mix(in oklab, var(--rule) 40%, transparent);
-  }
-  nav {
-    max-width: var(--measure-wide);
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-  }
-  .brand {
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    text-decoration: none;
-  }
-  .brand:hover { color: var(--ink); opacity: 0.7; text-decoration: none; }
-  ul {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-    padding: 0;
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: 0.82rem;
-  }
-  ul a {
-    color: var(--ink-soft);
-    text-decoration: none;
-    transition: color 150ms ease;
-    font-weight: 400;
-  }
-  ul a:hover { color: var(--ink); text-decoration: none; }
-  ul a.active { color: var(--ink); font-weight: 500; }
-  @media (max-width: 540px) {
-    nav { gap: 1rem; }
-    ul { gap: 1.25rem; font-size: 0.78rem; }
-  }
-</style>
+<nav class="meter-bridge" aria-label="Primary">
+  <a href="/" class="mb-brand">VICTOR ROCHA / SF</a>
+  <div class="mb-nav">
+    {nav.map((n) => (
+      <a href={n.href} class:list={[{ active: isActive(n.href) }]}>{n.label}</a>
+    ))}
+  </div>
+  <span class="mb-readout"><span class="dot"></span>REC · 48 kHz · 24-BIT</span>
+</nav>

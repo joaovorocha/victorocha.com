@@ -4,43 +4,58 @@ import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects'))
   .sort((a, b) => a.data.order - b.data.order);
+
+const channelColor: Record<string, 'cyan' | 'green' | 'red' | 'yellow' | 'magenta' | 'white'> = {
+  'shaddow': 'green',
+  'live-audio': 'cyan',
+  'van-conversion': 'magenta',
+  'daily-ops-platform': 'green',
+};
 ---
 <BaseLayout
   title="Projects"
   description="Projects Victor Rocha is building — Shaddow (12V automotive dock), Daily Operations Platform, live audio, the van."
+  channel="01"
+  channelLabel="PROJECTS"
+  channelColor="cyan"
 >
-  <section class="projects-hero">
-    <p class="eyebrow">Projects</p>
-    <h1>Things I'm building.</h1>
-    <p class="lede">In various states of done. Pick one.</p>
-  </section>
+  <section class="container">
+    <header class="page-head">
+      <p class="eyebrow eyebrow--cyan">01 · PROJECTS</p>
+      <h1>The bus stack.</h1>
+      <p class="dim">Each project is a channel on the mix. Hover to solo.</p>
+    </header>
 
-  <ul class="card-list projects-grid">
-    {projects.map((p) => (
-      <li>
-        <a class="card" href={`/projects/${p.id}`}>
-          <h2>{p.data.title}</h2>
-          <p>{p.data.summary}</p>
-          <span class="meta">{p.data.status}{p.data.tags.length > 0 && ' · '}{p.data.tags.slice(0,3).join(' · ')}</span>
+    <div class="channel-strips">
+      {projects.map((p, i) => (
+        <a
+          class="channel-strip"
+          href={`/projects/${p.id}`}
+          data-color={channelColor[p.id] ?? 'cyan'}
+        >
+          <span class="channel-strip__color"></span>
+          <div class="channel-strip__body">
+            <div class="channel-strip__ch">
+              CH 0{i + 1}
+              <strong>{p.id.replace(/-/g, ' ').toUpperCase()}</strong>
+            </div>
+            <div class="channel-strip__meta">
+              <h2>{p.data.title}</h2>
+              <p>{p.data.summary}</p>
+            </div>
+            <div class="channel-strip__send">
+              {p.data.status} ·<br/>
+              {p.data.tags.slice(0, 3).join(' / ')}
+            </div>
+          </div>
         </a>
-      </li>
-    ))}
-  </ul>
+      ))}
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .projects-hero {
-    padding-top: 4rem;
-    padding-bottom: 3rem;
-    text-align: center;
-  }
-  .projects-hero .lede {
-    max-width: 36ch;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .projects-grid {
-    max-width: var(--measure-wide);
-    margin: 2rem auto 4rem;
-  }
+  .page-head { margin: 3rem 0 var(--chapter); }
+  .page-head h1 { margin: 0.5rem 0 1rem; }
+  .page-head p.dim { font-family: var(--f-mono); font-size: var(--fs-micro); letter-spacing: var(--tr-micro); text-transform: uppercase; }
 </style>

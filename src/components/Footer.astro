@@ -3,38 +3,48 @@ const year = 2026;
 ---
 <footer>
   <div class="footer-inner">
-    <p class="links">
-      <a href="https://github.com/joaovorocha">GitHub</a>
-      <span aria-hidden="true">·</span>
-      <a href="https://www.linkedin.com/in/victordorocha/">LinkedIn</a>
-      <span aria-hidden="true">·</span>
-      <a href="mailto:joaovorocha@gmail.com">Email</a>
+    <p class="footer-row">
+      <span class="footer-label">END OF SIGNAL CHAIN</span>
+      <span class="footer-sep">·</span>
+      <span class="footer-tc">© {year} · JOAO V. ROCHA · SF</span>
     </p>
-    <p class="copy">Copyright © {year} Joao V. Rocha. All rights reserved.</p>
+    <p class="footer-row">
+      <a href="https://github.com/joaovorocha">github</a>
+      <span class="footer-sep">·</span>
+      <a href="https://www.linkedin.com/in/victordorocha/">linkedin</a>
+      <span class="footer-sep">·</span>
+      <a href="mailto:joaovorocha@gmail.com">joaovorocha@gmail.com</a>
+    </p>
   </div>
 </footer>
 
 <style>
   footer {
-    border-top: 1px solid var(--rule);
-    background: var(--bg-elevated);
-    margin-top: 6rem;
+    border-top: 1px solid var(--console-rule);
+    background: var(--console-graphite);
+    margin-top: var(--chapter);
   }
   .footer-inner {
-    max-width: var(--measure-wide);
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem 1.5rem;
-    font-family: var(--font-display);
-    font-size: 0.78rem;
-    color: var(--ink-faint);
+    padding: 2.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: var(--f-mono);
+    font-size: var(--fs-micro);
+    letter-spacing: var(--tr-micro);
+    text-transform: uppercase;
+    color: var(--console-dim);
   }
-  .footer-inner p { color: inherit; margin: 0 0 0.5rem; font-size: inherit; line-height: 1.5; }
-  .links a {
-    color: var(--ink-soft);
-    text-decoration: none;
-    margin: 0 0.4rem;
+  .footer-row { margin: 0; color: inherit; font-size: inherit; line-height: 1.5; }
+  .footer-label { color: var(--cap-cyan); }
+  .footer-sep { margin: 0 0.5rem; color: var(--console-dim); }
+  .footer-row a { color: var(--console-ink); text-decoration: none; }
+  .footer-row a:hover { color: var(--cap-cyan); text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 720px) {
+    .footer-inner { flex-direction: column; align-items: flex-start; }
   }
-  .links a:first-of-type { margin-left: 0; }
-  .links a:hover { color: var(--accent); text-decoration: underline; }
-  .copy { color: var(--ink-faint); }
 </style>

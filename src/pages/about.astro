@@ -4,51 +4,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout
   title="About"
   description="Bio, career arc, and how to reach Joao V. Rocha — AV engineer at Sound Image / Clair Global, full-stack developer, Latin Grammy nominee."
+  channel="06"
+  channelLabel="ABOUT"
+  channelColor="white"
 >
-  <section class="about-hero">
-    <picture>
-      <source
-        type="image/webp"
-        srcset="/images/me/victor-600.webp 1x, /images/me/victor-1200.webp 2x"
-      />
-      <img
-        src="/images/me/victor-600.jpg"
-        srcset="/images/me/victor-600.jpg 1x, /images/me/victor-1200.jpg 2x"
-        alt="Victor Rocha — headshot"
-        width="180"
-        height="225"
-        loading="eager"
-        decoding="async"
-      />
-    </picture>
-    <p class="eyebrow">About</p>
-    <h1>Joao V. Rocha.</h1>
-    <p class="lede">Engineer. Mixer. Builder. Latin Grammy nominee.</p>
+  <section class="container">
+    <header class="page-head">
+      <p class="eyebrow">CH 06 · MASTER</p>
+      <h1>Joao V. Rocha.</h1>
+      <p class="lede">
+        Decade behind the desk. A1 in São Paulo, A2 at Rock in Rio, now AV at
+        Sound Image / Clair Global for clients like Apple and Dolby. Builds
+        the software and hardware the operations floor is missing.
+      </p>
+    </header>
   </section>
 
+  <figure class="photo full-bleed">
+    <picture>
+      <source type="image/webp" srcset="/images/live/vmixer-birds-eye-1200.webp 1200w, /images/live/vmixer-birds-eye-1600.webp 1600w" sizes="100vw" />
+      <img src="/images/live/vmixer-birds-eye-1200.jpg" srcset="/images/live/vmixer-birds-eye-1200.jpg 1200w, /images/live/vmixer-birds-eye-1600.jpg 1600w" sizes="100vw" alt="Bird's-eye view of Victor at a Roland V-Mixer, both hands on the console (touchscreen and knobs); a second engineer leans in." width="1600" height="1067" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption><span class="fig">FIG. 03 ·</span> FOH POSITION · SÃO PAULO · 2017 · V-MIXER</figcaption>
+  </figure>
+
   <article class="about-body">
-    <p class="intro">
-      I'm Joao V. Rocha — friends call me Victor. I've spent the last decade
-      moving between three jobs that look unrelated until you stand back: live
-      audio, operations on the floor, and the software stack behind both.
-    </p>
-
-    <p>
-      Right now I'm an AV engineer at <a href="https://www.clairglobal.com">Sound
-      Image</a> (a Clair Global company) in San Francisco, supporting clients
-      like Apple and Dolby on Yamaha CL5, Dante, and Shure Axient rigs. On
-      the side I build the software and hardware I think the operations floor is
-      missing — most recently a Node + Postgres ops platform used in a retail
-      store every day, and <strong>Shaddow</strong>, a 12 V automotive dock
-      platform designed in <a href="https://www.flux.ai/p">Flux.ai</a> and KiCad.
-    </p>
-
     <h2>The short career arc.</h2>
     <ul>
       <li><strong>2025 – present</strong> · AV engineer, Sound Image / Clair Global, San Francisco.</li>
       <li><strong>2024 – 2026</strong> · Stock manager + internal tools developer, Suitsupply SF. Built the Daily Operations Platform from scratch.</li>
-      <li><strong>2015 – 2022</strong> · A1 / OPS coordinator, Vocal Livre (São Paulo). Toured Brazil at 100–25,000-attendee scale. Part of the production team for the Latin Grammy–nominated album <em>Temporal</em> (2023).</li>
-      <li><strong>2017</strong> · A2 at Rock in Rio, 80,000 attendees.</li>
+      <li><strong>2015 – 2022</strong> · A1 / OPS coordinator, Vocal Livre (São Paulo). Toured Brazil at 100–25,000-attendee scale. Latin Grammy–nominated production team for the album <em>Temporal</em> (2023).</li>
+      <li><strong>2017</strong> · A2 at Rock in Rio, 80,000 attendees a day.</li>
       <li><strong>2012 – 2020</strong> · IT support and AV operations at UNASP and Colégio Adventista IABC, Brazil.</li>
     </ul>
 
@@ -58,19 +44,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <li><strong>Software</strong> — Node, Postgres, WebSockets, PWAs, MCP servers, the boring Linux deployment work that makes them stay up.</li>
       <li><strong>Hardware</strong> — <a href="/projects/shaddow">Shaddow</a>: 12 V automotive power and USB / CAN dock electronics in Flux.ai and KiCad.</li>
     </ul>
+  </article>
 
-    <h2>Outside of work.</h2>
-    <ul>
-      <li><strong><a href="/projects/van-conversion">Van conversion</a></strong> — a weekend build that doubles as the test bench Shaddow's hardware has to survive.</li>
-    </ul>
+  <figure class="photo full-bleed">
+    <picture>
+      <source type="image/webp" srcset="/images/about/keith-urban-soundimage-1200.webp 1200w, /images/about/keith-urban-soundimage-1600.webp 1600w" sizes="100vw" />
+      <img src="/images/about/keith-urban-soundimage-1200.jpg" srcset="/images/about/keith-urban-soundimage-1200.jpg 1200w, /images/about/keith-urban-soundimage-1600.jpg 1600w" sizes="100vw" alt="A road case stenciled 'KEITH URBAN — WCM-167 — FOH' on a wooden stage floor next to a Sound Image / Clair Global flight case." width="1600" height="1067" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption><span class="fig">FIG. 04 ·</span> KEITH URBAN · FOH · WCM-167 · SOUND IMAGE / CLAIR GLOBAL</figcaption>
+  </figure>
 
-    <h2>Languages, certs, schooling.</h2>
-    <ul>
-      <li>English &amp; Portuguese — native / bilingual. Spanish — elementary.</li>
-      <li>Allen &amp; Heath dLive (May 2026) · Dante Level 1 (Apr 2026) · Shure Axient Digital / PSM · Networking for Audio Professionals.</li>
-      <li>B.A. in Communication, Broadcasting Technology — UNASP, São Paulo, 2020.</li>
-    </ul>
-
+  <article class="about-body">
     <h2 id="hire">Hire me.</h2>
     <p>
       I'm open to AV engineering, full-stack, or operations + technology roles —
@@ -85,53 +69,33 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <li><a href="/resume">Résumé (long-form)</a></li>
     </ul>
 
+    <h2>Languages, certs, schooling.</h2>
+    <ul>
+      <li>English &amp; Portuguese — native / bilingual. Spanish — elementary.</li>
+      <li>Allen &amp; Heath dLive (May 2026) · Dante Level 1 (Apr 2026) · Shure Axient Digital / PSM · Networking for Audio Professionals.</li>
+      <li>B.A. in Communication, Broadcasting Technology — UNASP, São Paulo, 2020.</li>
+    </ul>
+
     <p class="colophon">
-      This site is built with Astro, hosted on Cloudflare Pages, and written in
-      markdown. Source at <a href="https://github.com/joaovorocha/victorocha.com">github.com/joaovorocha/victorocha.com</a>.
+      Built with Astro, hosted on Cloudflare Pages, written in markdown. Source at
+      <a href="https://github.com/joaovorocha/victorocha.com">github.com/joaovorocha/victorocha.com</a>.
     </p>
   </article>
 </BaseLayout>
 
 <style>
-  .about-hero {
-    padding-top: 4rem;
-    padding-bottom: 3rem;
-    text-align: center;
-  }
-  .about-hero img {
-    width: 140px;
-    height: 175px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 1px solid var(--rule);
-    background: var(--bg-elevated);
-    margin: 0 auto 2rem;
-    display: block;
-  }
-  .about-hero h1 {
-    margin-bottom: 0.75rem;
-  }
-  .about-hero .lede {
-    max-width: 28ch;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .about-body {
-    max-width: var(--measure);
-    margin: 0 auto;
-    padding: 2rem 1.5rem 4rem;
-  }
-  .about-body .intro {
-    font-size: 1.15rem;
-    line-height: 1.5;
-    color: var(--ink);
-  }
+  .page-head { margin: 3rem 0 var(--chapter); }
+  .page-head h1 { margin: 0.5rem 0 1.25rem; }
+  .page-head .lede { color: var(--console-ink); font-size: 1.3rem; line-height: 1.4; max-width: 42ch; }
+  .about-body { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
   .colophon {
-    font-family: var(--font-display);
-    font-size: 0.85rem;
-    color: var(--ink-faint);
+    font-family: var(--f-mono);
+    font-size: var(--fs-micro);
+    letter-spacing: var(--tr-micro);
+    text-transform: uppercase;
+    color: var(--console-dim);
     margin-top: 4rem;
     padding-top: 2rem;
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid var(--console-rule);
   }
 </style>

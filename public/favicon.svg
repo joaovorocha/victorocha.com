@@ -1,12 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <style>
-    rect { fill: #1d1d1f; }
-    text { fill: #ffffff; }
-    @media (prefers-color-scheme: dark) {
-      rect { fill: #f5f5f7; }
-      text { fill: #000000; }
-    }
-  </style>
-  <rect width="32" height="32" rx="7"/>
-  <text x="16" y="22" text-anchor="middle" font-family="-apple-system, system-ui, sans-serif" font-size="16" font-weight="700" letter-spacing="-1">vr</text>
+  <rect width="32" height="32" rx="6" fill="#0B0D0E"/>
+  <rect x="6" y="6" width="3" height="20" fill="#00B4D8"/>
+  <rect x="12" y="6" width="3" height="20" fill="#5FB85F"/>
+  <rect x="18" y="6" width="3" height="20" fill="#F4C20D"/>
+  <rect x="24" y="6" width="3" height="20" fill="#E63946"/>
 </svg>

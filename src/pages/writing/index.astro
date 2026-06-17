@@ -6,94 +6,48 @@ const posts = (await getCollection('writing', (p) => !p.data.draft))
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 
 const fmt = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' }).toUpperCase();
 ---
 <BaseLayout
   title="Writing"
   description="Short essays on engineering decisions, live audio, and the trade-offs that don't make textbooks."
+  channel="02"
+  channelLabel="WRITING"
+  channelColor="white"
 >
-  <section class="writing-hero">
-    <p class="eyebrow">Writing</p>
-    <h1>Notes from the desk.</h1>
-    <p class="lede">Short essays on engineering, hardware, and the van.</p>
-  </section>
+  <section class="container">
+    <header class="page-head">
+      <p class="eyebrow">CH 02 · LOG</p>
+      <h1>Notes from the desk.</h1>
+      <p class="dim">Short essays on engineering, hardware, and the van.</p>
+    </header>
 
-  {posts.length === 0 ? (
-    <p class="empty">Nothing published yet.</p>
-  ) : (
-    <ul class="post-list">
-      {posts.map((p) => (
-        <li>
-          <a href={`/writing/${p.id}`}>
-            <span class="date">{fmt(p.data.publishedAt)}</span>
-            <span class="title">{p.data.title}</span>
-            <span class="summary">{p.data.summary}</span>
+    {posts.length === 0 ? (
+      <p class="dim">[ EMPTY · NO POSTS PUBLISHED ]</p>
+    ) : (
+      <div class="channel-strips">
+        {posts.map((p, i) => (
+          <a class="channel-strip" data-color="white" href={`/writing/${p.id}`}>
+            <span class="channel-strip__color"></span>
+            <div class="channel-strip__body">
+              <div class="channel-strip__ch">
+                LOG {String(i + 1).padStart(2, '0')}<strong>WRITE</strong>
+              </div>
+              <div class="channel-strip__meta">
+                <h2>{p.data.title}</h2>
+                <p>{p.data.summary}</p>
+              </div>
+              <div class="channel-strip__send">{fmt(p.data.publishedAt)}</div>
+            </div>
           </a>
-        </li>
-      ))}
-    </ul>
-  )}
+        ))}
+      </div>
+    )}
+  </section>
 </BaseLayout>
 
 <style>
-  .writing-hero {
-    padding-top: 4rem;
-    padding-bottom: 3rem;
-    text-align: center;
-  }
-  .writing-hero .lede {
-    max-width: 36ch;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .empty { text-align: center; color: var(--ink-faint); margin-top: 4rem; }
-  .post-list {
-    list-style: none;
-    padding: 0;
-    margin: 2rem auto 4rem;
-    max-width: var(--measure);
-  }
-  .post-list li {
-    border-bottom: 1px solid var(--rule);
-  }
-  .post-list li:first-child { border-top: 1px solid var(--rule); }
-  .post-list a {
-    display: grid;
-    grid-template-columns: 7rem 1fr;
-    grid-template-areas: "date title" "date summary";
-    gap: 0.25rem 1.5rem;
-    padding: 1.5rem 1.5rem;
-    text-decoration: none;
-    color: var(--ink);
-    transition: background 150ms ease;
-  }
-  .post-list a:hover { background: var(--bg-elevated); }
-  .post-list a:hover .title { color: var(--accent); }
-  .date {
-    grid-area: date;
-    font-family: var(--font-display);
-    font-size: 0.85rem;
-    color: var(--ink-faint);
-    padding-top: 0.15rem;
-  }
-  .title {
-    grid-area: title;
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--ink);
-    letter-spacing: -0.02em;
-  }
-  .summary {
-    grid-area: summary;
-    color: var(--ink-soft);
-    font-size: 0.95rem;
-  }
-  @media (max-width: 540px) {
-    .post-list a {
-      grid-template-columns: 1fr;
-      grid-template-areas: "date" "title" "summary";
-      gap: 0.25rem;
-    }
-  }
+  .page-head { margin: 3rem 0 var(--chapter); }
+  .page-head h1 { margin: 0.5rem 0 1rem; }
+  .page-head .dim { font-family: var(--f-mono); font-size: var(--fs-micro); letter-spacing: var(--tr-micro); text-transform: uppercase; }
 </style>

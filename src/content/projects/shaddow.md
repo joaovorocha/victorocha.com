@@ -7,6 +7,14 @@ order: 1
 tags: ["hardware", "kicad", "flux.ai", "automotive", "usb"]
 ---
 
+<figure class="photo full-bleed">
+  <picture>
+    <source type="image/webp" srcset="/images/shaddow/pcb-macro-1200.webp 1200w, /images/shaddow/pcb-macro-1600.webp 1600w" sizes="100vw" />
+    <img src="/images/shaddow/pcb-macro-1200.jpg" srcset="/images/shaddow/pcb-macro-1200.jpg 1200w, /images/shaddow/pcb-macro-1600.jpg 1600w" sizes="100vw" alt="Close-up of the Shaddow Front Dock PCB — visible silicon chip markings, an inductor's copper windings, a JINGCONG capacitor, blue ribbon connectors, and green solder mask traces." width="1600" height="1067" loading="eager" decoding="async" />
+  </picture>
+  <figcaption><span class="fig">FIG. 01 ·</span> SHADDOW / FRONT DOCK · KICAD 8 · FLUX.AI · CH 03 ▮ GREEN</figcaption>
+</figure>
+
 **Shaddow** is the project name for the hardware I'm building around a Mac
 that lives in a vehicle dashboard. The Mac does all the processing; Shaddow
 provides power, I/O, vehicle integration, and the physical mounting that
@@ -48,9 +56,9 @@ through JLCPCB.
   vehicle-ground side: three dry-contact outputs (START / LOCK / UNLOCK)
   and two status inputs (RUNNING + status).
 
-<figure class="photo wide">
+<figure class="photo full-bleed">
   <img src="/images/shaddow/front-dock-plan.png" alt="Front Dock revised plan diagram — KiCad layout, copper pours, chip swaps callouts, hand-routing notes" width="1188" height="691" loading="lazy" decoding="async" />
-  <figcaption>Front Dock revised plan — KiCad to JLCPCB, two late chip swaps, hand-routing is the bottleneck.</figcaption>
+  <figcaption><span class="fig">FIG. 02 ·</span> FRONT DOCK · REVISED PLAN · KICAD → JLCPCB · ROUTING PASS</figcaption>
 </figure>
 
 ## Design rules I committed to

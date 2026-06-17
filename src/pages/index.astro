@@ -10,125 +10,114 @@ const posts = (await getCollection('writing', (p) => !p.data.draft))
   .slice(0, 3);
 
 const fmt = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' }).toUpperCase();
+
+const channelColor: Record<string, 'cyan' | 'green' | 'red' | 'yellow' | 'magenta' | 'white'> = {
+  'shaddow': 'green',
+  'live-audio': 'cyan',
+  'van-conversion': 'magenta',
+  'daily-ops-platform': 'green',
+};
 ---
 <BaseLayout
   title="victorocha.com"
   description="Joao V. Rocha — AV engineer at Clair Global, full-stack developer, Latin Grammy nominee. Building the tools I want to use, from San Francisco."
+  channel="01"
+  channelLabel="VICTOR ROCHA"
+  channelColor="cyan"
+  faderPosition="32%"
 >
   <section class="hero">
-    <p class="eyebrow">Joao V. Rocha · San Francisco</p>
-    <h1>AV engineer.<br/>Full-stack developer.<br/><span class="accent">Latin Grammy nominee.</span></h1>
-    <p class="lede">
-      Currently mixing for Apple and Dolby with Sound Image (Clair Global), and shipping
-      the software and hardware I think the operations floor is missing.
-    </p>
-    <p class="hire">
-      <a href="/about#hire">Open to work →</a>
-    </p>
+    <video class="hero__bg" src="/video/brasilia-stage.mp4" poster="/video/brasilia-stage-poster.png"
+           autoplay muted loop playsinline preload="metadata"></video>
+    <div class="hero__scrim"></div>
+    <header class="hero__chrome">
+      <span>FIG. 01 · BRASÍLIA · 2017 · LATIN GRAMMY ERA</span>
+      <span>SF · 37.7749 -122.4194</span>
+    </header>
+    <div class="hero__inner">
+      <p class="eyebrow eyebrow--cyan">CH 01 · INPUT</p>
+      <h1>Audio engineer.<br/>Latin Grammy nominee.<br/>Full-stack ops<span class="hero__caret">_</span></h1>
+      <p class="hero__sub">
+        A2 · Rock in Rio <span class="sep">/</span>
+        AV for Apple &amp; Dolby <span class="sep">/</span>
+        Node + Postgres in production
+      </p>
+    </div>
   </section>
 
-  <section class="projects-section">
-    <p class="eyebrow center">Featured projects</p>
-    <h2 class="section-title">What I'm building.</h2>
-    <ul class="card-list">
-      {featured.map((p) => (
-        <li>
-          <a class="card" href={`/projects/${p.id}`}>
-            <h3>{p.data.title}</h3>
-            <p>{p.data.summary}</p>
-            <span class="meta">{p.data.status} · {p.data.tags.slice(0,3).join(' · ')}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
-    <p class="link-row"><a href="/projects">See all projects →</a></p>
-  </section>
-
-  <section class="writing-section">
-    <p class="eyebrow center">Latest writing</p>
-    <h2 class="section-title">Notes from the desk.</h2>
-    {posts.length === 0 ? (
-      <p class="meta center">Nothing published yet.</p>
-    ) : (
-      <ul class="card-list">
-        {posts.map((p) => (
-          <li>
-            <a class="card" href={`/writing/${p.id}`}>
+  <section class="container">
+    <header class="section-head">
+      <p class="eyebrow eyebrow--cyan">02 · FEATURED PROJECTS</p>
+      <h2>The bus stack.</h2>
+    </header>
+    <div class="channel-strips">
+      {featured.map((p, i) => (
+        <a
+          class="channel-strip"
+          href={`/projects/${p.id}`}
+          data-color={channelColor[p.id] ?? 'cyan'}
+        >
+          <span class="channel-strip__color"></span>
+          <div class="channel-strip__body">
+            <div class="channel-strip__ch">
+              CH 0{i + 2}
+              <strong>{p.id.replace(/-/g, ' ').toUpperCase()}</strong>
+            </div>
+            <div class="channel-strip__meta">
               <h3>{p.data.title}</h3>
               <p>{p.data.summary}</p>
-              <span class="meta">{fmt(p.data.publishedAt)}</span>
-            </a>
-          </li>
+            </div>
+            <div class="channel-strip__send">
+              {p.data.status} ·<br/>
+              {p.data.tags.slice(0, 3).join(' / ')}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <figure class="photo full-bleed">
+    <picture>
+      <source type="image/webp" srcset="/images/live/venue-foh-1200.webp 1200w, /images/live/venue-foh-1600.webp 1600w" sizes="100vw" />
+      <img src="/images/live/venue-foh-1200.jpg" srcset="/images/live/venue-foh-1200.jpg 1200w, /images/live/venue-foh-1600.jpg 1600w" sizes="100vw" alt="Avid VENUE console foreground with a Shure SM58 mid-frame and a magenta-lit worship stage with band silhouettes behind" width="1600" height="1067" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption><span class="fig">FIG. 02 ·</span> FOH POSITION · BRAZIL · 2017 · BAND ▮ MAGENTA</figcaption>
+  </figure>
+
+  <section class="container">
+    <header class="section-head">
+      <p class="eyebrow eyebrow--white">03 · WRITING</p>
+      <h2>Notes from the desk.</h2>
+    </header>
+    {posts.length === 0 ? (
+      <p class="dim">[ EMPTY · NO POSTS PUBLISHED ]</p>
+    ) : (
+      <div class="channel-strips">
+        {posts.map((p, i) => (
+          <a class="channel-strip" data-color="white" href={`/writing/${p.id}`}>
+            <span class="channel-strip__color"></span>
+            <div class="channel-strip__body">
+              <div class="channel-strip__ch">
+                LOG 0{i + 1}<strong>WRITE</strong>
+              </div>
+              <div class="channel-strip__meta">
+                <h3>{p.data.title}</h3>
+                <p>{p.data.summary}</p>
+              </div>
+              <div class="channel-strip__send">{fmt(p.data.publishedAt)}</div>
+            </div>
+          </a>
         ))}
-      </ul>
+      </div>
     )}
-    <p class="link-row"><a href="/writing">All writing →</a></p>
   </section>
 </BaseLayout>
 
 <style>
-  .hero {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
-    text-align: center;
+  .section-head {
+    margin: var(--chapter) 0 2.5rem;
   }
-  .hero h1 {
-    font-size: clamp(2.5rem, 6vw + 1rem, 5.5rem);
-    font-weight: 700;
-    letter-spacing: -0.045em;
-    line-height: 1.02;
-    max-width: 15ch;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 2rem;
-  }
-  .hero h1 .accent {
-    background: linear-gradient(180deg, var(--accent), color-mix(in oklab, var(--accent) 70%, var(--ink) 30%));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-  .hero .lede {
-    max-width: 36ch;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 2rem;
-  }
-  .hero .hire { margin-top: 2.5rem; font-size: 1.1rem; }
-  .hero .hire a {
-    display: inline-block;
-    padding: 0.85rem 1.6rem;
-    background: var(--accent);
-    color: white;
-    border-radius: 100px;
-    font-family: var(--font-display);
-    font-weight: 500;
-    text-decoration: none;
-    transition: background 150ms ease;
-  }
-  .hero .hire a:hover { background: var(--accent-hover); text-decoration: none; }
-
-  .projects-section, .writing-section {
-    padding-top: 5rem;
-    padding-bottom: 2rem;
-  }
-  .eyebrow.center { text-align: center; color: var(--ink-faint); }
-  .section-title {
-    margin-top: 0;
-    margin-bottom: 3rem;
-    text-align: center;
-    font-size: clamp(2rem, 3.5vw + 0.5rem, 3rem);
-    font-weight: 700;
-    letter-spacing: -0.035em;
-  }
-  .link-row {
-    text-align: center;
-    margin-top: 2rem;
-    font-size: 1rem;
-    color: var(--accent);
-  }
-  .link-row a { font-weight: 500; }
-  .meta.center { text-align: center; color: var(--ink-faint); }
+  .section-head h2 { margin: 0.5rem 0 0; }
 </style>

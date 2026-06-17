@@ -6,25 +6,43 @@ import { join } from 'node:path';
 
 const W = 1200;
 const H = 630;
-const BG = '#ffffff';
-const INK = '#1d1d1f';
-const INK_SOFT = '#515154';
-const INK_FAINT = '#86868b';
-const ACCENT = '#0071e3';
+const BG = '#0B0D0E';
+const PANEL = '#1A1D1F';
+const INK = '#E8E6E1';
+const INK_DIM = '#6B7075';
+const CYAN = '#00B4D8';
+const YELLOW = '#F4C20D';
+const RED = '#E63946';
 
-const FONT = '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif';
+const FONT_DISPLAY = '"Söhne", "Inter Tight", -apple-system, BlinkMacSystemFont, system-ui, sans-serif';
+const FONT_MONO = '"Berkeley Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
   <rect width="${W}" height="${H}" fill="${BG}"/>
 
-  <text x="80" y="100" font-family='${FONT}' font-size="22" font-weight="600" fill="${INK_FAINT}" letter-spacing="1">VICTOROCHA.COM</text>
+  <!-- meter bridge -->
+  <rect x="0" y="0" width="${W}" height="36" fill="${PANEL}"/>
+  <text x="24" y="24" font-family='${FONT_MONO}' font-size="13" font-weight="500" fill="${INK}" letter-spacing="2.5">VICTOR ROCHA / SF</text>
+  <text x="240" y="24" font-family='${FONT_MONO}' font-size="13" font-weight="400" fill="${CYAN}" letter-spacing="2.5">01 · PROJECTS</text>
+  <text x="${W - 300}" y="24" font-family='${FONT_MONO}' font-size="13" font-weight="400" fill="${CYAN}" letter-spacing="2.5">● REC · 48 kHz · 24-BIT</text>
 
-  <text x="80" y="260" font-family='${FONT}' font-size="76" font-weight="700" fill="${INK}" letter-spacing="-2">AV engineer.</text>
-  <text x="80" y="350" font-family='${FONT}' font-size="76" font-weight="700" fill="${INK}" letter-spacing="-2">Full-stack developer.</text>
-  <text x="80" y="440" font-family='${FONT}' font-size="76" font-weight="700" fill="${ACCENT}" letter-spacing="-2">Latin Grammy nominee.</text>
+  <!-- channel rail -->
+  <rect x="0" y="36" width="80" height="${H - 36}" fill="${PANEL}"/>
+  <text x="40" y="100" text-anchor="middle" font-family='${FONT_MONO}' font-size="13" font-weight="600" fill="${CYAN}" letter-spacing="2">CH 01</text>
+  <rect x="36" y="${H - 80}" width="8" height="40" fill="${CYAN}" rx="2"/>
 
-  <text x="80" y="555" font-family='${FONT}' font-size="22" font-weight="400" fill="${INK_SOFT}">Currently mixing for Apple and Dolby with Sound Image.</text>
-  <text x="80" y="588" font-family='${FONT}' font-size="22" font-weight="400" fill="${INK_SOFT}">Open to work.</text>
+  <!-- eyebrow -->
+  <text x="130" y="130" font-family='${FONT_MONO}' font-size="13" font-weight="500" fill="${CYAN}" letter-spacing="2.5">CH 01 · INPUT</text>
+
+  <!-- hero headline -->
+  <text x="130" y="245" font-family='${FONT_DISPLAY}' font-size="72" font-weight="700" fill="${INK}" letter-spacing="-2">Audio engineer.</text>
+  <text x="130" y="330" font-family='${FONT_DISPLAY}' font-size="72" font-weight="700" fill="${YELLOW}" letter-spacing="-2">Latin Grammy nominee.</text>
+  <text x="130" y="415" font-family='${FONT_DISPLAY}' font-size="72" font-weight="700" fill="${INK}" letter-spacing="-2">Full-stack ops<tspan fill="${CYAN}">_</tspan></text>
+
+  <!-- caption strip -->
+  <line x1="130" y1="500" x2="${W - 80}" y2="500" stroke="${PANEL}" stroke-width="1"/>
+  <text x="130" y="540" font-family='${FONT_MONO}' font-size="14" font-weight="400" fill="${INK_DIM}" letter-spacing="2">A2 · ROCK IN RIO   /   AV FOR APPLE &amp; DOLBY   /   NODE + POSTGRES</text>
+  <text x="130" y="580" font-family='${FONT_MONO}' font-size="13" font-weight="400" fill="${INK_DIM}" letter-spacing="2">FIG. 01 · VICTOROCHA.COM · OPEN TO WORK · SF</text>
 </svg>`;
 
 const outPath = join(import.meta.dirname, '..', 'public', 'og-default.png');

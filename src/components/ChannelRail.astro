@@ -1,0 +1,18 @@
+---
+interface Props {
+  channel: string;
+  label: string;
+  color?: 'cyan' | 'green' | 'red' | 'yellow' | 'magenta' | 'white';
+  faderPosition?: string; // e.g. '32%' from top
+}
+const { channel, label, color = 'cyan', faderPosition = '36%' } = Astro.props;
+const colorVar = `var(--cap-${color})`;
+---
+<aside class="channel-rail" aria-hidden="true">
+  <div class="ch-num" style={`color: ${colorVar}`}>CH {channel}</div>
+  <div class="ch-label">{label}</div>
+  <div class="ch-fader-track">
+    <div class="ch-fader-cap" style={`background: ${colorVar}; top: ${faderPosition}`}></div>
+  </div>
+  <div class="ch-foot">+4 dBu<br/>POST</div>
+</aside>

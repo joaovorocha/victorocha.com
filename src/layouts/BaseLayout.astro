@@ -1,16 +1,29 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ChannelRail from '../components/ChannelRail.astro';
 import '../styles/global.css';
 
 interface Props {
   title: string;
   description?: string;
-  narrow?: boolean;
+  channel?: string;
+  channelLabel?: string;
+  channelColor?: 'cyan' | 'green' | 'red' | 'yellow' | 'magenta' | 'white';
+  faderPosition?: string;
   ogImage?: string;
 }
 
-const { title, description, narrow = false, ogImage } = Astro.props;
+const {
+  title,
+  description,
+  channel = '01',
+  channelLabel = 'VICTOR ROCHA',
+  channelColor = 'cyan',
+  faderPosition = '36%',
+  ogImage,
+} = Astro.props;
+
 const isHome = title === 'victorocha.com';
 const fullTitle = isHome
   ? 'Joao V. Rocha — AV engineer & full-stack developer'
@@ -32,8 +45,7 @@ const ogImageUrl = new URL(ogImage ?? '/og-default.png', siteUrl).toString();
     <link rel="alternate icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#0B0D0E" />
 
     <meta property="og:type" content={isHome ? 'website' : 'article'} />
     <meta property="og:site_name" content="victorocha.com" />
@@ -54,8 +66,9 @@ const ogImageUrl = new URL(ogImage ?? '/og-default.png', siteUrl).toString();
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>
+    <ChannelRail channel={channel} label={channelLabel} color={channelColor} faderPosition={faderPosition} />
     <Header />
-    <main id="main" class:list={[{ narrow }]}>
+    <main id="main">
       <slot />
     </main>
     <Footer />
