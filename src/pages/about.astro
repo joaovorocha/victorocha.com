@@ -6,7 +6,24 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   description="Bio, career arc, and how to reach Joao V. Rocha — AV engineer at Sound Image / Clair Global, full-stack developer, Latin Grammy nominee."
   narrow
 >
-  <h1>About</h1>
+  <div class="about-head">
+    <picture>
+      <source
+        type="image/webp"
+        srcset="/images/me/victor-600.webp 1x, /images/me/victor-1200.webp 2x"
+      />
+      <img
+        src="/images/me/victor-600.jpg"
+        srcset="/images/me/victor-600.jpg 1x, /images/me/victor-1200.jpg 2x"
+        alt="Victor Rocha — headshot"
+        width="200"
+        height="250"
+        loading="eager"
+        decoding="async"
+      />
+    </picture>
+    <h1>About</h1>
+  </div>
 
   <p>
     I'm Joao V. Rocha — friends call me Victor. I've spent the last decade
@@ -71,3 +88,35 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     markdown. Source at <a href="https://github.com/joaovorocha/victorocha.com">github.com/joaovorocha/victorocha.com</a>.
   </p>
 </BaseLayout>
+
+<style>
+  .about-head {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .about-head img {
+    width: 160px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--rule);
+    background: var(--bg-elevated);
+    flex-shrink: 0;
+  }
+  .about-head h1 {
+    margin: 0;
+  }
+  @media (max-width: 540px) {
+    .about-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .about-head img {
+      width: 140px;
+      height: 175px;
+    }
+  }
+</style>

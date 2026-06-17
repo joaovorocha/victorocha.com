@@ -7,6 +7,14 @@ order: 3
 tags: ["audio", "live-events", "foh", "rf", "dante"]
 ---
 
+<figure class="photo wide">
+  <picture>
+    <source type="image/webp" srcset="/images/audio/ssl-live-foh-1200.webp 1200w, /images/audio/ssl-live-foh-1600.webp 1600w" sizes="(min-width: 900px) 800px, 100vw" />
+    <img src="/images/audio/ssl-live-foh-1200.jpg" srcset="/images/audio/ssl-live-foh-1200.jpg 1200w, /images/audio/ssl-live-foh-1600.jpg 1600w" sizes="(min-width: 900px) 800px, 100vw" alt="Victor Rocha alongside an SSL Live console at an industry expo" width="1200" height="800" loading="eager" decoding="async" />
+  </picture>
+  <figcaption>Hands-on with an SSL Live console, São Paulo, 2016.</figcaption>
+</figure>
+
 I've been the engineer behind a console for more than a decade — first
 in Brazil at festival and tour scale, now in San Francisco on corporate
 and broadcast work. The gear changes; the job doesn't. You're responsible
@@ -40,6 +48,30 @@ phone call to a venue's house engineer.
   album <em>Temporal</em>.
 - Opener of the *Por Toda Terra* tour at Brasília.
 
+<div class="photo-grid">
+  <figure class="photo">
+    <picture>
+      <source type="image/webp" srcset="/images/audio/stage-lights-choir-1200.webp 1200w, /images/audio/stage-lights-choir-1600.webp 1600w" sizes="(min-width: 900px) 400px, 100vw" />
+      <img src="/images/audio/stage-lights-choir-1200.jpg" srcset="/images/audio/stage-lights-choir-1200.jpg 1200w, /images/audio/stage-lights-choir-1600.jpg 1600w" sizes="(min-width: 900px) 400px, 100vw" alt="Wide stage with intelligent lights, choir on risers, and the silhouette of the audience" width="1200" height="800" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption>Show production wide shot — stage lighting, choir, silhouetted crowd, 2017.</figcaption>
+  </figure>
+  <figure class="photo">
+    <picture>
+      <source type="image/webp" srcset="/images/audio/outdoor-festival-foh-1200.webp 1200w, /images/audio/outdoor-festival-foh-1600.webp 1600w" sizes="(min-width: 900px) 400px, 100vw" />
+      <img src="/images/audio/outdoor-festival-foh-1200.jpg" srcset="/images/audio/outdoor-festival-foh-1200.jpg 1200w, /images/audio/outdoor-festival-foh-1600.jpg 1600w" sizes="(min-width: 900px) 400px, 100vw" alt="FOH position at an outdoor festival at night, mixer foregrounded, packed crowd beyond" width="1200" height="800" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption>Outdoor festival FOH, Artur Nogueira, 2015.</figcaption>
+  </figure>
+  <figure class="photo">
+    <picture>
+      <source type="image/webp" srcset="/images/audio/pm5d-rehearsal-1200.webp 1200w, /images/audio/pm5d-rehearsal-1600.webp 1600w" sizes="(min-width: 900px) 400px, 100vw" />
+      <img src="/images/audio/pm5d-rehearsal-1200.jpg" srcset="/images/audio/pm5d-rehearsal-1200.jpg 1200w, /images/audio/pm5d-rehearsal-1600.jpg 1600w" sizes="(min-width: 900px) 400px, 100vw" alt="Yamaha PM5D console from the FOH position with three vocalists at the mic" width="1200" height="800" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption>Yamaha PM5D, rehearsal POV with vocalists.</figcaption>
+  </figure>
+</div>
+
 ## A2 at Rock in Rio, 2017
 
 One month, 80,000 attendees a day, supporting senior techs on RF
@@ -61,7 +93,39 @@ some of the best engineers I know came up through that room.
   Wireless Workbench.
 - **Networking** — Dante, NDI, Crestron, BlackMagic, OBS, Wirecast.
 
+<div class="photo-grid">
+  <figure class="photo">
+    <picture>
+      <source type="image/webp" srcset="/images/audio/cl5-channels-1200.webp 1200w, /images/audio/cl5-channels-1600.webp 1600w" sizes="(min-width: 900px) 400px, 100vw" />
+      <img src="/images/audio/cl5-channels-1200.jpg" srcset="/images/audio/cl5-channels-1200.jpg 1200w, /images/audio/cl5-channels-1600.jpg 1600w" sizes="(min-width: 900px) 400px, 100vw" alt="Close-up of a Yamaha CL/QL fader bay with channel strips labeled for a live show" width="1200" height="617" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption>Yamaha CL/QL faders — channel strip naming for a live set.</figcaption>
+  </figure>
+  <figure class="photo">
+    <picture>
+      <source type="image/webp" srcset="/images/audio/shure-rf-rack-1200.webp 1200w, /images/audio/shure-rf-rack-1600.webp 1600w" sizes="(min-width: 900px) 400px, 100vw" />
+      <img src="/images/audio/shure-rf-rack-1200.jpg" srcset="/images/audio/shure-rf-rack-1200.jpg 1200w, /images/audio/shure-rf-rack-1600.jpg 1600w" sizes="(min-width: 900px) 400px, 100vw" alt="A Shure Beta 87A wireless handheld in front of a rack of Shure ULXP4 receivers, labeled per artist" width="1200" height="800" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption>RF coordination — Shure Beta 87A handhelds on ULXP4 receivers, labeled per artist.</figcaption>
+  </figure>
+  <figure class="photo">
+    <picture>
+      <source type="image/webp" srcset="/images/audio/ilive-arena-foh-1200.webp 1200w, /images/audio/ilive-arena-foh-1600.webp 1600w" sizes="(min-width: 900px) 400px, 100vw" />
+      <img src="/images/audio/ilive-arena-foh-1200.jpg" srcset="/images/audio/ilive-arena-foh-1200.jpg 1200w, /images/audio/ilive-arena-foh-1600.jpg 1600w" sizes="(min-width: 900px) 400px, 100vw" alt="Allen & Heath iLive T80 console at FOH with empty arena seating behind, pre-show" width="1200" height="800" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption>Allen &amp; Heath iLive-T80 at FOH, pre-show in an arena.</figcaption>
+  </figure>
+</div>
+
 ## Certifications
 
 Allen &amp; Heath dLive (May 2026) · Dante Level 1, 3rd Edition (Apr 2026) ·
 Shure Axient Digital / PSM · Networking for Audio Professionals.
+
+<figure class="photo wide">
+  <picture>
+    <source type="image/webp" srcset="/images/audio/bw-engineer-desk-1200.webp 1200w, /images/audio/bw-engineer-desk-1600.webp 1600w" sizes="(min-width: 900px) 800px, 100vw" />
+    <img src="/images/audio/bw-engineer-desk-1200.jpg" srcset="/images/audio/bw-engineer-desk-1200.jpg 1200w, /images/audio/bw-engineer-desk-1600.jpg 1600w" sizes="(min-width: 900px) 800px, 100vw" alt="Black and white over-the-shoulder of an engineer mixing on a digital console" width="1200" height="800" loading="lazy" decoding="async" />
+  </picture>
+  <figcaption>At the desk, somewhere between a soundcheck and downbeat.</figcaption>
+</figure>

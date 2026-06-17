@@ -138,6 +138,40 @@ li { margin-bottom: 0.4rem; }
 
 img { max-width: 100%; height: auto; border-radius: 4px; }
 
+figure.photo {
+  margin: 1.5rem 0 2rem;
+}
+figure.photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  border: 1px solid var(--rule);
+  background: var(--bg-elevated);
+}
+figure.photo figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  margin-top: 0.5rem;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+figure.photo.wide {
+  margin-top: 0;
+  margin-bottom: 2.5rem;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.photo-grid figure.photo {
+  margin: 0;
+}
+
 .meta {
   font-family: var(--font-mono);
   font-size: 0.78rem;
