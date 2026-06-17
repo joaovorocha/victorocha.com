@@ -1,0 +1,386 @@
+---
+interface Props {
+  variant?: 'av-stack' | 'shaddow-stack';
+}
+const { variant = 'av-stack' } = Astro.props;
+
+type Node = { id: string; label: string; x: number; y: number; w?: number; h?: number };
+type Edge = { from: string; to: string; bus?: string; via?: { x: number; y: number }[]; dashed?: boolean };
+
+const W = 1100;
+const H = 420;
+const NW = 124; // node width
+const NH = 44;  // node height
+const MAIN_Y = 180;
+
+let nodes: Node[] = [];
+let edges: Edge[] = [];
+let pathD = '';
+let subhead = '';
+let figCaption = '';
+
+if (variant === 'av-stack') {
+  // Main signal path: STAGE → MIC/DI → SPLIT → FOH → MON → DAW → ARCHIVE
+  // Branches:
+  //   FOH → SUM bus → broadcast feed
+  //   MON → IEM rack → performer
+  //   DAW → MASTER → web
+  const mainXs = [60, 200, 340, 480, 640, 800, 940];
+  const labels = [
+    'STAGE',
+    'MIC / DI',
+    'SPLIT',
+    'FOH · VENUE',
+    'MON · CL5',
+    'DAW · PT',
+    'ARCHIVE',
+  ];
+  nodes = mainXs.map((x, i) => ({
+    id: ['stage','micdi','split','foh','mon','daw','archive'][i],
+    label: labels[i],
+    x, y: MAIN_Y,
+  }));
+
+  // Branch nodes (above and below main path)
+  nodes.push(
+    // FOH up → SUM → broadcast (above main row)
+    { id: 'sum',       label: 'SUM BUS',    x: 480, y: 70 },
+    { id: 'broadcast', label: 'BROADCAST',  x: 640, y: 70 },
+    // MON down → IEM → performer (below main row)
+    { id: 'iem',       label: 'IEM RACK',   x: 640, y: 300 },
+    { id: 'performer', label: 'PERFORMER',  x: 480, y: 300 },
+    // DAW up → MASTER → web (above main row, far right)
+    { id: 'master',    label: 'MASTER',     x: 800, y: 70 },
+    { id: 'web',       label: 'WEB',        x: 940, y: 70 },
+  );
+
+  // Main signal flow path (used for the animated cyan dot)
+  const cy = MAIN_Y + NH / 2;
+  // path from right edge of STAGE through all nodes to left edge of ARCHIVE
+  const xs = mainXs;
+  pathD = `M ${xs[0] + NW} ${cy} ` + xs.slice(1).map(x => `L ${x} ${cy}`).join(' ');
+
+  edges = [
+    // main horizontal chain
+    { from: 'stage',   to: 'micdi',   bus: 'XLR' },
+    { from: 'micdi',   to: 'split',   bus: 'ANALOG' },
+    { from: 'split',   to: 'foh',     bus: 'AES/EBU' },
+    { from: 'foh',     to: 'mon',     bus: 'DANTE' },
+    { from: 'mon',     to: 'daw',     bus: 'AVB' },
+    { from: 'daw',     to: 'archive', bus: 'AAF' },
+    // FOH → SUM → BROADCAST (up)
+    { from: 'foh',     to: 'sum',       bus: 'POST · L/R' },
+    { from: 'sum',     to: 'broadcast', bus: 'MADI' },
+    // MON → IEM → PERFORMER (down)
+    { from: 'mon',     to: 'iem',       bus: 'DANTE · 16ch' },
+    { from: 'iem',     to: 'performer', bus: 'RF' },
+    // DAW → MASTER → WEB (up)
+    { from: 'daw',     to: 'master',    bus: 'PRINT' },
+    { from: 'master',  to: 'web',       bus: 'HLS' },
+  ];
+
+  figCaption = 'FIG. 00 · SIGNAL FLOW · STAGE TO STREAM';
+  subhead = 'Forty-eight inputs, three buses, one engineer.';
+} else {
+  // shaddow-stack variant — placeholder structure using the same primitives
+  const mainXs = [60, 220, 380, 540, 700, 860, 1000];
+  const labels = ['EVENT', 'API · NODE', 'QUEUE', 'WORKER', 'POSTGRES', 'CACHE', 'CLIENT'];
+  nodes = mainXs.map((x, i) => ({
+    id: ['event','api','queue','worker','pg','cache','client'][i],
+    label: labels[i],
+    x, y: MAIN_Y,
+  }));
+  nodes.push(
+    { id: 'log',     label: 'LOGS',      x: 540, y: 70 },
+    { id: 'metrics', label: 'METRICS',   x: 700, y: 70 },
+    { id: 'cdn',     label: 'CDN',       x: 860, y: 300 },
+    { id: 'edge',    label: 'EDGE',      x: 1000, y: 300 },
+  );
+  const cy = MAIN_Y + NH / 2;
+  pathD = `M ${mainXs[0] + NW} ${cy} ` + mainXs.slice(1).map(x => `L ${x} ${cy}`).join(' ');
+  edges = [
+    { from: 'event',  to: 'api',     bus: 'HTTPS' },
+    { from: 'api',    to: 'queue',   bus: 'JSON' },
+    { from: 'queue',  to: 'worker',  bus: 'AMQP' },
+    { from: 'worker', to: 'pg',      bus: 'SQL' },
+    { from: 'pg',     to: 'cache',   bus: 'WAL' },
+    { from: 'cache',  to: 'client',  bus: 'JSON' },
+    { from: 'worker', to: 'log',     bus: 'STDOUT' },
+    { from: 'log',    to: 'metrics', bus: 'OTLP' },
+    { from: 'client', to: 'cdn',     bus: 'HLS' },
+    { from: 'cdn',    to: 'edge',    bus: 'TLS' },
+  ];
+  figCaption = 'FIG. 00 · SIGNAL FLOW · EVENT TO EDGE';
+  subhead = 'One event, six hops, zero drama.';
+}
+
+// Resolve a node by id for edge endpoints
+const nodeMap = Object.fromEntries(nodes.map(n => [n.id, n]));
+
+// Compute connection geometry for each edge
+function edgeGeom(e: Edge) {
+  const a = nodeMap[e.from];
+  const b = nodeMap[e.to];
+  if (!a || !b) return null;
+
+  const ax = a.x, ay = a.y;
+  const bx = b.x, by = b.y;
+
+  // Determine start/end points based on relative position
+  let x1: number, y1: number, x2: number, y2: number;
+  let labelX: number, labelY: number;
+
+  if (ay === by) {
+    // horizontal: exit right of A, enter left of B (or reverse if B is left of A)
+    if (bx > ax) {
+      x1 = ax + NW; y1 = ay + NH / 2;
+      x2 = bx;      y2 = by + NH / 2;
+    } else {
+      x1 = ax;      y1 = ay + NH / 2;
+      x2 = bx + NW; y2 = by + NH / 2;
+    }
+    labelX = (x1 + x2) / 2;
+    labelY = y1 - 8;
+    return { kind: 'h' as const, x1, y1, x2, y2, labelX, labelY };
+  } else {
+    // vertical branch: leave from top or bottom of A, enter top or bottom of B
+    // Route with a stub: out the side closer to B, then up/down, then into B's side
+    const ax_mid = ax + NW / 2;
+    const bx_mid = bx + NW / 2;
+    if (ay < by) {
+      // A above B
+      x1 = ax_mid; y1 = ay + NH;
+      x2 = bx_mid; y2 = by;
+    } else {
+      // A below B
+      x1 = ax_mid; y1 = ay;
+      x2 = bx_mid; y2 = by + NH;
+    }
+    labelX = (x1 + x2) / 2 + 6;
+    labelY = (y1 + y2) / 2;
+    return { kind: 'v' as const, x1, y1, x2, y2, labelX, labelY };
+  }
+}
+---
+<section class="signal-flow" data-variant={variant}>
+  <div class="signal-flow__inner">
+    <figcaption class="signal-flow__cap">
+      <span class="fig">{figCaption.split(' · ')[0]} ·</span>
+      {figCaption.split(' · ').slice(1).join(' · ')}
+    </figcaption>
+
+    <div class="signal-flow__diagram-wrap">
+      <svg
+        class="signal-flow__svg"
+        viewBox={`0 0 ${W} ${H}`}
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label={figCaption}
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <defs>
+          <marker id="sf-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L8,4 L0,8 z" fill="currentColor" opacity="0.55" />
+          </marker>
+        </defs>
+
+        {/* edges */}
+        <g class="sf-edges" stroke="var(--console-ink)" fill="none">
+          {edges.map((e) => {
+            const g = edgeGeom(e);
+            if (!g) return null;
+            return (
+              <g class="sf-edge">
+                <line
+                  x1={g.x1} y1={g.y1} x2={g.x2} y2={g.y2}
+                  stroke-width="1"
+                  stroke-opacity="0.4"
+                  marker-end="url(#sf-arrow)"
+                />
+                {e.bus && (
+                  <text
+                    class="sf-bus"
+                    x={g.labelX}
+                    y={g.labelY}
+                    text-anchor={g.kind === 'h' ? 'middle' : 'start'}
+                    dominant-baseline={g.kind === 'h' ? 'auto' : 'middle'}
+                  >{e.bus}</text>
+                )}
+              </g>
+            );
+          })}
+        </g>
+
+        {/* nodes */}
+        <g class="sf-nodes">
+          {nodes.map((n) => (
+            <g class="sf-node" transform={`translate(${n.x} ${n.y})`}>
+              <rect
+                width={NW}
+                height={NH}
+                rx="3"
+                ry="3"
+                fill="var(--console-black)"
+                stroke="var(--console-rule)"
+                stroke-width="1"
+              />
+              <text
+                class="sf-node-label"
+                x={NW / 2}
+                y={NH / 2 + 1}
+                text-anchor="middle"
+                dominant-baseline="middle"
+              >{n.label}</text>
+            </g>
+          ))}
+        </g>
+
+        {/* signal indicator dot — animates along main path on scroll-in */}
+        <g class="sf-signal">
+          <path
+            id="sf-main-path"
+            d={pathD}
+            fill="none"
+            stroke="none"
+            pathLength="100"
+          />
+          <circle class="sf-dot" r="3.5" cx="0" cy="0" fill="#4FE3D2">
+            <animateMotion
+              class="sf-motion"
+              dur="2.6s"
+              fill="freeze"
+              begin="indefinite"
+              rotate="auto"
+              keyPoints="0;1"
+              keyTimes="0;1"
+              calcMode="spline"
+              keySplines="0.25 0.1 0.25 1"
+            >
+              <mpath href="#sf-main-path" />
+            </animateMotion>
+          </circle>
+        </g>
+      </svg>
+    </div>
+
+    <p class="signal-flow__sub">{subhead}</p>
+  </div>
+</section>
+
+<style>
+  .signal-flow {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background: var(--console-black);
+    border-top: 1px solid var(--console-rule);
+    border-bottom: 1px solid var(--console-rule);
+    padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 3rem);
+    color: var(--console-ink);
+  }
+
+  .signal-flow__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .signal-flow__cap {
+    font-family: 'Berkeley Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--console-ink);
+    opacity: 0.7;
+    margin-bottom: 1.5rem;
+  }
+  .signal-flow__cap .fig {
+    color: #4FE3D2;
+    margin-right: 0.25rem;
+  }
+
+  .signal-flow__diagram-wrap {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .signal-flow__svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* node labels */
+  :global(.signal-flow__svg .sf-node-label) {
+    font-family: 'Berkeley Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    fill: var(--console-ink);
+  }
+
+  /* bus annotations */
+  :global(.signal-flow__svg .sf-bus) {
+    font-family: 'Berkeley Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 8.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    fill: var(--console-ink);
+    opacity: 0.45;
+  }
+
+  :global(.signal-flow__svg .sf-edges) {
+    color: var(--console-ink);
+  }
+
+  .signal-flow__sub {
+    margin-top: 1.5rem;
+    font-family: 'Berkeley Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--console-ink);
+    opacity: 0.55;
+    text-align: right;
+  }
+
+  /* signal dot — hidden until animation kicks off */
+  :global(.signal-flow__svg .sf-dot) {
+    opacity: 0;
+    filter: drop-shadow(0 0 4px rgba(79, 227, 210, 0.7));
+  }
+  :global(.signal-flow.is-playing .sf-dot) {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.signal-flow__svg .sf-dot) {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Trigger the animateMotion once when the diagram scrolls into view.
+  // Honors prefers-reduced-motion (CSS hides the dot; we also skip beginElement).
+  const sections = document.querySelectorAll<HTMLElement>('.signal-flow');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  sections.forEach((section) => {
+    if (reduced) return;
+    let played = false;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !played) {
+            played = true;
+            section.classList.add('is-playing');
+            const motion = section.querySelector<SVGAnimateMotionElement>('.sf-motion');
+            try { motion?.beginElement(); } catch (_) { /* no-op */ }
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+    io.observe(section);
+  });
+</script>

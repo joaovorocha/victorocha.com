@@ -1,0 +1,475 @@
+---
+/**
+ * VUMeter — analog-style VU meter for the Console & Signal design system.
+ * Pure SVG, no deps. Matches ChannelRail.astro tokens (--cap-*, --console-*).
+ *
+ * Two variants:
+ *   full    (default): 180px wide, scale ticks, sub-label
+ *   compact: 64px wide, no labels — inline use in .channel-strip
+ *
+ * Idle animation: needle does a small smooth random walk via requestAnimationFrame.
+ * Honors prefers-reduced-motion (no jitter when reduced).
+ */
+interface Props {
+  level?: number;                                                  // 0–100, % of full scale
+  color?: 'cyan' | 'green' | 'yellow' | 'red' | 'magenta' | 'white';
+  label?: string;
+  compact?: boolean;
+  scale?: 'dB' | 'percent' | 'none';
+}
+const {
+  level = 60,
+  color = 'cyan',
+  label = '',
+  compact = false,
+  scale = 'dB',
+} = Astro.props;
+
+const colorVar = `var(--cap-${color})`;
+
+// Geometry — arc from -7 o'clock (210°) to -5 o'clock (330°): ~120° sweep.
+// In SVG coords (y down), 90° = bottom, 0° = right. We use the math convention:
+// angle measured CCW from +x. Needle pivot at (cx, pivotY) below the arc.
+const W = compact ? 64 : 180;
+const H = compact ? 44 : 120;
+const cx = W / 2;
+// Pivot sits below the visible arc so the needle reads as long & analog.
+const pivotY = compact ? H - 6 : H - 10;
+const radius = compact ? 38 : 96;
+
+// Arc sweep: start angle (left side, -210°) to end angle (right side, -330°).
+// We work in degrees where 0° is up; needle angle = -60° at level 0 → +60° at level 100.
+const sweep = 120; // total degrees
+const half = sweep / 2;
+
+// Scale tick definitions (dB scale).
+// Standard VU markings; 0 dB sits at ~71% of full scale (analog convention).
+type Tick = { db: string; pct: number; major: boolean; red?: boolean };
+const dbTicks: Tick[] = [
+  { db: '-20', pct: 0,    major: true  },
+  { db: '-10', pct: 30,   major: true  },
+  { db: '-5',  pct: 50,   major: false },
+  { db: '-3',  pct: 60,   major: false },
+  { db: '0',   pct: 71,   major: true  },
+  { db: '+3',  pct: 100,  major: true,  red: true },
+];
+const pctTicks: Tick[] = [
+  { db: '0',   pct: 0,   major: true  },
+  { db: '25',  pct: 25,  major: false },
+  { db: '50',  pct: 50,  major: true  },
+  { db: '75',  pct: 75,  major: false },
+  { db: '100', pct: 100, major: true,  red: true },
+];
+const ticks: Tick[] =
+  scale === 'dB' ? dbTicks : scale === 'percent' ? pctTicks : [];
+
+// Red zone starts at 0 dB (71% on the dB scale) or 85% on percent.
+const redStartPct = scale === 'dB' ? 71 : scale === 'percent' ? 85 : 85;
+
+// Convert a 0–100 level into an (x, y) point on the arc, plus the angle in degrees.
+// 0%   → -half degrees (left)
+// 100% → +half degrees (right)
+function polar(pct: number, r: number) {
+  const angleDeg = -half + (pct / 100) * sweep;
+  const angleRad = (angleDeg - 90) * (Math.PI / 180); // -90 so 0° points up
+  return {
+    x: cx + r * Math.cos(angleRad),
+    y: pivotY + r * Math.sin(angleRad),
+    angle: angleDeg,
+  };
+}
+
+// Arc path (the main reference line of the scale).
+const arcStart = polar(0, radius);
+const arcEnd = polar(100, radius);
+const arcRedStart = polar(redStartPct, radius);
+// SVG arc: large-arc-flag=0 (sweep < 180°), sweep-flag=1 (clockwise in SVG).
+const arcPath = `M ${arcStart.x.toFixed(2)} ${arcStart.y.toFixed(2)} A ${radius} ${radius} 0 0 1 ${arcEnd.x.toFixed(2)} ${arcEnd.y.toFixed(2)}`;
+const arcRedPath = `M ${arcRedStart.x.toFixed(2)} ${arcRedStart.y.toFixed(2)} A ${radius} ${radius} 0 0 1 ${arcEnd.x.toFixed(2)} ${arcEnd.y.toFixed(2)}`;
+
+// Clamp level for needle/peak.
+const lvl = Math.max(0, Math.min(100, level));
+const needleTip = polar(lvl, radius - (compact ? 4 : 6));
+const peakDot = polar(lvl, radius - (compact ? 4 : 6));
+
+// Unique id so multiple meters can coexist on a page.
+const uid = Math.random().toString(36).slice(2, 9);
+---
+
+<div
+  class:list={['vu-meter', compact ? 'vu-meter--compact' : 'vu-meter--full']}
+  data-color={color}
+  data-level={lvl}
+  data-vu-id={uid}
+  style={`--vu-color: ${colorVar};`}
+  role="meter"
+  aria-label={label ? `VU meter ${label}` : 'VU meter'}
+  aria-valuemin="0"
+  aria-valuemax="100"
+  aria-valuenow={lvl}
+>
+  <svg
+    class="vu-svg"
+    viewBox={`0 0 ${W} ${H}`}
+    width={W}
+    height={H}
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <!-- Screen background -->
+    <rect
+      x="0"
+      y="0"
+      width={W}
+      height={H}
+      fill="var(--console-screen)"
+      rx={compact ? 2 : 3}
+    />
+
+    <!-- Inner bezel rule -->
+    <rect
+      x="1"
+      y="1"
+      width={W - 2}
+      height={H - 2}
+      fill="none"
+      stroke="var(--console-rule)"
+      stroke-width="1"
+      rx={compact ? 2 : 3}
+    />
+
+    <!-- Main arc -->
+    <path
+      d={arcPath}
+      fill="none"
+      stroke="var(--console-ink)"
+      stroke-opacity="0.35"
+      stroke-width={compact ? 0.75 : 1}
+      stroke-linecap="round"
+    />
+
+    <!-- Red zone overlay on arc -->
+    <path
+      d={arcRedPath}
+      fill="none"
+      stroke="var(--cap-red)"
+      stroke-opacity="0.75"
+      stroke-width={compact ? 1.25 : 1.75}
+      stroke-linecap="round"
+    />
+
+    <!-- Tick marks -->
+    {ticks.map((t) => {
+      const outer = polar(t.pct, radius);
+      const inner = polar(t.pct, radius - (t.major ? (compact ? 4 : 7) : (compact ? 2.5 : 4.5)));
+      const labelPt = polar(t.pct, radius - (compact ? 8 : 14));
+      const strokeColor = t.red ? 'var(--cap-red)' : 'var(--console-ink)';
+      return (
+        <g>
+          <line
+            x1={outer.x}
+            y1={outer.y}
+            x2={inner.x}
+            y2={inner.y}
+            stroke={strokeColor}
+            stroke-opacity={t.major ? 0.9 : 0.5}
+            stroke-width={t.major ? 1.1 : 0.7}
+            stroke-linecap="round"
+          />
+          {!compact && t.major && (
+            <text
+              x={labelPt.x}
+              y={labelPt.y}
+              fill={t.red ? 'var(--cap-red)' : 'var(--console-ink)'}
+              fill-opacity={t.red ? 0.85 : 0.7}
+              font-family="var(--f-mono)"
+              font-size="7"
+              text-anchor="middle"
+              dominant-baseline="middle"
+              letter-spacing="0.08em"
+            >
+              {t.db}
+            </text>
+          )}
+        </g>
+      );
+    })}
+
+    <!-- Subtle scale shadow under arc (depth) -->
+    {!compact && (
+      <path
+        d={arcPath}
+        fill="none"
+        stroke="var(--console-rule)"
+        stroke-width="6"
+        stroke-linecap="round"
+        opacity="0.5"
+        transform="translate(0, 2)"
+      />
+    )}
+
+    <!-- Needle (rotates around pivot) -->
+    <g class="vu-needle-group" data-vu-needle data-pivot-x={cx} data-pivot-y={pivotY}>
+      <line
+        x1={cx}
+        y1={pivotY}
+        x2={cx}
+        y2={pivotY - (radius - (compact ? 4 : 6))}
+        stroke="var(--vu-color)"
+        stroke-width={compact ? 1.1 : 1.4}
+        stroke-linecap="round"
+        opacity="0.95"
+      />
+      <!-- Needle counterweight nub -->
+      <line
+        x1={cx}
+        y1={pivotY}
+        x2={cx}
+        y2={pivotY + (compact ? 3 : 5)}
+        stroke="var(--vu-color)"
+        stroke-width={compact ? 1.5 : 2}
+        stroke-linecap="round"
+        opacity="0.7"
+      />
+    </g>
+
+    <!-- Pivot cap -->
+    <circle
+      cx={cx}
+      cy={pivotY}
+      r={compact ? 2 : 3}
+      fill="var(--console-graphite)"
+      stroke="var(--vu-color)"
+      stroke-width="0.8"
+      opacity="0.95"
+    />
+
+    <!-- Peak-hold dot -->
+    <circle
+      class="vu-peak"
+      data-vu-peak
+      cx={peakDot.x}
+      cy={peakDot.y}
+      r={compact ? 1.4 : 2}
+      fill="var(--vu-color)"
+      opacity="0.9"
+    />
+
+    <!-- VU label (top center, full only) -->
+    {!compact && (
+      <text
+        x={cx}
+        y={14}
+        fill="var(--console-dim)"
+        font-family="var(--f-mono)"
+        font-size="7"
+        letter-spacing="0.18em"
+        text-anchor="middle"
+        text-transform="uppercase"
+      >
+        VU
+      </text>
+    )}
+  </svg>
+
+  {!compact && label && (
+    <div class="vu-label">{label}</div>
+  )}
+</div>
+
+<style>
+  .vu-meter {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--f-mono);
+  }
+  .vu-meter--compact {
+    gap: 0;
+  }
+  .vu-svg {
+    display: block;
+  }
+  .vu-needle-group {
+    transform-box: fill-box;
+    transform-origin: center bottom;
+    will-change: transform;
+    transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .vu-peak {
+    transition: cx 320ms cubic-bezier(0.2, 0.8, 0.2, 1),
+                cy 320ms cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 600ms ease;
+    filter: drop-shadow(0 0 2px color-mix(in oklab, var(--vu-color) 60%, transparent));
+  }
+  .vu-label {
+    font-size: var(--fs-micro);
+    letter-spacing: var(--tr-micro);
+    text-transform: uppercase;
+    color: var(--console-dim);
+    text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vu-needle-group,
+    .vu-peak {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // Needle jitter — subtle smooth random walk around the configured level.
+  // Respects prefers-reduced-motion (no animation; static needle position).
+  type VUState = {
+    el: HTMLElement;
+    needle: SVGGElement;
+    peak: SVGCircleElement;
+    pivotX: number;
+    pivotY: number;
+    baseLevel: number;
+    current: number; // smoothed current level (with jitter)
+    peakHold: number;
+    peakDecayUntil: number;
+    sweep: number;
+    radius: number;
+  };
+
+  const SWEEP = 120;
+  const HALF = SWEEP / 2;
+
+  function polar(cx: number, cy: number, pct: number, r: number) {
+    const angleDeg = -HALF + (pct / 100) * SWEEP;
+    const angleRad = (angleDeg - 90) * (Math.PI / 180);
+    return {
+      x: cx + r * Math.cos(angleRad),
+      y: cy + r * Math.sin(angleRad),
+      angle: angleDeg,
+    };
+  }
+
+  function setNeedle(s: VUState, pct: number) {
+    const angle = -HALF + (pct / 100) * SWEEP;
+    // Rotate the needle group around the pivot.
+    s.needle.style.transform = `rotate(${angle}deg)`;
+  }
+
+  function setPeak(s: VUState, pct: number) {
+    const r = s.radius;
+    // We don't actually know `compact` here, but radius - 4..6 works for both;
+    // use radius - 5 as a stable peak track.
+    const p = polar(s.pivotX, s.pivotY, pct, r - 5);
+    s.peak.setAttribute('cx', String(p.x));
+    s.peak.setAttribute('cy', String(p.y));
+  }
+
+  function initMeter(el: HTMLElement): VUState | null {
+    const needle = el.querySelector<SVGGElement>('[data-vu-needle]');
+    const peak = el.querySelector<SVGCircleElement>('[data-vu-peak]');
+    if (!needle || !peak) return null;
+    const pivotX = parseFloat(needle.getAttribute('data-pivot-x') || '0');
+    const pivotY = parseFloat(needle.getAttribute('data-pivot-y') || '0');
+    const baseLevel = parseFloat(el.getAttribute('data-level') || '60');
+
+    // Derive radius from current peak dot position (already rendered by Astro).
+    const cx0 = parseFloat(peak.getAttribute('cx') || '0');
+    const cy0 = parseFloat(peak.getAttribute('cy') || '0');
+    const dx = cx0 - pivotX;
+    const dy = cy0 - pivotY;
+    const radius = Math.sqrt(dx * dx + dy * dy) + 5; // +5 to undo the inset
+
+    // Apply the static transform first so the SVG matches even with no JS animation later.
+    needle.style.transformBox = 'fill-box';
+    needle.style.transformOrigin = `${pivotX}px ${pivotY}px`;
+
+    return {
+      el,
+      needle,
+      peak,
+      pivotX,
+      pivotY,
+      baseLevel,
+      current: baseLevel,
+      peakHold: baseLevel,
+      peakDecayUntil: 0,
+      sweep: SWEEP,
+      radius,
+    };
+  }
+
+  function start() {
+    const meters = Array.from(
+      document.querySelectorAll<HTMLElement>('.vu-meter')
+    );
+    const states: VUState[] = [];
+    for (const el of meters) {
+      const s = initMeter(el);
+      if (s) {
+        states.push(s);
+        // Set initial position right away.
+        setNeedle(s, s.current);
+      }
+    }
+
+    if (states.length === 0) return;
+
+    const prefersReduced =
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReduced) {
+      // No jitter; needles stay at base level. Already set above.
+      return;
+    }
+
+    // Smooth random walk: integrate a small velocity bounded by ±2% around base.
+    const velocities = new Map<VUState, number>();
+    for (const s of states) velocities.set(s, 0);
+
+    let last = performance.now();
+    function tick(now: number) {
+      const dt = Math.min(0.05, (now - last) / 1000); // clamp dt for stability
+      last = now;
+      for (const s of states) {
+        let v = velocities.get(s) ?? 0;
+        // Random impulse + spring back toward base.
+        const noise = (Math.random() - 0.5) * 6; // impulse strength
+        const spring = (s.baseLevel - s.current) * 4; // pull back to base
+        const damp = -v * 2.2;
+        v += (noise + spring + damp) * dt;
+        velocities.set(s, v);
+        s.current += v * dt;
+        // Clamp jitter envelope to ±2% around base.
+        const minLvl = Math.max(0, s.baseLevel - 2);
+        const maxLvl = Math.min(100, s.baseLevel + 2);
+        if (s.current < minLvl) {
+          s.current = minLvl;
+          velocities.set(s, Math.abs(v) * 0.3);
+        } else if (s.current > maxLvl) {
+          s.current = maxLvl;
+          velocities.set(s, -Math.abs(v) * 0.3);
+        }
+        setNeedle(s, s.current);
+
+        // Peak-hold: track new peak, decay back after 600ms.
+        if (s.current > s.peakHold) {
+          s.peakHold = s.current;
+          s.peakDecayUntil = now + 600;
+          setPeak(s, s.peakHold);
+        } else if (now > s.peakDecayUntil && s.peakHold > s.current) {
+          s.peakHold = Math.max(s.current, s.peakHold - 8 * dt);
+          setPeak(s, s.peakHold);
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start, { once: true });
+  } else {
+    start();
+  }
+</script>

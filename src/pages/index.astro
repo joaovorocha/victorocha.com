@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SignalFlow from '../components/SignalFlow.astro';
+import VUMeter from '../components/VUMeter.astro';
+import DigitalReadout from '../components/DigitalReadout.astro';
 import { getCollection } from 'astro:content';
 
 const featured = (await getCollection('projects', (p) => p.data.featured))
@@ -17,6 +20,34 @@ const channelColor: Record<string, 'cyan' | 'green' | 'red' | 'yellow' | 'magent
   'live-audio': 'cyan',
   'van-conversion': 'magenta',
   'daily-ops-platform': 'green',
+};
+
+// Per-project meter spec values
+const channelSpec: Record<string, { value1: string; value2: string; level: number; meterColor: 'cyan' | 'green' | 'yellow' | 'red' | 'magenta' | 'white' }> = {
+  'live-audio': {
+    value1: '-18 dBFS',
+    value2: '48 kHz / Dante',
+    level: 68,
+    meterColor: 'cyan',
+  },
+  'shaddow': {
+    value1: '12.0 V / 45 W',
+    value2: '4-layer PCB',
+    level: 62,
+    meterColor: 'green',
+  },
+  'van-conversion': {
+    value1: '12 V LiFePO4',
+    value2: 'EcoFlow house bank',
+    level: 55,
+    meterColor: 'magenta',
+  },
+  'daily-ops-platform': {
+    value1: '50+ daily users',
+    value2: '<200 ms p95',
+    level: 72,
+    meterColor: 'green',
+  },
 };
 ---
 <BaseLayout
@@ -47,35 +78,49 @@ const channelColor: Record<string, 'cyan' | 'green' | 'red' | 'yellow' | 'magent
     </div>
   </section>
 
+  <SignalFlow variant="av-stack" />
+
   <section class="container">
     <header class="section-head">
       <p class="eyebrow eyebrow--cyan">02 · FEATURED PROJECTS</p>
       <h2>The bus stack.</h2>
     </header>
     <div class="channel-strips">
-      {featured.map((p, i) => (
-        <a
-          class="channel-strip"
-          href={`/projects/${p.id}`}
-          data-color={channelColor[p.id] ?? 'cyan'}
-        >
-          <span class="channel-strip__color"></span>
-          <div class="channel-strip__body">
-            <div class="channel-strip__ch">
-              CH 0{i + 2}
-              <strong>{p.id.replace(/-/g, ' ').toUpperCase()}</strong>
+      {featured.map((p, i) => {
+        const spec = channelSpec[p.id];
+        return (
+          <a
+            class="channel-strip"
+            href={`/projects/${p.id}`}
+            data-color={channelColor[p.id] ?? 'cyan'}
+          >
+            <span class="channel-strip__color"></span>
+            <div class="channel-strip__body">
+              <div class="channel-strip__ch">
+                CH 0{i + 2}
+                <strong>{p.id.replace(/-/g, ' ').toUpperCase()}</strong>
+              </div>
+              <div class="channel-strip__meta">
+                <h3>{p.data.title}</h3>
+                <p>{p.data.summary}</p>
+              </div>
+              {spec && (
+                <div class="channel-strip__meter">
+                  <VUMeter level={spec.level} color={spec.meterColor} compact={true} scale="dB" />
+                  <div class="channel-strip__readouts">
+                    <DigitalReadout value={spec.value1} color={spec.meterColor === 'magenta' ? 'amber' : (spec.meterColor === 'green' ? 'green' : 'cyan')} width="7ch" size="sm" />
+                    <DigitalReadout value={spec.value2} color={spec.meterColor === 'magenta' ? 'amber' : (spec.meterColor === 'green' ? 'green' : 'cyan')} width="7ch" size="sm" />
+                  </div>
+                </div>
+              )}
+              <div class="channel-strip__send">
+                {p.data.status} ·<br/>
+                {p.data.tags.slice(0, 3).join(' / ')}
+              </div>
             </div>
-            <div class="channel-strip__meta">
-              <h3>{p.data.title}</h3>
-              <p>{p.data.summary}</p>
-            </div>
-            <div class="channel-strip__send">
-              {p.data.status} ·<br/>
-              {p.data.tags.slice(0, 3).join(' / ')}
-            </div>
-          </div>
-        </a>
-      ))}
+          </a>
+        );
+      })}
     </div>
   </section>
 
@@ -121,4 +166,34 @@ const channelColor: Record<string, 'cyan' | 'green' | 'red' | 'yellow' | 'magent
     margin: var(--chapter) 0 2.5rem;
   }
   .section-head h2 { margin: 0.5rem 0 0; }
+
+  /* Meter + readout sub-block in channel strips */
+  .channel-strip__body {
+    grid-template-columns: 90px 1fr auto auto;
+  }
+  .channel-strip__meter {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 0.5rem;
+    border-left: 1px solid var(--console-rule);
+    border-right: 1px solid var(--console-rule);
+  }
+  .channel-strip__readouts {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  @media (max-width: 720px) {
+    .channel-strip__body {
+      grid-template-columns: 1fr;
+    }
+    .channel-strip__meter {
+      border-left: 0;
+      border-right: 0;
+      border-top: 1px solid var(--console-rule);
+      border-bottom: 1px solid var(--console-rule);
+      padding: 0.5rem 0;
+    }
+  }
 </style>

@@ -1,0 +1,264 @@
+---
+interface Props {
+  size?: number;
+  color?: 'cyan' | 'green' | 'amber' | 'magenta';
+  speed?: 'slow' | 'med' | 'fast';
+}
+const { size = 96, color = 'cyan', speed = 'slow' } = Astro.props;
+
+// Map color prop → console capvar. 'amber' reuses --cap-yellow (no separate amber token in global.css).
+const colorMap: Record<string, string> = {
+  cyan: 'var(--cap-cyan)',
+  green: 'var(--cap-green)',
+  amber: 'var(--cap-yellow)',
+  magenta: 'var(--cap-magenta)',
+};
+const stroke = colorMap[color];
+
+// Drift cycle length (the full 3:2 → 5:4 → 2:1 sweep). Slower = calmer footer feel.
+const speedMap: Record<string, string> = {
+  slow: '48s',
+  med: '24s',
+  fast: '12s',
+};
+const cycle = speedMap[speed];
+
+// Unique id per instance so multiple scopes can coexist without filter-id collisions.
+const uid = Math.random().toString(36).slice(2, 8);
+---
+<figure
+  class="phase-scope"
+  style={`--scope-size: ${size}px; --scope-stroke: ${stroke}; --scope-cycle: ${cycle};`}
+  aria-hidden="true"
+>
+  <svg
+    viewBox="0 0 100 100"
+    width={size}
+    height={size}
+    xmlns="http://www.w3.org/2000/svg"
+    role="presentation"
+  >
+    <defs>
+      <radialGradient id={`scope-screen-${uid}`} cx="50%" cy="50%" r="65%">
+        <stop offset="0%" stop-color="var(--console-screen)" stop-opacity="1" />
+        <stop offset="100%" stop-color="#000" stop-opacity="0.55" />
+      </radialGradient>
+      <pattern id={`scope-scan-${uid}`} width="2" height="2" patternUnits="userSpaceOnUse">
+        <rect width="2" height="1" fill="rgba(255,255,255,0.03)" />
+      </pattern>
+      <filter id={`scope-glow-${uid}`} x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="0.9" result="b1" />
+        <feGaussianBlur stdDeviation="2.4" result="b2" />
+        <feMerge>
+          <feMergeNode in="b2" />
+          <feMergeNode in="b1" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+
+    {/* CRT screen + scanlines */}
+    <circle cx="50" cy="50" r="48" fill={`url(#scope-screen-${uid})`} />
+    <circle cx="50" cy="50" r="48" fill={`url(#scope-scan-${uid})`} />
+    <circle cx="50" cy="50" r="48" fill="none" stroke="var(--console-rule)" stroke-width="0.6" />
+
+    {/* Crosshair */}
+    <g class="ps-crosshair" stroke="var(--console-rule)" stroke-width="0.4">
+      <line x1="50" y1="6" x2="50" y2="94" />
+      <line x1="6" y1="50" x2="94" y2="50" />
+      {/* tick marks */}
+      <line x1="50" y1="14" x2="50" y2="16" />
+      <line x1="50" y1="84" x2="50" y2="86" />
+      <line x1="14" y1="50" x2="16" y2="50" />
+      <line x1="84" y1="50" x2="86" y2="50" />
+    </g>
+
+    {/* Diagonal correlation guides — the classic +1 / −1 reference lines */}
+    <g class="ps-diag" stroke="var(--console-rule)" stroke-width="0.3" stroke-dasharray="1 2">
+      <line x1="18" y1="18" x2="82" y2="82" />
+      <line x1="82" y1="18" x2="18" y2="82" />
+    </g>
+
+    {/* Lissajous trace — three layered figures crossfade between ratios */}
+    <g class="ps-trace" filter={`url(#scope-glow-${uid})`}>
+      {/* 3:2 */}
+      <path
+        class="ps-fig ps-fig-32"
+        d="M 50 14
+           C 70 14, 86 28, 86 50
+           C 86 72, 70 86, 50 86
+           C 30 86, 14 72, 14 50
+           C 14 28, 30 14, 50 14
+           M 22 30
+           Q 50 6, 78 30
+           T 78 70
+           Q 50 94, 22 70
+           T 22 30 Z"
+        fill="none"
+        stroke="var(--scope-stroke)"
+        stroke-width="1.1"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      {/* 5:4 — denser weave */}
+      <path
+        class="ps-fig ps-fig-54"
+        d="M 50 12
+           C 78 18, 88 38, 82 58
+           C 76 78, 56 90, 38 84
+           C 20 78, 10 58, 16 38
+           C 22 18, 42 6, 60 12
+           C 78 18, 86 42, 76 60
+           C 66 78, 42 84, 26 72
+           C 10 60, 12 36, 30 22
+           C 48 8, 72 18, 78 38 Z"
+        fill="none"
+        stroke="var(--scope-stroke)"
+        stroke-width="1.1"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      {/* 2:1 — open figure-eight */}
+      <path
+        class="ps-fig ps-fig-21"
+        d="M 50 50
+           C 30 22, 14 30, 14 50
+           C 14 70, 30 78, 50 50
+           C 70 22, 86 30, 86 50
+           C 86 70, 70 78, 50 50 Z"
+        fill="none"
+        stroke="var(--scope-stroke)"
+        stroke-width="1.1"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+
+      {/* Bright phosphor dot tracing one of the figures */}
+      <circle class="ps-dot" cx="50" cy="14" r="1.4" fill="var(--scope-stroke)" />
+    </g>
+
+    {/* Subtle vignette */}
+    <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(0,0,0,0.55)" stroke-width="3" />
+  </svg>
+  <figcaption class="ps-caption">
+    <span class="ps-label">PHASE</span>
+    <span class="ps-ratio">L · R</span>
+  </figcaption>
+</figure>
+
+<style>
+  .phase-scope {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0;
+    width: var(--scope-size);
+    font-family: var(--f-mono);
+    font-size: var(--fs-micro);
+    letter-spacing: var(--tr-micro);
+    text-transform: uppercase;
+    color: var(--console-dim);
+    user-select: none;
+  }
+  .phase-scope svg {
+    display: block;
+    width: var(--scope-size);
+    height: var(--scope-size);
+    border-radius: 50%;
+    background: var(--console-screen);
+    box-shadow:
+      inset 0 0 0 1px var(--console-rule),
+      inset 0 0 12px rgba(0, 0, 0, 0.6),
+      0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+  .ps-caption {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 0.6rem;
+    opacity: 0.7;
+  }
+  .ps-label { color: var(--scope-stroke); }
+  .ps-ratio { font-variant-numeric: tabular-nums; }
+
+  /* The three Lissajous figures share the screen; their opacity is staggered so
+     one is always dominant while the others ghost behind, producing a slow
+     drift between frequency ratios. */
+  .ps-fig {
+    opacity: 0;
+    transform-origin: 50px 50px;
+    animation-duration: var(--scope-cycle);
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  }
+  .ps-fig-32 {
+    animation-name: ps-fade-32, ps-spin-cw;
+    animation-duration: var(--scope-cycle), calc(var(--scope-cycle) * 1.5);
+  }
+  .ps-fig-54 {
+    animation-name: ps-fade-54, ps-spin-ccw;
+    animation-duration: var(--scope-cycle), calc(var(--scope-cycle) * 2);
+  }
+  .ps-fig-21 {
+    animation-name: ps-fade-21, ps-spin-cw;
+    animation-duration: var(--scope-cycle), calc(var(--scope-cycle) * 1.75);
+  }
+
+  @keyframes ps-fade-32 {
+    0%, 100% { opacity: 0.85; }
+    33%      { opacity: 0.05; }
+    66%      { opacity: 0.05; }
+  }
+  @keyframes ps-fade-54 {
+    0%, 100% { opacity: 0.05; }
+    33%      { opacity: 0.85; }
+    66%      { opacity: 0.05; }
+  }
+  @keyframes ps-fade-21 {
+    0%, 100% { opacity: 0.05; }
+    33%      { opacity: 0.05; }
+    66%      { opacity: 0.85; }
+  }
+  @keyframes ps-spin-cw {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes ps-spin-ccw {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(-360deg); }
+  }
+
+  /* Phosphor dot orbits around the current figure */
+  .ps-dot {
+    transform-origin: 50px 50px;
+    animation: ps-dot-orbit calc(var(--scope-cycle) / 6) linear infinite;
+    filter: drop-shadow(0 0 2px var(--scope-stroke));
+  }
+  @keyframes ps-dot-orbit {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* Faint scanline flicker on the crosshair to sell the CRT vibe */
+  .ps-crosshair {
+    animation: ps-flicker calc(var(--scope-cycle) / 12) steps(2, end) infinite;
+  }
+  @keyframes ps-flicker {
+    0%, 92%, 100% { opacity: 1; }
+    94%           { opacity: 0.55; }
+    96%           { opacity: 0.9; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ps-fig,
+    .ps-dot,
+    .ps-crosshair {
+      animation: none !important;
+    }
+    /* Show one stable figure (the 3:2 — most readable as a still) */
+    .ps-fig-32 { opacity: 0.85; }
+    .ps-fig-54,
+    .ps-fig-21 { opacity: 0.05; }
+  }
+</style>

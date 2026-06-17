@@ -31,7 +31,42 @@ const fullTitle = isHome
 const desc = description ?? 'Joao V. Rocha — AV engineer, full-stack developer, Latin Grammy nominee. Based in San Francisco.';
 const siteUrl = Astro.site ?? new URL('https://www.victorocha.com');
 const canonical = new URL(Astro.url.pathname, siteUrl).toString();
-const ogImageUrl = new URL(ogImage ?? '/og-default.png', siteUrl).toString();
+
+// Per-page OG image discovery.
+//
+// Convention: scripts/gen-og-image.mjs --batch writes a card per content entry
+// to /public/og/projects/<slug>.png and /public/og/writing/<slug>.png. If the
+// caller didn't pass `ogImage` explicitly, derive a candidate from the URL
+// pathname and check whether the file actually exists in /public — falling
+// back to /og-default.png otherwise. This keeps the layout safe to deploy
+// before postbuild runs and lets callers override either way.
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
+function derivedOgPath(pathname: string): string | null {
+  // /projects/shaddow  → /og/projects/shaddow.png
+  // /writing/hello/    → /og/writing/hello.png
+  const m = pathname.match(/^\/(projects|writing)\/([^\/]+)\/?$/);
+  if (!m) return null;
+  return `/og/${m[1]}/${m[2]}.png`;
+}
+
+function ogFileExists(publicPath: string): boolean {
+  // Public assets live under <repo>/public mirroring the URL path.
+  const fsPath = join(process.cwd(), 'public', publicPath.replace(/^\//, ''));
+  try {
+    return existsSync(fsPath);
+  } catch {
+    return false;
+  }
+}
+
+let resolvedOgPath = ogImage;
+if (!resolvedOgPath) {
+  const candidate = derivedOgPath(Astro.url.pathname);
+  resolvedOgPath = candidate && ogFileExists(candidate) ? candidate : '/og-default.png';
+}
+const ogImageUrl = new URL(resolvedOgPath, siteUrl).toString();
 ---
 <!doctype html>
 <html lang="en">

@@ -41,6 +41,10 @@
   --strip-gap: 4px;
   --chapter: clamp(5rem, 10vw, 10rem);
   --container-max: 1440px;
+
+  /* Meter / readout shared tokens */
+  --meter-grid: rgba(232, 230, 225, 0.06);
+  --mb-label: #8a9290;
 }
 
 * { box-sizing: border-box; }

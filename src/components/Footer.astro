@@ -1,8 +1,33 @@
 ---
+import PhaseScope from './PhaseScope.astro';
 const year = 2026;
+const hireMailto = 'mailto:joaovorocha@gmail.com?subject=Role%20for%20Joao%20%E2%80%94%20AV%20%2F%20full-stack%20%2F%20ops%2Btech&body=Hi%20Joao%2C%0A%0AI%27m%20reaching%20out%20about%20a%20role%20%E2%80%94%20%5Bcompany%5D%2C%20%5Btitle%5D%2C%20%5BSF%20%2F%20hybrid%20%2F%20remote%5D.%0A%0A';
 ---
 <footer>
   <div class="footer-inner">
+    <div class="footer-cta">
+      <div class="footer-cta__body">
+        <p class="footer-cta__phase">
+          <span class="footer-cta__label">PHASE</span>
+          <span class="footer-sep">·</span>
+          OPEN TO WORK
+          <span class="footer-cta__bar">▮</span>
+          SF / HYBRID / REMOTE
+          <span class="footer-cta__bar">▮</span>
+          AV · FULL-STACK · OPS+TECH
+        </p>
+        <h2 class="footer-cta__headline">OPEN TO WORK · SF / HYBRID / REMOTE</h2>
+        <p class="footer-cta__copy">
+          AV engineering, full-stack, or operations + technology. The role where
+          the person running cable and the person writing the code are allowed
+          to be the same person.
+        </p>
+        <a class="footer-cta__write" href={hireMailto}>WRITE ME →</a>
+      </div>
+      <div class="footer-cta__scope">
+        <PhaseScope size={96} color="cyan" speed="slow" />
+      </div>
+    </div>
     <p class="footer-row">
       <span class="footer-label">END OF SIGNAL CHAIN</span>
       <span class="footer-sep">·</span>
@@ -44,7 +69,77 @@ const year = 2026;
   .footer-sep { margin: 0 0.5rem; color: var(--console-dim); }
   .footer-row a { color: var(--console-ink); text-decoration: none; }
   .footer-row a:hover { color: var(--cap-cyan); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Hire me CTA — sits above the existing footer rows */
+  .footer-cta {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--console-rule);
+  }
+  .footer-cta__body {
+    flex: 1;
+    min-width: 0;
+  }
+  .footer-cta__phase {
+    margin: 0 0 0.75rem;
+    color: var(--cap-cyan);
+    font-size: var(--fs-micro);
+    letter-spacing: var(--tr-micro);
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+  .footer-cta__label { color: var(--cap-cyan); font-weight: 600; }
+  .footer-cta__bar { color: var(--cap-cyan); opacity: 0.6; margin: 0 0.4rem; }
+  .footer-cta__headline {
+    font-family: var(--f-mono);
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--console-ink);
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .footer-cta__copy {
+    margin: 0 0 0.75rem;
+    color: var(--console-dim);
+    font-family: var(--f-mono);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.04em;
+    text-transform: none;
+    max-width: 60ch;
+    line-height: 1.55;
+  }
+  .footer-cta__write {
+    display: inline-block;
+    color: var(--cap-cyan);
+    text-decoration: none;
+    font-family: var(--f-mono);
+    font-size: var(--fs-micro);
+    letter-spacing: var(--tr-micro);
+    text-transform: uppercase;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--cap-cyan);
+  }
+  .footer-cta__write:hover {
+    color: var(--console-ink);
+    border-bottom-color: var(--console-ink);
+  }
+  .footer-cta__scope {
+    flex-shrink: 0;
+  }
+
   @media (max-width: 720px) {
     .footer-inner { flex-direction: column; align-items: flex-start; }
+    .footer-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .footer-cta__scope { align-self: flex-end; }
   }
 </style>

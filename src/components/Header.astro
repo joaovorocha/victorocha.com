@@ -1,4 +1,6 @@
 ---
+import DigitalReadout from './DigitalReadout.astro';
+
 const { pathname } = Astro.url;
 const isActive = (href: string) =>
   href === '/' ? pathname === '/' : pathname.startsWith(href);
@@ -16,5 +18,23 @@ const nav = [
       <a href={n.href} class:list={[{ active: isActive(n.href) }]}>{n.label}</a>
     ))}
   </div>
+  <div class="mb-readouts">
+    <DigitalReadout live="uptime" label="UPTIME" color="green" width="5ch" size="sm" />
+    <DigitalReadout live="scroll" label="SCROLL %" color="cyan" width="3ch" size="sm" />
+    <DigitalReadout live="latency" label="MS" color="amber" width="3ch" size="sm" />
+  </div>
   <span class="mb-readout"><span class="dot"></span>REC · 48 kHz · 24-BIT</span>
 </nav>
+
+<style>
+  .mb-readouts {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 0.75rem;
+    border-left: 1px solid var(--console-rule);
+  }
+  @media (max-width: 720px) {
+    .mb-readouts { display: none; }
+  }
+</style>

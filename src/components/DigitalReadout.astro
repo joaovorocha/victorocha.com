@@ -1,0 +1,248 @@
+---
+// DigitalReadout.astro — LCD-style numeric display for the meter bridge.
+// Slots into Header.astro's <nav class="meter-bridge"> alongside .mb-readout.
+//
+// Usage:
+//   <DigitalReadout value="48.0" label="kHz" color="green" width="5ch" size="md" />
+//   <DigitalReadout live="uptime" label="UPTIME" color="cyan" width="5ch" />
+//   <DigitalReadout live="scroll" label="SCROLL %" color="amber" width="3ch" />
+
+export interface Props {
+  value?: string | number;
+  label?: string;
+  color?: 'cyan' | 'green' | 'amber';
+  live?: 'uptime' | 'scroll' | 'photos' | 'latency' | 'none';
+  width?: '3ch' | '5ch' | '7ch';
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const {
+  value = '00.0',
+  label = '',
+  color = 'green',
+  live = 'none',
+  width = '5ch',
+  size = 'md',
+} = Astro.props;
+
+// Build the "ghost" 888… string sized to the width so it matches every digit slot.
+const ghostLen = parseInt(width, 10) || 5;
+const ghost = '8'.repeat(ghostLen);
+
+// Initial display value — for live modes we still render a sane placeholder
+// so there's no layout shift before hydration.
+const initialValue =
+  live === 'uptime' ? '00:00'
+  : live === 'scroll' ? '0'
+  : live === 'photos' ? '— —'
+  : live === 'latency' ? '0'
+  : String(value);
+---
+
+<span
+  class:list={['dro', `dro-${color}`, `dro-${size}`]}
+  data-live={live}
+  style={`--dro-width: ${width};`}
+>
+  <span class="dro-screen" aria-hidden="false">
+    <span class="dro-ghost" aria-hidden="true">{ghost}</span>
+    <span class="dro-value" data-dro-value>{initialValue}</span>
+  </span>
+  {label && <span class="dro-label">{label}</span>}
+</span>
+
+<style>
+  .dro {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    line-height: 1;
+    /* Berkeley Mono already loaded by the site; fall back gracefully. */
+    font-family: 'Berkeley Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular,
+      Menlo, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1, 'zero' 1;
+  }
+
+  /* Screen: dark recessed background, the numeric "glass". */
+  .dro-screen {
+    position: relative;
+    display: inline-block;
+    width: var(--dro-width);
+    padding: 3px 6px;
+    border-radius: 2px;
+    background: var(--console-screen, #0a0f0d);
+    /* Tint the screen very slightly with the active color. */
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.6),
+      inset 0 1px 2px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    text-align: right;
+  }
+
+  /* Ghost 888 layer — faint, behind the live digits, like an unlit LCD. */
+  .dro-ghost {
+    position: absolute;
+    inset: 3px 6px;
+    color: currentColor;
+    opacity: 0.08;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* The actual value sits above the ghost and inherits color + glow. */
+  .dro-value {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    letter-spacing: 0.05em;
+    /* The 7-segment "feel" comes from tabular-nums + Berkeley Mono + glow. */
+  }
+
+  .dro-label {
+    font-family: 'Berkeley Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mb-label, #8a9290);
+    text-align: center;
+    opacity: 0.85;
+  }
+
+  /* ----- Sizes ----- */
+  .dro-sm .dro-screen { font-size: 11px; padding: 2px 5px; }
+  .dro-md .dro-screen { font-size: 14px; padding: 3px 6px; }
+  .dro-lg .dro-screen { font-size: 20px; padding: 5px 9px; }
+
+  .dro-sm .dro-label { font-size: 8px; }
+  .dro-lg .dro-label { font-size: 10px; }
+
+  /* ----- Colors (number + glow + faint screen tint) ----- */
+  .dro-cyan .dro-screen {
+    color: #4FE3D2;
+    background:
+      radial-gradient(ellipse at center,
+        rgba(79, 227, 210, 0.06) 0%,
+        rgba(0, 0, 0, 0) 70%),
+      var(--console-screen, #06100f);
+  }
+  .dro-cyan .dro-value {
+    color: #4FE3D2;
+    text-shadow:
+      0 0 1px rgba(79, 227, 210, 0.9),
+      0 0 6px rgba(79, 227, 210, 0.35);
+  }
+
+  .dro-green .dro-screen {
+    color: #4FE34F;
+    background:
+      radial-gradient(ellipse at center,
+        rgba(79, 227, 79, 0.06) 0%,
+        rgba(0, 0, 0, 0) 70%),
+      var(--console-screen, #061006);
+  }
+  .dro-green .dro-value {
+    color: #4FE34F;
+    text-shadow:
+      0 0 1px rgba(79, 227, 79, 0.9),
+      0 0 6px rgba(79, 227, 79, 0.30);
+  }
+
+  .dro-amber .dro-screen {
+    color: #F4C20D;
+    background:
+      radial-gradient(ellipse at center,
+        rgba(244, 194, 13, 0.06) 0%,
+        rgba(0, 0, 0, 0) 70%),
+      var(--console-screen, #100c06);
+  }
+  .dro-amber .dro-value {
+    color: #F4C20D;
+    text-shadow:
+      0 0 1px rgba(244, 194, 13, 0.9),
+      0 0 6px rgba(244, 194, 13, 0.35);
+  }
+
+  /* Reduced-motion: drop the glow so it doesn't pulse on update. */
+  @media (prefers-reduced-motion: reduce) {
+    .dro-value { text-shadow: none; }
+  }
+</style>
+
+<script type="module">
+  // Live-update logic for DigitalReadout. Throttled to ~10 Hz.
+  // Idempotent: safe to run on every page load (no globals leaked).
+  (() => {
+    const nodes = document.querySelectorAll('.dro[data-live]:not([data-dro-bound])');
+    if (!nodes.length) return;
+
+    const reduced =
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const t0 =
+      (performance && performance.timing && performance.timing.domContentLoadedEventEnd) ||
+      performance.now();
+
+    const pad2 = (n) => String(n).padStart(2, '0');
+
+    const fmt = {
+      uptime: () => {
+        const secs = Math.floor((performance.now() - (t0 < performance.now() ? t0 : 0)) / 1000);
+        const mm = Math.floor(secs / 60) % 100; // wrap at 99:59 to fit 5ch
+        const ss = secs % 60;
+        return `${pad2(mm)}:${pad2(ss)}`;
+      },
+      scroll: () => {
+        const h = document.documentElement;
+        const max = (h.scrollHeight - h.clientHeight) || 1;
+        const pct = Math.round((window.scrollY / max) * 100);
+        return String(Math.max(0, Math.min(100, pct)));
+      },
+      photos: () => {
+        const v = window.__photoCount;
+        return (v === undefined || v === null) ? '— —' : String(v);
+      },
+      latency: () => {
+        // Latency = ms between rAF callbacks. Stored on the closure.
+        return String(Math.round(lastFrameDelta));
+      },
+    };
+
+    // rAF latency tracker — runs once for the page even if no latency readout.
+    let lastFrameDelta = 0;
+    let lastFrameAt = performance.now();
+    const tickFrame = (now) => {
+      lastFrameDelta = now - lastFrameAt;
+      lastFrameAt = now;
+      requestAnimationFrame(tickFrame);
+    };
+    requestAnimationFrame(tickFrame);
+
+    // Bind each readout.
+    const bound = [];
+    nodes.forEach((node) => {
+      const mode = node.getAttribute('data-live');
+      if (!mode || mode === 'none' || !fmt[mode]) return;
+      node.setAttribute('data-dro-bound', '1');
+      const target = node.querySelector('[data-dro-value]');
+      if (!target) return;
+      bound.push({ mode, target });
+    });
+
+    if (!bound.length) return;
+
+    // ~10 Hz update loop. Reduced motion still updates, just no glow (CSS).
+    const interval = reduced ? 500 : 100;
+    const update = () => {
+      for (const b of bound) {
+        const next = fmt[b.mode]();
+        if (b.target.textContent !== next) b.target.textContent = next;
+      }
+    };
+    update();
+    setInterval(update, interval);
+  })();
+</script>
