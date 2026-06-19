@@ -77,6 +77,11 @@ a bench-test harness so the same firmware that runs in a vehicle can
 validate the board on a desk — closing the loop between dashboard tests
 and the lab.
 
+The proving ground is a self-built camper van — a 12 V workshop on wheels,
+and the bench where this hardware actually has to survive. The fixes that
+last aren't the prettiest ones; they're the ones I can redo at 11 pm in a
+parking lot. That lesson travels well to software, too.
+
 ## Why Flux.ai *and* KiCad
 
 I started in Flux.ai for the schematic capture — fast, agreeable to the

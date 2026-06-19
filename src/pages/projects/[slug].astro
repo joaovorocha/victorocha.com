@@ -17,7 +17,6 @@ const channelMeta: Record<string, { ch: string; label: string; color: 'cyan' | '
   'live-audio':           { ch: '02', label: 'LIVE AUDIO',  color: 'cyan' },
   'shaddow':              { ch: '03', label: 'SHADDOW',     color: 'green' },
   'daily-ops-platform':   { ch: '04', label: 'OPS PLATFORM', color: 'green' },
-  'van-conversion':       { ch: '05', label: 'VAN BUILD',   color: 'magenta' },
 };
 const meta = channelMeta[entry.id] ?? { ch: '06', label: entry.id.toUpperCase(), color: 'cyan' };
 ---
