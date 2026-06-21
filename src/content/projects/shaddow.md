@@ -1,100 +1,81 @@
 ---
-title: "Shaddow — a 12 V automotive dock platform"
-summary: "An in-vehicle dock built around a Mac. The current board, Front Dock, is a 4-layer USB / power / dual-CAN extender designed in Flux.ai and KiCad."
+title: "Shaddow — a self-built smart-vehicle platform"
+summary: "A full smart-vehicle stack for a 2017 Ford Transit — native iPhone / Mac / head-unit apps, live OBD + CAN telemetry, EcoFlow power, and automation, all on one MQTT bus and self-hosted in the van."
 status: active
 featured: true
 order: 1
-tags: ["hardware", "kicad", "flux.ai", "automotive", "usb"]
+tags: ["software", "mqtt", "swift", "kotlin", "iot", "automotive"]
 ---
 
 <figure class="photo full-bleed">
   <picture>
-    <source type="image/webp" srcset="/images/shaddow/disassembly-1200.webp 1200w, /images/shaddow/disassembly-1600.webp 1600w" sizes="100vw" />
-    <img src="/images/shaddow/disassembly-1200.jpg" srcset="/images/shaddow/disassembly-1200.jpg 1200w, /images/shaddow/disassembly-1600.jpg 1600w" sizes="100vw" alt="Shaddow hardware mid-disassembly laid out on dark velvet — exposed PCB, ribbon harnesses, and machined enclosure halves arranged like an exploded view." width="1600" height="1067" loading="eager" decoding="async" />
+    <source type="image/webp" srcset="/images/shaddow/headunit-dash-1280.webp 1280w, /images/shaddow/headunit-dash-640.webp 640w" sizes="100vw" />
+    <img src="/images/shaddow/headunit-dash-1280.jpg" srcset="/images/shaddow/headunit-dash-1280.jpg 1280w, /images/shaddow/headunit-dash-640.jpg 640w" sizes="100vw" alt="The Shadow Van in-dash head unit — a dark dashboard showing the EcoFlow battery at 88%, a connected iPhone source, AUX / CarPlay / Bluetooth / Radio tiles, a live vehicle matrix (speed, RPM, fuel), now-playing, and GPS coordinates." width="1280" height="720" loading="eager" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 01 ·</span> SHADDOW / DISASSEMBLY · BENCH · 2026</figcaption>
+  <figcaption><span class="fig">FIG. 01 ·</span> SHADDOW · HEAD-UNIT DASHBOARD · IN-VAN</figcaption>
 </figure>
 
-**Shaddow** is the project name for the hardware I'm building around a Mac
-that lives in a vehicle dashboard. The Mac does all the processing; Shaddow
-provides power, I/O, vehicle integration, and the physical mounting that
-makes a laptop behave like a head unit.
+**Shaddow** (a.k.a. *Shadow Van*) is a smart-vehicle platform I built from
+scratch for my 2017 Ford Transit. One message bus — MQTT — ties together a
+native in-dash head unit, iPhone and Mac apps, live vehicle telemetry, the
+house battery, and a stack of automation services, so the van runs as one
+connected system instead of a pile of disconnected gadgets.
 
-The current board is **Front Dock** — the first piece of Shaddow on a PCB.
+The software is mine end to end. A custom 12 V dock board is a separate
+hardware track, currently on hold — more on that at the bottom.
 
-## Overview
+## What it does
 
-A 4-layer board, designed thin-edge / fat-core: a single USB 2.0 uplink to
-the Mac fans out through an on-board hub to every peripheral, and power is
-generated locally from a 12 V input (an EcoFlow LiFePO4 house battery in
-the test van). Target board cost: roughly $150–270 for the first 5 units
-through JLCPCB.
+A single Mosquitto MQTT broker is the contract every part speaks. Around it:
 
-## Stack
-
-- **Power** — reverse-polarity FET (DMP3013SFV), TVS (SMCJ18CA), fused
-  input → 45 W USB-C PD (LM51772 4-switch buck-boost + TPS25751 PD
-  controller, EEPROM-configured for 5/9/15 V at ≤45 W). Then 5 V / 3 A
-  via TPS54331 buck, 3.3 V via TLV1117. A separate isolated 5 V rail
-  feeds the CAN side through an SN6505B transformer driver and a small
-  isolation transformer.
-- **USB hub + Mac uplink** — two cascaded FE1.1S 2.0 hubs, USB-C device
-  uplink with proper CC pulldowns, USBLC6 ESD on every pair.
-- **Video** — MS2130 USB-UVC capture fed by a CVBS-to-HDMI front end,
-  with a THS7374 75 Ω buffer for a low-latency loop-through to the head
-  unit.
-- **Audio** — PCM2904 USB audio codec, AC-coupled line in and line out.
-- **Front camera** — off-board IMX462 UVC module on a 4-pin USB header.
-- **Dual CAN, read-only, isolated** — STM32G0B1 (native dual FDCAN) with
-  two ISO1042 isolated transceivers on the vehicle-ground side. No
-  on-board termination, listen-only — the only allowed TX is OBD-II PID
-  requests.
-- **Control** — ESP32-S3 over native USB-CDC, BTS7008 PROFET high-side
-  switches driving relay outputs, INA226 monitoring the 12 V rail, plus
-  brownout / ignition / reverse / door sense inputs.
-- **Remote start** — Fortin EVO-FORT1 interface, opto-isolated on the
-  vehicle-ground side: three dry-contact outputs (START / LOCK / UNLOCK)
-  and two status inputs (RUNNING + status).
+- **Native apps, shared code** — a SwiftUI app that runs on iPhone *and* as a
+  native macOS app from one codebase, plus an Android head-unit app running
+  kiosk-mode on the in-dash screen.
+- **Vehicle telemetry** — an OBD-II poller (RPM, coolant, fuel, range) and a
+  read-only CAN tap (doors, windows, diagnostics) on the Transit's buses,
+  normalized onto MQTT.
+- **Power** — EcoFlow DELTA Pro battery telemetry and control: state of charge,
+  per-port watts, AC/DC, with an energy dashboard and 7-day history.
+- **Automation & alerts** — Node-RED flows and Home Assistant (~46 entities)
+  react to all of it; a health monitor pushes problems to my phone over Apple
+  Push, iMessage, or an AI summary.
+- **AI, local-first** — on-box Ollama models with an OpenRouter fallback,
+  reachable from the apps through an MCP control plane that itself lives on MQTT.
 
 <figure class="photo full-bleed">
-  <img src="/images/shaddow/front-dock-plan.png" alt="Front Dock revised-plan flowchart — skip Flux, KiCad to JLCPCB cost/timeline, two chip-swap fixes (MS2106 video; IP2368/TPS25751DREFR power), and a hand-routing bottleneck note." width="1188" height="691" loading="lazy" decoding="async" />
-  <figcaption><span class="fig">FIG. 02 ·</span> FRONT DOCK · REVISED PLAN · KICAD → JLCPCB · ROUTING PASS</figcaption>
+  <picture>
+    <source type="image/webp" srcset="/images/shaddow/architecture-1200.webp 1200w, /images/shaddow/architecture-1600.webp 1600w" sizes="100vw" />
+    <img src="/images/shaddow/architecture-1200.jpg" srcset="/images/shaddow/architecture-1200.jpg 1200w, /images/shaddow/architecture-1600.jpg 1600w" sizes="100vw" alt="Shadow Van system-context diagram — four layers (people and devices, cloud services, connectivity, van systems) wired through a central Mosquitto MQTT broker, with the SwiftUI app, Android head unit, OBD/CAN, EcoFlow, Node-RED, Home Assistant, Grafana, and local AI." width="1600" height="1185" loading="lazy" decoding="async" />
+  </picture>
+  <figcaption><span class="fig">FIG. 02 ·</span> SHADDOW · SYSTEM ARCHITECTURE · MQTT BUS</figcaption>
 </figure>
 
-## Design rules I committed to
+## The stack underneath
 
-Galvanic isolation between the CAN transceivers / Fortin interface and the
-board ground (single star to the EcoFlow DC negative). CAN strictly
-listen-only — the vehicle bus is already terminated, and I don't want to
-write to anything I don't have to. macOS sees the dual-CAN MCU as SLCAN
-and talks to it via python-can.
+Everything self-hosts on an Apple-silicon Mac in the van, reachable from
+anywhere over Tailscale:
 
-## Status
+- **Dockerized services** — Mosquitto, InfluxDB + Grafana (history and
+  dashboards), Node-RED, Home Assistant, AdGuard.
+- **CI/CD** — push to `main`, GitHub Actions deploys to the van over SSH.
+- **Always-on** — T-Mobile 5G for connectivity, EcoFlow LiFePO4 for power, so
+  the system stays up independent of the ignition.
 
-Schematic and placement are done. I'm wrapping up the routing pass and
-DRC cleanup against JLCPCB's rules, then it goes to fab. Rev B will add
-a bench-test harness so the same firmware that runs in a vehicle can
-validate the board on a desk — closing the loop between dashboard tests
-and the lab.
+## Where it stands
 
-The proving ground is a self-built camper van — a 12 V workshop on wheels,
-and the bench where this hardware actually has to survive. The fixes that
-last aren't the prettiest ones; they're the ones I can redo at 11 pm in a
-parking lot. That lesson travels well to software, too.
+The software runs daily: the head unit, the phone and Mac apps, telemetry,
+power, and automation are all live in the van.
 
-## Why Flux.ai *and* KiCad
+The hardware track — **Front Dock**, a custom 4-layer 12 V dock PCB (on-board
+USB hub, local power generation, and an isolated read-only dual-CAN interface,
+designed in KiCad and Flux.ai) — collapses a bench of adapters into one board.
+It's **on hold**: the next steps there are going to a hardware collaborator
+while I keep building the software side.
 
-I started in Flux.ai for the schematic capture — fast, agreeable to the
-AI-assisted placement workflow, and good at the early-iteration phase
-when the architecture is still moving. The serious layout work moved to
-KiCad: more control over multi-layer routing, copper pours, and the
-exact JLCPCB-spec fab pack. Flux is the napkin; KiCad is where the board
-actually ships from.
-
-## Why it exists
-
-A vehicle "12 V" rail is anything but 12 V. It sags during a crank,
-spikes on a load dump, and is noisy whenever the alternator is awake.
-Shaddow's whole point is to absorb that and present clean, monitored
-rails to everything downstream — and to do the vehicle-bus integration
-so the Mac on top doesn't have to.
+<figure class="photo full-bleed">
+  <picture>
+    <source type="image/webp" srcset="/images/shaddow/disassembly-1200.webp 1200w, /images/shaddow/disassembly-1600.webp 1600w" sizes="100vw" />
+    <img src="/images/shaddow/disassembly-1200.jpg" srcset="/images/shaddow/disassembly-1200.jpg 1200w, /images/shaddow/disassembly-1600.jpg 1600w" sizes="100vw" alt="Shaddow hardware mid-disassembly laid out on dark velvet — exposed PCB, ribbon harnesses, and machined enclosure halves arranged like an exploded view." width="1600" height="1067" loading="lazy" decoding="async" />
+  </picture>
+  <figcaption><span class="fig">FIG. 03 ·</span> FRONT DOCK · HARDWARE TRACK (ON HOLD) · BENCH · 2026</figcaption>
+</figure>
