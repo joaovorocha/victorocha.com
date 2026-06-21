@@ -89,7 +89,6 @@ const channelSpec: Record<string, { value1: string; value2: string; level: numbe
             <span class="channel-strip__color"></span>
             <div class="channel-strip__body">
               <div class="channel-strip__ch">
-                CH 0{i + 2}
                 <strong>{p.id.replace(/-/g, ' ').toUpperCase()}</strong>
               </div>
               <div class="channel-strip__meta">
@@ -138,7 +137,7 @@ const channelSpec: Record<string, { value1: string; value2: string; level: numbe
             <span class="channel-strip__color"></span>
             <div class="channel-strip__body">
               <div class="channel-strip__ch">
-                LOG 0{i + 1}<strong>WRITE</strong>
+                <strong>WRITE</strong>
               </div>
               <div class="channel-strip__meta">
                 <h3>{p.data.title}</h3>
