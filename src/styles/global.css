@@ -37,7 +37,7 @@
 
   /* Geometry */
   --bridge-h: 36px;
-  --rail-w: 0px;
+  --rail-w: 80px;
   --strip-gap: 4px;
   --chapter: clamp(5rem, 10vw, 10rem);
   --container-max: 1440px;

@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ChannelRail from '../components/ChannelRail.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -100,11 +101,124 @@ const ogImageUrl = new URL(resolvedOgPath, siteUrl).toString();
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>
+    <ChannelRail channel={channel} label={channelLabel} color={channelColor} faderPosition={faderPosition} />
     <Header />
     <main id="main">
       <slot />
     </main>
     <Footer />
 
+    <script>
+      // Scroll-as-fader: bidirectional sync between page scroll and the
+      // channel-rail fader cap. Drag the cap up/down to scroll. Click the
+      // track to jump. Keyboard: focus the track and ↑/↓/PgUp/PgDn/Home/End.
+      (() => {
+        const rail = document.querySelector('.channel-rail');
+        const track = rail?.querySelector<HTMLElement>('[data-fader-track]');
+        const cap = rail?.querySelector<HTMLElement>('[data-fader-cap]');
+        const readout = document.querySelector('.mb-readout');
+        if (!rail || !track || !cap) return;
+
+        // Wrap the REC indicator's right side with a live SCROLL% readout.
+        if (readout && !readout.querySelector('.mb-pct')) {
+          const span = document.createElement('span');
+          span.className = 'mb-pct';
+          span.style.marginLeft = '0.6rem';
+          span.textContent = '· 00.0%';
+          readout.appendChild(span);
+        }
+        const pctEl = document.querySelector<HTMLElement>('.mb-pct');
+
+        const supportsScrollTimeline = CSS.supports?.('animation-timeline: scroll()');
+
+        function scrollPct(): number {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          if (max <= 0) return 0;
+          return Math.min(1, Math.max(0, window.scrollY / max));
+        }
+
+        function setCapFromScroll() {
+          const p = scrollPct();
+          if (!supportsScrollTimeline) cap.style.top = (p * 100) + '%';
+          track.setAttribute('aria-valuenow', String(Math.round(p * 100)));
+          if (pctEl) pctEl.textContent = '· ' + (p * 100).toFixed(1) + '%';
+        }
+
+        // Always update the readout (CSS handles the cap when supported)
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(() => {
+              setCapFromScroll();
+              ticking = false;
+            });
+          }
+        }, { passive: true });
+        setCapFromScroll();
+
+        // Drag-to-scroll
+        let dragging = false;
+        let pointerId: number | null = null;
+
+        function pointerDown(e: PointerEvent) {
+          dragging = true;
+          pointerId = e.pointerId;
+          rail!.classList.add('is-dragging');
+          (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+          updateFromPointer(e);
+        }
+        function pointerMove(e: PointerEvent) {
+          if (!dragging || e.pointerId !== pointerId) return;
+          updateFromPointer(e);
+        }
+        function pointerUp(e: PointerEvent) {
+          if (e.pointerId !== pointerId) return;
+          dragging = false;
+          pointerId = null;
+          rail!.classList.remove('is-dragging');
+        }
+        function updateFromPointer(e: PointerEvent) {
+          const rect = track!.getBoundingClientRect();
+          const t = Math.min(1, Math.max(0, (e.clientY - rect.top) / rect.height));
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          window.scrollTo({ top: t * max, behavior: 'auto' });
+          if (!supportsScrollTimeline) cap.style.top = (t * 100) + '%';
+        }
+
+        cap.addEventListener('pointerdown', pointerDown);
+        cap.addEventListener('pointermove', pointerMove);
+        cap.addEventListener('pointerup', pointerUp);
+        cap.addEventListener('pointercancel', pointerUp);
+
+        // Click anywhere on the track to jump
+        track.addEventListener('click', (e) => {
+          if (e.target === cap) return;
+          const rect = track.getBoundingClientRect();
+          const t = Math.min(1, Math.max(0, (e.clientY - rect.top) / rect.height));
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          window.scrollTo({ top: t * max, behavior: 'smooth' });
+        });
+
+        // Keyboard
+        track.addEventListener('keydown', (e) => {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const step = window.innerHeight * 0.1;
+          const page = window.innerHeight * 0.9;
+          let target = window.scrollY;
+          switch (e.key) {
+            case 'ArrowDown': target += step; break;
+            case 'ArrowUp':   target -= step; break;
+            case 'PageDown':  target += page; break;
+            case 'PageUp':    target -= page; break;
+            case 'Home':      target = 0; break;
+            case 'End':       target = max; break;
+            default: return;
+          }
+          e.preventDefault();
+          window.scrollTo({ top: Math.min(max, Math.max(0, target)), behavior: 'smooth' });
+        });
+      })();
+    </script>
   </body>
 </html>
