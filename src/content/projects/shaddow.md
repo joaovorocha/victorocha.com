@@ -12,7 +12,7 @@ tags: ["hardware", "kicad", "flux.ai", "automotive", "usb"]
     <source type="image/webp" srcset="/images/shaddow/disassembly-1200.webp 1200w, /images/shaddow/disassembly-1600.webp 1600w" sizes="100vw" />
     <img src="/images/shaddow/disassembly-1200.jpg" srcset="/images/shaddow/disassembly-1200.jpg 1200w, /images/shaddow/disassembly-1600.jpg 1600w" sizes="100vw" alt="Shaddow hardware mid-disassembly laid out on dark velvet — exposed PCB, ribbon harnesses, and machined enclosure halves arranged like an exploded view." width="1600" height="1067" loading="eager" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 01 ·</span> SHADDOW / DISASSEMBLY · BENCH · 2026 · CH 03 ▮ GREEN</figcaption>
+  <figcaption><span class="fig">FIG. 01 ·</span> SHADDOW / DISASSEMBLY · BENCH · 2026</figcaption>
 </figure>
 
 **Shaddow** is the project name for the hardware I'm building around a Mac
@@ -58,7 +58,7 @@ through JLCPCB.
 
 <figure class="photo full-bleed">
   <img src="/images/shaddow/front-dock-plan.png" alt="Front Dock revised-plan flowchart — skip Flux, KiCad to JLCPCB cost/timeline, two chip-swap fixes (MS2106 video; IP2368/TPS25751DREFR power), and a hand-routing bottleneck note." width="1188" height="691" loading="lazy" decoding="async" />
-  <figcaption><span class="fig">FIG. 02 ·</span> FRONT DOCK · REVISED PLAN · KICAD → JLCPCB · ROUTING PASS · CH 03 ▮ GREEN</figcaption>
+  <figcaption><span class="fig">FIG. 02 ·</span> FRONT DOCK · REVISED PLAN · KICAD → JLCPCB · ROUTING PASS</figcaption>
 </figure>
 
 ## Design rules I committed to

@@ -17,14 +17,13 @@ const fmt = (d: Date) =>
 >
   <section class="container">
     <header class="page-head">
-      <p class="eyebrow">CH 02 · LOG</p>
       <h1>Notes from the desk.</h1>
       <p class="lede">Short essays on engineering, hardware, and live sound.</p>
     </header>
 
     {posts.length === 0 ? (
       <div class="empty-state">
-        <p class="empty-state__line">[ CH 02 · STANDBY ]</p>
+        <p class="empty-state__line">[ STANDBY ]</p>
         <p class="empty-state__sub">Channel armed. First log queued.</p>
       </div>
     ) : (

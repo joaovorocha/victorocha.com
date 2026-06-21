@@ -12,7 +12,7 @@ tags: ["audio", "live-events", "foh", "rf", "dante"]
     <source type="image/webp" srcset="/images/live/ilive-rgb-pads-1200.webp 1200w, /images/live/ilive-rgb-pads-1600.webp 1600w" sizes="100vw" />
     <img src="/images/live/ilive-rgb-pads-1200.jpg" srcset="/images/live/ilive-rgb-pads-1200.jpg 1200w, /images/live/ilive-rgb-pads-1600.jpg 1600w" sizes="100vw" alt="Backlit Allen & Heath iLive R72 console in a dark room — four blue, four green, four yellow, and a magenta pad form a glowing color palette." width="1600" height="1067" loading="eager" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 01 ·</span> ALLEN &amp; HEATH iLIVE R72 · ENGENHEIRO COELHO · 2016 · CH 02 ▮ CYAN</figcaption>
+  <figcaption><span class="fig">FIG. 01 ·</span> ALLEN &amp; HEATH iLIVE R72 · ENGENHEIRO COELHO · 2016</figcaption>
 </figure>
 
 <figure class="photo full-bleed">
@@ -20,7 +20,7 @@ tags: ["audio", "live-events", "foh", "rf", "dante"]
     <source type="image/webp" srcset="/images/live/covid-livestream-foh-1200.webp 1200w, /images/live/covid-livestream-foh-1600.webp 1600w" sizes="100vw" />
     <img src="/images/live/covid-livestream-foh-1200.jpg" srcset="/images/live/covid-livestream-foh-1200.jpg 1200w, /images/live/covid-livestream-foh-1600.jpg 1600w" sizes="100vw" alt="FOH position during a COVID-era livestream — operator at the console under low house light, broadcast monitors glowing, empty room beyond." width="1600" height="1067" loading="eager" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 02 ·</span> COVID LIVESTREAM FOH · ENGENHEIRO COELHO · 2020 · CH 02 ▮ CYAN</figcaption>
+  <figcaption><span class="fig">FIG. 02 ·</span> COVID LIVESTREAM FOH · ENGENHEIRO COELHO · 2020</figcaption>
 </figure>
 
 <figure class="photo full-bleed">
@@ -28,7 +28,7 @@ tags: ["audio", "live-events", "foh", "rf", "dante"]
     <source type="image/webp" srcset="/images/live/fifa-crew-1200.webp 1200w, /images/live/fifa-crew-1600.webp 1600w" sizes="100vw" />
     <img src="/images/live/fifa-crew-1200.jpg" srcset="/images/live/fifa-crew-1200.jpg 1200w, /images/live/fifa-crew-1600.jpg 1600w" sizes="100vw" alt="Sound Image crew in dark shirts prepping black SOUND IMAGE flight cases and a Shure rig in a FIFA World Cup 2026 hospitality lounge — bar stools, couches, and the tournament graphics on the walls and screens behind them." width="1600" height="1067" loading="lazy" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 03 ·</span> SOUND IMAGE CREW · FIFA WORLD CUP 2026 · LOAD-IN · CH 02 ▮ CYAN</figcaption>
+  <figcaption><span class="fig">FIG. 03 ·</span> SOUND IMAGE CREW · FIFA WORLD CUP 2026 · LOAD-IN</figcaption>
 </figure>
 
 I've been the engineer behind a console for more than a decade — first in
@@ -42,7 +42,7 @@ and a lot of the time those two answers aren't the same.
     <source type="image/webp" srcset="/images/live/bw-engineer-desk-1200.webp 1200w, /images/live/bw-engineer-desk-1600.webp 1600w" sizes="100vw" />
     <img src="/images/live/bw-engineer-desk-1200.jpg" srcset="/images/live/bw-engineer-desk-1200.jpg 1200w, /images/live/bw-engineer-desk-1600.jpg 1600w" sizes="100vw" alt="Black-and-white over-the-shoulder of Victor at a digital mixing console with an onboard touchscreen, earphones resting around his neck." width="1200" height="800" loading="lazy" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 04 ·</span> ENGINEER AT THE DESK · B&amp;W · CH 02 ▮ CYAN</figcaption>
+  <figcaption><span class="fig">FIG. 04 ·</span> ENGINEER AT THE DESK · B&amp;W</figcaption>
 </figure>
 
 ## Now — Sound Image (Clair Global), San Francisco
@@ -57,7 +57,7 @@ Operating on Yamaha CL5 desks for FOH and monitor.
     <source type="image/webp" srcset="/images/live/avid-gala-foh-1200.webp 1200w, /images/live/avid-gala-foh-1600.webp 1600w" sizes="100vw" />
     <img src="/images/live/avid-gala-foh-1200.jpg" srcset="/images/live/avid-gala-foh-1200.jpg 1200w, /images/live/avid-gala-foh-1600.jpg 1600w" sizes="100vw" alt="Avid S6L console at FOH in a banquet hall — round white-clothed guest tables and ceiling string lights, a band on the warm-lit stage beyond the meter bridge." width="1600" height="1067" loading="lazy" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 05 ·</span> AVID S6L · GALA FOH · SF · 2025 · CH 02 ▮ CYAN</figcaption>
+  <figcaption><span class="fig">FIG. 05 ·</span> AVID S6L · GALA FOH · SF · 2025</figcaption>
 </figure>
 
 <div class="photo-grid">
@@ -66,21 +66,21 @@ Operating on Yamaha CL5 desks for FOH and monitor.
       <source type="image/webp" srcset="/images/live/fifa-stadium-1200.webp 1200w, /images/live/fifa-stadium-600.webp 600w" sizes="(min-width: 720px) 50vw, 100vw" />
       <img src="/images/live/fifa-stadium-1200.jpg" srcset="/images/live/fifa-stadium-1200.jpg 1200w, /images/live/fifa-stadium-600.jpg 600w" sizes="(min-width: 720px) 50vw, 100vw" alt="FIFA World Cup 2026 — a covered pitchside broadcast/commentary position in the stadium bowl, empty red seats and the green pitch beyond, tournament boards around the stands." width="768" height="1024" loading="lazy" decoding="async" />
     </picture>
-    <figcaption><span class="fig">FIG. 06 ·</span> FIFA WORLD CUP 2026 · PITCHSIDE BROADCAST · CH 02 ▮ CYAN</figcaption>
+    <figcaption><span class="fig">FIG. 06 ·</span> FIFA WORLD CUP 2026 · PITCHSIDE BROADCAST</figcaption>
   </figure>
   <figure class="photo">
     <picture>
       <source type="image/webp" srcset="/images/live/cinematic-ots-1200.webp 1200w, /images/live/cinematic-ots-600.webp 600w" sizes="(min-width: 720px) 50vw, 100vw" />
       <img src="/images/live/cinematic-ots-1200.jpg" srcset="/images/live/cinematic-ots-1200.jpg 1200w, /images/live/cinematic-ots-600.jpg 600w" sizes="(min-width: 720px) 50vw, 100vw" alt="Over-the-shoulder from front-of-house — a digital console's channel meters glowing in the foreground, a singer on a blue-lit stage beyond a standing audience." width="360" height="640" loading="lazy" decoding="async" />
     </picture>
-    <figcaption><span class="fig">FIG. 07 ·</span> FOH POV · STAGE BEYOND · CH 02 ▮ CYAN</figcaption>
+    <figcaption><span class="fig">FIG. 07 ·</span> FOH POV · STAGE BEYOND</figcaption>
   </figure>
   <figure class="photo">
     <picture>
       <source type="image/webp" srcset="/images/live/si-cable-prep-1200.webp 1200w, /images/live/si-cable-prep-600.webp 600w" sizes="(min-width: 720px) 50vw, 100vw" />
       <img src="/images/live/si-cable-prep-1200.jpg" srcset="/images/live/si-cable-prep-1200.jpg 1200w, /images/live/si-cable-prep-600.jpg 600w" sizes="(min-width: 720px) 50vw, 100vw" alt="Victor prepping cable at the Sound Image warehouse — coiling power and signal runs at a road case before a show." width="1200" height="1600" loading="lazy" decoding="async" />
     </picture>
-    <figcaption><span class="fig">FIG. 08 ·</span> SOUND IMAGE · CABLE PREP · BAY AREA · 2026 · CH 02 ▮ CYAN</figcaption>
+    <figcaption><span class="fig">FIG. 08 ·</span> SOUND IMAGE · CABLE PREP · BAY AREA · 2026</figcaption>
   </figure>
 </div>
 
@@ -116,14 +116,14 @@ across the campus.
       <source type="image/webp" srcset="/images/live/tidal-console-oakland-1200.webp 1200w, /images/live/tidal-console-oakland-1600.webp 1600w" sizes="(min-width: 720px) 50vw, 100vw" />
       <img src="/images/live/tidal-console-oakland-1200.jpg" srcset="/images/live/tidal-console-oakland-1200.jpg 1200w, /images/live/tidal-console-oakland-1600.jpg 1600w" sizes="(min-width: 720px) 50vw, 100vw" alt="Victor in headphones at the Tidal-stage playback console — Pioneer-style decks at front-of-house, the TIDAL banner and event tents behind him." width="1200" height="1600" loading="lazy" decoding="async" />
     </picture>
-    <figcaption><span class="fig">FIG. 11 ·</span> TIDAL STAGE · BLOCK · OAKLAND · 2025 · CH 02 ▮ CYAN</figcaption>
+    <figcaption><span class="fig">FIG. 11 ·</span> TIDAL STAGE · BLOCK · OAKLAND · 2025</figcaption>
   </figure>
   <figure class="photo">
     <picture>
       <source type="image/webp" srcset="/images/live/tidal-stage-oakland-1024.webp 1024w, /images/live/tidal-stage-oakland-600.webp 600w" sizes="(min-width: 720px) 50vw, 100vw" />
       <img src="/images/live/tidal-stage-oakland-1024.jpg" srcset="/images/live/tidal-stage-oakland-1024.jpg 1024w, /images/live/tidal-stage-oakland-600.jpg 600w" sizes="(min-width: 720px) 50vw, 100vw" alt="The Tidal stage at the Block event — a line array and subwoofers flanking the deck, a multi-stage venue directory sign behind, rugs and shade tents on the ground." width="1024" height="768" loading="lazy" decoding="async" />
     </picture>
-    <figcaption><span class="fig">FIG. 12 ·</span> BLOCK · MULTI-STAGE DEPLOY · OAKLAND · 2025 · CH 02 ▮ CYAN</figcaption>
+    <figcaption><span class="fig">FIG. 12 ·</span> BLOCK · MULTI-STAGE DEPLOY · OAKLAND · 2025</figcaption>
   </figure>
 </div>
 
@@ -152,7 +152,7 @@ phone call to a venue's house engineer.
     <source type="image/webp" srcset="/images/live/stage-deck-load-in-1200.webp 1200w, /images/live/stage-deck-load-in-1600.webp 1600w" sizes="100vw" />
     <img src="/images/live/stage-deck-load-in-1200.jpg" srcset="/images/live/stage-deck-load-in-1200.jpg 1200w, /images/live/stage-deck-load-in-1600.jpg 1600w" sizes="100vw" alt="Festival stage deck mid-load-in — flight cases on the boards, line-array hangs in the background, crew moving cabling under house lights." width="1600" height="1067" loading="lazy" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 14 ·</span> STAGE DECK · LOAD-IN · BR · 2017 · BAND ▮ MAGENTA</figcaption>
+  <figcaption><span class="fig">FIG. 14 ·</span> STAGE DECK · LOAD-IN · BR · 2017</figcaption>
 </figure>
 
 <figure class="photo full-bleed">
@@ -160,7 +160,7 @@ phone call to a venue's house engineer.
     <source type="image/webp" srcset="/images/live/vmixer-birds-eye-1200.webp 1200w, /images/live/vmixer-birds-eye-1600.webp 1600w" sizes="100vw" />
     <img src="/images/live/vmixer-birds-eye-1200.jpg" srcset="/images/live/vmixer-birds-eye-1200.jpg 1200w, /images/live/vmixer-birds-eye-1600.jpg 1600w" sizes="100vw" alt="Bird's-eye angle of Victor at an Allen & Heath iLive-R72 — both hands working the console at once, a second engineer leaning in." width="1600" height="1067" loading="lazy" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 15 ·</span> ALLEN &amp; HEATH iLIVE-R72 · SP · 2017 · CH 02 ▮ CYAN</figcaption>
+  <figcaption><span class="fig">FIG. 15 ·</span> ALLEN &amp; HEATH iLIVE-R72 · SP · 2017</figcaption>
 </figure>
 
 <div class="video-block">
@@ -177,7 +177,7 @@ phone call to a venue's house engineer.
     <source type="image/webp" srcset="/images/live/rehearsal-wide-red-1200.webp 1200w, /images/live/rehearsal-wide-red-1600.webp 1600w" sizes="100vw" />
     <img src="/images/live/rehearsal-wide-red-1200.jpg" srcset="/images/live/rehearsal-wide-red-1200.jpg 1200w, /images/live/rehearsal-wide-red-1600.jpg 1600w" sizes="100vw" alt="Wide rehearsal frame from the front-of-house position — a digital mixing console and a screen running Pro Tools in the foreground, people gathered in a warehouse room beyond, lit by a warm amber wash." width="1600" height="1067" loading="lazy" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 17 ·</span> REHEARSAL · FOH POSITION · AMBER WASH · 2021 · DESK ▮ AMBER</figcaption>
+  <figcaption><span class="fig">FIG. 17 ·</span> REHEARSAL · FOH POSITION · AMBER WASH · 2021</figcaption>
 </figure>
 
 ## A2 at Rock in Rio, 2017
@@ -192,14 +192,14 @@ coordination and stage audio. The kind of show that recalibrates what
       <source type="image/webp" srcset="/images/live/rock-in-rio-arch-1200.webp 1200w, /images/live/rock-in-rio-arch-600.webp 600w" sizes="(min-width: 720px) 50vw, 100vw" />
       <img src="/images/live/rock-in-rio-arch-1200.jpg" srcset="/images/live/rock-in-rio-arch-1200.jpg 1200w, /images/live/rock-in-rio-arch-600.jpg 600w" sizes="(min-width: 720px) 50vw, 100vw" alt="The illuminated red 'Rock in Rio' arch over the festival gate at night, crowds streaming in beneath it." width="1200" height="900" loading="lazy" decoding="async" />
     </picture>
-    <figcaption><span class="fig">FIG. 18 ·</span> ROCK IN RIO · MAIN GATE · 2017 · CH 02 ▮ CYAN</figcaption>
+    <figcaption><span class="fig">FIG. 18 ·</span> ROCK IN RIO · MAIN GATE · 2017</figcaption>
   </figure>
   <figure class="photo">
     <picture>
       <source type="image/webp" srcset="/images/live/rock-in-rio-credential-1200.webp 1200w, /images/live/rock-in-rio-credential-600.webp 600w" sizes="(min-width: 720px) 50vw, 100vw" />
       <img src="/images/live/rock-in-rio-credential-1200.jpg" srcset="/images/live/rock-in-rio-credential-1200.jpg 1200w, /images/live/rock-in-rio-credential-600.jpg 600w" sizes="(min-width: 720px) 50vw, 100vw" alt="Victor backstage in a production trailer at Rock in Rio 2017, the festival's accreditation pass around his neck, gear down the corridor behind him." width="1200" height="900" loading="lazy" decoding="async" />
     </picture>
-    <figcaption><span class="fig">FIG. 19 ·</span> ROCK IN RIO 2017 · ACCREDITED · BACKSTAGE · CH 02 ▮ CYAN</figcaption>
+    <figcaption><span class="fig">FIG. 19 ·</span> ROCK IN RIO 2017 · ACCREDITED · BACKSTAGE</figcaption>
   </figure>
 </div>
 
@@ -258,14 +258,14 @@ coordination and stage audio. The kind of show that recalibrates what
       <source type="image/webp" srcset="/images/live/ql5-outdoor-tent-1200.webp 1200w, /images/live/ql5-outdoor-tent-1600.webp 1600w" sizes="(min-width: 720px) 50vw, 100vw" />
       <img src="/images/live/ql5-outdoor-tent-1200.jpg" srcset="/images/live/ql5-outdoor-tent-1200.jpg 1200w, /images/live/ql5-outdoor-tent-1600.jpg 1600w" sizes="(min-width: 720px) 50vw, 100vw" alt="Yamaha DM3 console set up under a white event tent on grass — natural daylight FOH on an outdoor corporate stage." width="1600" height="1067" loading="lazy" decoding="async" />
     </picture>
-    <figcaption><span class="fig">FIG. 25 ·</span> YAMAHA DM3 · OUTDOOR / WHITE TENT · 2024 · CH 02 ▮ CYAN</figcaption>
+    <figcaption><span class="fig">FIG. 25 ·</span> YAMAHA DM3 · OUTDOOR / WHITE TENT · 2024</figcaption>
   </figure>
   <figure class="photo">
     <picture>
       <source type="image/webp" srcset="/images/live/cathedral-aisle-1200.webp 1200w, /images/live/cathedral-aisle-600.webp 600w" sizes="(min-width: 720px) 50vw, 100vw" />
       <img src="/images/live/cathedral-aisle-1200.jpg" srcset="/images/live/cathedral-aisle-1200.jpg 1200w, /images/live/cathedral-aisle-600.jpg 600w" sizes="(min-width: 720px) 50vw, 100vw" alt="Church-auditorium center aisle in red carpet, flown line-array speakers on truss towers flanking the stage, rows of folding chairs on either side." width="1200" height="800" loading="lazy" decoding="async" />
     </picture>
-    <figcaption><span class="fig">FIG. 26 ·</span> AUDITORIUM · LINE ARRAY · BR · CH 02 ▮ CYAN</figcaption>
+    <figcaption><span class="fig">FIG. 26 ·</span> AUDITORIUM · LINE ARRAY · BR</figcaption>
   </figure>
 </div>
 
@@ -274,7 +274,7 @@ coordination and stage audio. The kind of show that recalibrates what
     <source type="image/webp" srcset="/images/live/unasp-auditorium-1200.webp 1200w, /images/live/unasp-auditorium-1600.webp 1600w" sizes="100vw" />
     <img src="/images/live/unasp-auditorium-1200.jpg" srcset="/images/live/unasp-auditorium-1200.jpg 1200w, /images/live/unasp-auditorium-1600.jpg 1600w" sizes="100vw" alt="The UNASP auditorium before doors — banked red seating, flown line arrays over the room, a grand piano on the stage under a dense ceiling lighting grid." width="1200" height="900" loading="lazy" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 27 ·</span> UNASP AUDITORIUM · 5,000+ WEEKLY · LINE ARRAY · CH 02 ▮ CYAN</figcaption>
+  <figcaption><span class="fig">FIG. 27 ·</span> UNASP AUDITORIUM · 5,000+ WEEKLY · LINE ARRAY</figcaption>
 </figure>
 
 <figure class="photo full-bleed">
@@ -282,7 +282,7 @@ coordination and stage audio. The kind of show that recalibrates what
     <source type="image/webp" srcset="/images/live/shure-rf-rack-1200.webp 1200w, /images/live/shure-rf-rack-1600.webp 1600w" sizes="100vw" />
     <img src="/images/live/shure-rf-rack-1200.jpg" srcset="/images/live/shure-rf-rack-1200.jpg 1200w, /images/live/shure-rf-rack-1600.jpg 1600w" sizes="100vw" alt="Close-up of a Shure ULXP4 wireless receiver rack — green LCDs showing group and channel frequencies, channels labeled on tape (TATAi, LANNY), a microphone capsule in the foreground." width="1200" height="800" loading="lazy" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 28 ·</span> SHURE ULXP4 · RF COORDINATION · CH 02 ▮ CYAN</figcaption>
+  <figcaption><span class="fig">FIG. 28 ·</span> SHURE ULXP4 · RF COORDINATION</figcaption>
 </figure>
 
 <div class="video-block">
@@ -324,7 +324,7 @@ Shure Axient Digital / PSM · Networking for Audio Professionals.
     <source type="image/webp" srcset="/images/live/laser-choir-1200.webp 1200w, /images/live/laser-choir-1600.webp 1600w" sizes="100vw" />
     <img src="/images/live/laser-choir-1200.jpg" srcset="/images/live/laser-choir-1200.jpg 1200w, /images/live/laser-choir-1600.jpg 1600w" sizes="100vw" alt="Wide concert frame — green and red laser beams cutting through the air, orange tribal-pattern backdrop discs glowing like planets, a full choir on risers between two broadcast camera silhouettes." width="1600" height="1067" loading="lazy" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 32 ·</span> WIDE · CHOIR + LASERS · ENGENHEIRO COELHO · 2015 · BAND ▮ MAGENTA</figcaption>
+  <figcaption><span class="fig">FIG. 32 ·</span> WIDE · CHOIR + LASERS · ENGENHEIRO COELHO · 2015</figcaption>
 </figure>
 
 <figure class="photo full-bleed">
@@ -332,7 +332,7 @@ Shure Axient Digital / PSM · Networking for Audio Professionals.
     <source type="image/webp" srcset="/images/live/meyer-amp-rack-1200.webp 1200w, /images/live/meyer-amp-rack-1600.webp 1600w" sizes="100vw" />
     <img src="/images/live/meyer-amp-rack-1200.jpg" srcset="/images/live/meyer-amp-rack-1200.jpg 1200w, /images/live/meyer-amp-rack-1600.jpg 1600w" sizes="100vw" alt="Meyer Sound Galileo Galaxy loudspeaker-management processor in a road case — meter LEDs above Luminex GigaCore network switches and XLR patch panels, status LEDs glowing in low backstage light." width="1600" height="1067" loading="lazy" decoding="async" />
   </picture>
-  <figcaption><span class="fig">FIG. 33 ·</span> MEYER GALILEO GALAXY · PROCESSOR + NETWORK RACK · BACKSTAGE · CH 02 ▮ CYAN</figcaption>
+  <figcaption><span class="fig">FIG. 33 ·</span> MEYER GALILEO GALAXY · PROCESSOR + NETWORK RACK · BACKSTAGE</figcaption>
 </figure>
 
 <div class="video-block">
