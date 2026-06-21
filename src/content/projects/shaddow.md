@@ -1,6 +1,6 @@
 ---
 title: "Shaddow — a self-built smart-vehicle platform"
-summary: "A full smart-vehicle stack for a 2017 Ford Transit — native iPhone / Mac / head-unit apps, live OBD + CAN telemetry, EcoFlow power, and automation, all on one MQTT bus and self-hosted in the van."
+summary: "I turned a 2017 Ford Transit into one self-hosted computer — native iPhone / Mac / head-unit apps, live OBD + CAN telemetry, battery control, and automation on a single MQTT bus. Built end to end, running in the van today."
 status: active
 featured: true
 order: 1
@@ -15,32 +15,30 @@ tags: ["software", "mqtt", "swift", "kotlin", "iot", "automotive"]
   <figcaption><span class="fig">FIG. 01 ·</span> SHADDOW · HEAD-UNIT DASHBOARD · IN-VAN</figcaption>
 </figure>
 
-**Shaddow** (a.k.a. *Shadow Van*) is a smart-vehicle platform I built from
-scratch for my 2017 Ford Transit. One message bus — MQTT — ties together a
-native in-dash head unit, iPhone and Mac apps, live vehicle telemetry, the
-house battery, and a stack of automation services, so the van runs as one
-connected system instead of a pile of disconnected gadgets.
+**I gave my van a brain.**
 
-The software is mine end to end. A custom 12 V dock board is a separate
-hardware track, currently on hold — more on that at the bottom.
+Shaddow (*Shadow Van*) turns a 2017 Ford Transit into a single, self-hosted
+computer. One message bus — MQTT — wires the in-dash head unit, my iPhone and
+Mac, the engine, and the house battery into one system that actually talks to
+itself: no cloud account required, no pile of disconnected gadgets. I designed
+and built the whole software side, and it runs in the van every day.
 
 ## What it does
 
-A single Mosquitto MQTT broker is the contract every part speaks. Around it:
+Everything speaks to one Mosquitto MQTT broker — the contract that makes every
+piece swappable:
 
-- **Native apps, shared code** — a SwiftUI app that runs on iPhone *and* as a
-  native macOS app from one codebase, plus an Android head-unit app running
-  kiosk-mode on the in-dash screen.
-- **Vehicle telemetry** — an OBD-II poller (RPM, coolant, fuel, range) and a
-  read-only CAN tap (doors, windows, diagnostics) on the Transit's buses,
-  normalized onto MQTT.
-- **Power** — EcoFlow DELTA Pro battery telemetry and control: state of charge,
-  per-port watts, AC/DC, with an energy dashboard and 7-day history.
-- **Automation & alerts** — Node-RED flows and Home Assistant (~46 entities)
-  react to all of it; a health monitor pushes problems to my phone over Apple
-  Push, iMessage, or an AI summary.
-- **AI, local-first** — on-box Ollama models with an OpenRouter fallback,
-  reachable from the apps through an MCP control plane that itself lives on MQTT.
+- **One app, three screens.** A SwiftUI app that's native on iPhone *and* Mac
+  from a single codebase, plus an Android head unit running kiosk-mode in the dash.
+- **The van reports in.** OBD-II (RPM, coolant, fuel, range) and a read-only CAN
+  tap (doors, windows, diagnostics) stream the Transit's own data onto the bus.
+- **Power you can see and steer.** Live EcoFlow DELTA Pro telemetry and control —
+  state of charge, per-port watts, AC/DC — with an energy dashboard and 7-day history.
+- **It watches itself.** Node-RED and Home Assistant (~46 entities) run the
+  automations; a health monitor pings my phone — Apple Push, iMessage, or an AI
+  summary — the moment something drifts.
+- **AI on board.** Local Ollama models with an OpenRouter fallback, reachable
+  from the apps through an MCP control plane that lives on the same bus.
 
 <figure class="photo full-bleed">
   <picture>
@@ -50,27 +48,25 @@ A single Mosquitto MQTT broker is the contract every part speaks. Around it:
   <figcaption><span class="fig">FIG. 02 ·</span> SHADDOW · SYSTEM ARCHITECTURE · MQTT BUS</figcaption>
 </figure>
 
-## The stack underneath
+## Built like production, not a hobby
 
-Everything self-hosts on an Apple-silicon Mac in the van, reachable from
+The whole stack self-hosts on an Apple-silicon Mac in the van and reaches me
 anywhere over Tailscale:
 
-- **Dockerized services** — Mosquitto, InfluxDB + Grafana (history and
-  dashboards), Node-RED, Home Assistant, AdGuard.
-- **CI/CD** — push to `main`, GitHub Actions deploys to the van over SSH.
-- **Always-on** — T-Mobile 5G for connectivity, EcoFlow LiFePO4 for power, so
-  the system stays up independent of the ignition.
+- **Dockerized** — Mosquitto, InfluxDB + Grafana, Node-RED, Home Assistant, AdGuard.
+- **Shipped on push** — GitHub Actions deploys to the van over SSH on every merge to `main`.
+- **Always on** — T-Mobile 5G and an EcoFlow LiFePO4 bank keep it up independent of the ignition.
 
 ## Where it stands
 
-The software runs daily: the head unit, the phone and Mac apps, telemetry,
-power, and automation are all live in the van.
+The software is live and runs daily — head unit, phone and Mac apps, telemetry,
+power, and automation, all in the van.
 
-The hardware track — **Front Dock**, a custom 4-layer 12 V dock PCB (on-board
-USB hub, local power generation, and an isolated read-only dual-CAN interface,
-designed in KiCad and Flux.ai) — collapses a bench of adapters into one board.
-It's **on hold**: the next steps there are going to a hardware collaborator
-while I keep building the software side.
+The hardware track — **Front Dock**, a custom 4-layer 12 V dock board (USB hub,
+local power generation, and an isolated read-only dual-CAN interface, designed in
+KiCad and Flux.ai) that collapses a bench of adapters into one PCB — is **on
+hold**, with the next steps handed to a hardware collaborator while I keep
+pushing the software side.
 
 <figure class="photo full-bleed">
   <picture>
