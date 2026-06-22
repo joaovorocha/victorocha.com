@@ -58,6 +58,7 @@ html {
   letter-spacing: -0.011em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 body {
@@ -624,6 +625,29 @@ figure.photo figcaption .fig {
   .hero { padding: 0 1.25rem 3rem; }
   .hero__chrome { left: 1.25rem; right: 1.25rem; }
   figure.photo.full-bleed { margin-left: -1.25rem; max-width: 100vw; }
+
+  /* Header: wrap to brand row + even nav row, drop the REC readout */
+  .meter-bridge { flex-wrap: wrap; height: auto; }
+  .meter-bridge .mb-brand {
+    width: 100%;
+    border-right: 0;
+    border-bottom: 1px solid var(--console-rule);
+    padding: 0.55rem 1.25rem;
+  }
+  .meter-bridge .mb-nav { width: 100%; }
+  .meter-bridge .mb-nav a {
+    flex: 1 1 0;
+    justify-content: center;
+    padding: 0.6rem 0.2rem;
+    white-space: nowrap;
+    font-size: 0.62rem;
+  }
+  .meter-bridge .mb-nav a:last-child { border-right: 0; }
+  .meter-bridge .mb-readout { display: none; }
+
+  /* Dense diagrams: pan horizontally at a legible width instead of shrinking to nothing */
+  figure.photo.diagram { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  figure.photo.diagram img { width: 820px; max-width: none; }
 }
 
 /* ─── Reduced motion ─────────────────────────────────────────────── */

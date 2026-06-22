@@ -40,7 +40,7 @@ piece swappable:
 - **AI on board.** Local Ollama models with an OpenRouter fallback, reachable
   from the apps through an MCP control plane that lives on the same bus.
 
-<figure class="photo full-bleed">
+<figure class="photo full-bleed diagram">
   <picture>
     <source type="image/webp" srcset="/images/shaddow/architecture-1200.webp 1200w, /images/shaddow/architecture-1600.webp 1600w" sizes="100vw" />
     <img src="/images/shaddow/architecture-1200.jpg" srcset="/images/shaddow/architecture-1200.jpg 1200w, /images/shaddow/architecture-1600.jpg 1600w" sizes="100vw" alt="Shadow Van system-context diagram — four layers (people and devices, cloud services, connectivity, van systems) wired through a central Mosquitto MQTT broker, with the SwiftUI app, Android head unit, OBD/CAN, EcoFlow, Node-RED, Home Assistant, Grafana, and local AI." width="1600" height="1185" loading="lazy" decoding="async" />
